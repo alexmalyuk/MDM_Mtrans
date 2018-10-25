@@ -1,0 +1,50 @@
+﻿@model Data.Models.Link
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Link</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Contractor.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contractor.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Node.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Node.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NativeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NativeId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

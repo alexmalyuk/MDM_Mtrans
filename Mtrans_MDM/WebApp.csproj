@@ -171,6 +171,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API_Controllers\ContractorInfoController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -180,12 +181,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContractorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LinksController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NodesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ContractotInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -256,6 +259,11 @@
     <Content Include="Views\Contractors\Details.cshtml" />
     <Content Include="Views\Contractors\Edit.cshtml" />
     <Content Include="Views\Contractors\Index.cshtml" />
+    <Content Include="Views\Links\Create.cshtml" />
+    <Content Include="Views\Links\Delete.cshtml" />
+    <Content Include="Views\Links\Details.cshtml" />
+    <Content Include="Views\Links\Edit.cshtml" />
+    <Content Include="Views\Links\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
