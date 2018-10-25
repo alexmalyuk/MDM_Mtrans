@@ -1,0 +1,66 @@
+﻿@model Data.Models.Contractor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Contractor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.INN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.INN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OKPO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OKPO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VATCertificateNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VATCertificateNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LegalAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LegalAddress)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

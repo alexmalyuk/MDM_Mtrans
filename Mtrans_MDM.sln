@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mtrans_MDM", "Mtrans_MDM\Mtrans_MDM.csproj", "{D473FBFF-FEA7-4D4B-AB8C-C66677B3AFCD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "Mtrans_MDM\WebApp.csproj", "{D473FBFF-FEA7-4D4B-AB8C-C66677B3AFCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{64D29242-1D1C-416A-BB74-9589ECB7F6CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D473FBFF-FEA7-4D4B-AB8C-C66677B3AFCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D473FBFF-FEA7-4D4B-AB8C-C66677B3AFCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D473FBFF-FEA7-4D4B-AB8C-C66677B3AFCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64D29242-1D1C-416A-BB74-9589ECB7F6CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64D29242-1D1C-416A-BB74-9589ECB7F6CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64D29242-1D1C-416A-BB74-9589ECB7F6CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64D29242-1D1C-416A-BB74-9589ECB7F6CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
