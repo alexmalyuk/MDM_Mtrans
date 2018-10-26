@@ -20,9 +20,14 @@ namespace Data.Models
         [Display(Name = "Узел")]
         public Guid NodeId { get; set; }
 
-        [Display(Name = "Id в своей базе")]
+        [Display(Name = "Id в своем узле")]
         public string NativeId { get; set; }
 
+        [Display(Name = "Пользователь узла")]
+        public string User { get; set; }
+
+        ///TODO: Link - удалить Date
+        /// 
 
         public virtual Node Node { get; set; }
         public virtual Contractor Contractor { get; set; }

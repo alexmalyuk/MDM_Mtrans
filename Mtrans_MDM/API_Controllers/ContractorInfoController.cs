@@ -14,7 +14,7 @@ namespace Mtrans_MDM.API_Controllers
 {
     public class ContractorInfoController : ApiController
     {
-        private DataContext db = new DataContext();
+        //private DataContext db = new DataContext();
 
         [HttpPost]
         [Route("api/ContractorInfo/{NodeAlias}")]
@@ -26,35 +26,28 @@ namespace Mtrans_MDM.API_Controllers
                 return BadRequest(ModelState);
             }
 
-            contractorInfo.NodeAlias = NodeAlias;
-            contractorInfo.Save();
+            try
+            {
+                contractorInfo.Validate();
 
-            //Ответ 422 (Unprocessable Entity) означает, что сервер понимает указанный вид данных, 
-            //и синтаксис запроса корректен (поэтому статус 400 (Bad Request) не подходит), 
-            //но содержащиеся в запросе инструкции нельзя выполнитью. Например, эта ошибка может возникнуть, 
-            //если тело запроса было синтаксически правильным, но содержало семантическую ошибку.	
+                if (contractorInfo.IsValid)
+                {
+                    contractorInfo.NodeAlias = NodeAlias;
+                    contractorInfo.Save();
+                    return Ok();
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Forbidden, contractorInfo.ValidationResult);
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log.For(this).Error("POST: api/ContractorInfo/" + NodeAlias, ex);
+                return InternalServerError(ex);
+            }
 
-            return Ok(contractorInfo);
-            
-            //return CreatedAtRoute("DefaultApi", contractorInfo, node);
         }
-        //[HttpPost]
-        //[Route("api/ContractorInfo/{NodeAlias}")]
-        //public bool Post(string NodeAlias, [FromBody]ContractorInfo contractorInfo)
-        //{
-
-        //    //try
-        //    //{
-        //    contractorInfo.NodeAlias = NodeAlias;
-        //    contractorInfo.Save();
-        //    //}
-        //    //catch (Exception ex)
-        //    //{
-        //    //    Log.For(this).Error("POST: api/ContractorInfo/" + NodeAlias, ex);
-        //    //}
-
-        //    return true;
-        //}
 
         [HttpGet]
         [Route("api/ContractorInfo/{NodeAlias}/{NativeId}")]
@@ -74,6 +67,9 @@ namespace Mtrans_MDM.API_Controllers
         [Route("api/ContractorInfo/{NodeAlias}")]
         public List<ContractorInfo> Get(string NodeAlias)
         {
+            ///TODO: добавить PostDate и ReadDate - подумать как их сочетать для того чтобы давать выборку данных всех контргаентов с момента последнего получения данных
+            /// 
+
             return ContractorInfo.GetContratorInfosByNodeAlias(NodeAlias);
         }
 

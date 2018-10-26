@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Mtrans_MDM.Models
@@ -9,17 +10,19 @@ namespace Mtrans_MDM.Models
     public class ContractorInfo : Contractor
     {
         public String NodeAlias { get; set; }
-
         public String NativeId { get; set; }
+        public string User { get; set; }
+
 
         public void Save()
         {
 
-            // примерный алгоритм при сохранении контрагента
-            //
-            //- найти контрагента по ИНН
-            //- если не нашли - создать
-            //- дописать запись в Link
+            ///TODO: При записи ContractorInfo разделить логику если это новый и если уже существующий
+            ///
+            /// сначала проверить таблицу Links
+            /// новый - таблица Links не содержит записи (NativeId + NodeAlias) - тогда проверить уникальность ИНН
+            /// существующий - запись есть найти по Link.Id и перезаписать поля
+            /// 
 
             using (DataContext db = new DataContext())
             {
@@ -39,6 +42,10 @@ namespace Mtrans_MDM.Models
                     //db.Entry(contractor).State = EntityState.Modified;
                     db.Contractors.Attach(contractor);
                 }
+                
+                ///TODO: При записи Contractor перезаписывать только поля, которые изменились
+                ///
+
                 contractor.FullName = this.FullName;
                 contractor.INN = this.INN;
                 contractor.LegalAddress = this.LegalAddress;
@@ -56,6 +63,7 @@ namespace Mtrans_MDM.Models
                     link.NativeId = this.NativeId;
                     link.Contractor = contractor;
                     link.Date = DateTime.Now;
+                    link.User = this.User;
                     db.Links.Add(link);
                 }
 
@@ -121,5 +129,43 @@ namespace Mtrans_MDM.Models
                 return q.ToList();
             }
         }
+
+        public void Validate()
+        {
+            StringBuilder sResult = new StringBuilder();
+
+            ///TODO: ContractorInfo использовать Regex для валидации полей 
+            ///
+
+            if (INN.Length < 10)
+            {
+                sResult.AppendFormat("- Некорректный код ИНН [{0}]", INN).AppendLine();
+            }
+            if (OKPO.Length > 0 && OKPO.Length < 8)
+            {
+                sResult.AppendFormat("- Некорректный код ОКПО [{0}]", OKPO).AppendLine();
+            }
+
+            ///TODO: ContractorInfo сделать проверку контрольных сумм ИНН, ОКПО, НомерСвидетельства
+            ///
+
+            isValid = (sResult.Length == 0);
+            validationResult = sResult.ToString();
+        }
+
+        private bool isValid = false;
+
+        public bool IsValid
+        {
+            get { return isValid; }
+        }
+
+        private string validationResult;
+
+        public string ValidationResult
+        {
+            get { return validationResult; }
+        }
+
     }
 }

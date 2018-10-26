@@ -29,6 +29,9 @@ namespace Data.Models
                 .HasMaxLength(36)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
+            Property(p => p.User)
+                .HasMaxLength(40);
+
             HasRequired(p => p.Node).WithMany(p => p.Links).WillCascadeOnDelete(false);
 
         }
