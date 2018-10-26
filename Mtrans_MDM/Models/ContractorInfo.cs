@@ -63,7 +63,7 @@ namespace Mtrans_MDM.Models
             }
         }
 
-        public static ContractorInfo GetByNativeId(string NativeId, string NodeAlias)
+        public static ContractorInfo GetByNodeAliasAndNativeId(string NodeAlias, string NativeId)
         {
             
             using(DataContext db = new DataContext())
@@ -72,21 +72,53 @@ namespace Mtrans_MDM.Models
                 if (node == null)
                     return null;
 
-                var q = db.Links.Where(a => a.NativeId == NativeId && a.NodeId == node.Id).Join(
+                var q = db.Links.Where(a => (a.NativeId == NativeId || NativeId == null) && a.NodeId == node.Id).Join(
                     db.Contractors,
-                    l => l.Id,
+                    l => l.ContractorId,
                     c => c.Id,
                     (l, c) => new ContractorInfo
                     {
-                        NativeId = c.Id.ToString(),
+                        NativeId = l.NativeId.ToString(),
+                        NodeAlias = NodeAlias,
                         Name = c.Name,
                         FullName = c.FullName,
                         INN = c.INN,
                         OKPO = c.OKPO,
-                        LegalAddress = c.LegalAddress
+                        VATCertificateNumber = c.VATCertificateNumber,
+                        LegalAddress = c.LegalAddress,
+                        Id = c.Id
                     });
 
                 return q.FirstOrDefault();
+            }
+        }
+
+        public static List<ContractorInfo> GetContratorInfosByNodeAlias(string NodeAlias)
+        {
+            using (DataContext db = new DataContext())
+            {
+                Node node = db.Nodes.Where(a => a.Alias == NodeAlias).FirstOrDefault();
+                if (node == null)
+                    return null;
+
+                var q = db.Links.Where(a => a.NodeId == node.Id).Join(
+                    db.Contractors,
+                    l => l.ContractorId,
+                    c => c.Id,
+                    (l, c) => new ContractorInfo
+                    {
+                        NativeId = l.NativeId.ToString(),
+                        NodeAlias = NodeAlias,
+                        Name = c.Name,
+                        FullName = c.FullName,
+                        INN = c.INN,
+                        OKPO = c.OKPO,
+                        VATCertificateNumber = c.VATCertificateNumber,
+                        LegalAddress = c.LegalAddress,
+                        Id = c.Id
+                    });
+
+                return q.ToList();
             }
         }
     }
