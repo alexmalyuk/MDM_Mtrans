@@ -14,7 +14,6 @@ namespace Mtrans_MDM.API_Controllers
 {
     public class ContractorInfoController : ApiController
     {
-        //private DataContext db = new DataContext();
 
         [HttpPost]
         [Route("api/ContractorInfo/{NodeAlias}")]
@@ -46,7 +45,6 @@ namespace Mtrans_MDM.API_Controllers
                 //Log.For(this).Error("POST: api/ContractorInfo/" + NodeAlias, ex);
                 return InternalServerError(ex);
             }
-
         }
 
         [HttpGet]
@@ -67,19 +65,11 @@ namespace Mtrans_MDM.API_Controllers
         [Route("api/ContractorInfo/{NodeAlias}")]
         public List<ContractorInfo> Get(string NodeAlias)
         {
-            ///TODO: добавить PostDate и ReadDate - подумать как их сочетать для того чтобы давать выборку данных всех контргаентов с момента последнего получения данных
+            ///TODO: добавить PostDate и ReadDate - подумать как их сочетать для того чтобы давать выборку данных всех контрагентов с момента последнего получения данных
+            /// и надо ли это вообще ?
             /// 
 
             return ContractorInfo.GetContratorInfosByNodeAlias(NodeAlias);
-        }
-
-        [HttpGet]
-        [Route("api/ContractorInfo1/{NodeAlias}")]
-        public JsonResult<List<ContractorInfo>> Get1(string NodeAlias)
-        {
-            JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
-            //serializerSettings.
-            return Json(ContractorInfo.GetContratorInfosByNodeAlias(NodeAlias), serializerSettings, System.Text.Encoding.UTF8);
         }
     }
 }
