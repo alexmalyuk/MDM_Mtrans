@@ -1,8 +1,10 @@
 ﻿using Data.Models;
+using Mtrans_MDM.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace Mtrans_MDM.Models
@@ -14,6 +16,7 @@ namespace Mtrans_MDM.Models
         public string User { get; set; }
 
 
+        //private Regex rexex = new Regex()
         public void Save()
         {
 
@@ -51,7 +54,7 @@ namespace Mtrans_MDM.Models
                 contractor.LegalAddress = this.LegalAddress;
                 contractor.Name = this.Name;
                 contractor.OKPO = this.OKPO;
-                contractor.VATCertificateNumber = this.VATCertificateNumber;
+                contractor.VATNumber = this.VATNumber;
 
                 db.SaveChanges();
 
@@ -92,7 +95,7 @@ namespace Mtrans_MDM.Models
                         FullName = c.FullName,
                         INN = c.INN,
                         OKPO = c.OKPO,
-                        VATCertificateNumber = c.VATCertificateNumber,
+                        VATNumber = c.VATNumber,
                         LegalAddress = c.LegalAddress,
                         Id = c.Id
                     });
@@ -121,7 +124,7 @@ namespace Mtrans_MDM.Models
                         FullName = c.FullName,
                         INN = c.INN,
                         OKPO = c.OKPO,
-                        VATCertificateNumber = c.VATCertificateNumber,
+                        VATNumber = c.VATNumber,
                         LegalAddress = c.LegalAddress,
                         Id = c.Id
                     });
@@ -132,18 +135,24 @@ namespace Mtrans_MDM.Models
 
         public void Validate()
         {
+
+            string INN_IsMatchPattern = @"^(\d{10})$|^(\d{12})$";
+            string OKPO_IsMatchPattern = @"^(\d{8})$|^(\d{10})$";
+            string VATNumber_IsMatchPattern = @"^(\d{12})$";
+
             StringBuilder sResult = new StringBuilder();
 
-            ///TODO: ContractorInfo использовать Regex для валидации полей 
-            ///
-
-            if (INN.Length < 10)
+            if (!Regex.IsMatch(INN, INN_IsMatchPattern) || ContractorChecksumValidator.ValidateINN(INN))
             {
                 sResult.AppendFormat("- Некорректный код ИНН [{0}]", INN).AppendLine();
             }
-            if (OKPO.Length > 0 && OKPO.Length < 8)
+            if (Regex.IsMatch(OKPO, OKPO_IsMatchPattern))
             {
                 sResult.AppendFormat("- Некорректный код ОКПО [{0}]", OKPO).AppendLine();
+            }
+            if (Regex.IsMatch(VATNumber, VATNumber_IsMatchPattern))
+            {
+                sResult.AppendFormat("- Некорректный номер свидетельства [{0}]", VATNumber).AppendLine();
             }
 
             ///TODO: ContractorInfo сделать проверку контрольных сумм ИНН, ОКПО, НомерСвидетельства

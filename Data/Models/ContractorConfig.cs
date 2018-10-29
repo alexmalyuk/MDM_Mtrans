@@ -33,7 +33,7 @@ namespace Data.Models
                 .HasMaxLength(10)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
-            Property(p => p.VATCertificateNumber)
+            Property(p => p.VATNumber)
                 .HasMaxLength(10)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 

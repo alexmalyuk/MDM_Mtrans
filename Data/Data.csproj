@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201810261415362_Add_Link_User.Designer.cs">
       <DependentUpon>201810261415362_Add_Link_User.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810291644185_VAT_rename.cs" />
+    <Compile Include="Migrations\201810291644185_VAT_rename.Designer.cs">
+      <DependentUpon>201810291644185_VAT_rename.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Contractor.cs" />
     <Compile Include="Models\ContractorConfig.cs" />
@@ -100,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810261415362_Add_Link_User.resx">
       <DependentUpon>201810261415362_Add_Link_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810291644185_VAT_rename.resx">
+      <DependentUpon>201810291644185_VAT_rename.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

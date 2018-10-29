@@ -23,8 +23,8 @@ namespace Data.Models
         [Display(Name = "Код ОКПО")]
         public string OKPO { get; set; }
 
-        [Display(Name = "Номер свидетельства")]
-        public string VATCertificateNumber { get; set; }
+        [Display(Name = "Код плательщика НДС")]
+        public string VATNumber { get; set; }
 
         [Display(Name = "Юридический адрес")]
         public string LegalAddress { get; set; }
