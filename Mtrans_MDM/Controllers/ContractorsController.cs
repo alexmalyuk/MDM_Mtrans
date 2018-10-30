@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Data.Models;
+using Mtrans_MDM.Validators;
+using Mtrans_MDM.Core;
 
 namespace Mtrans_MDM.Controllers
 {
@@ -46,7 +48,7 @@ namespace Mtrans_MDM.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,FullName,INN,OKPO,VATCertificateNumber,LegalAddress")] Contractor contractor)
+        public ActionResult Create([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,LegalAddress")] Contractor contractor)
         {
             if (ModelState.IsValid)
             {
@@ -79,10 +81,17 @@ namespace Mtrans_MDM.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,FullName,INN,OKPO,VATCertificateNumber,LegalAddress")] Contractor contractor)
+        public ActionResult Edit(Contractor contractor)
         {
             if (ModelState.IsValid)
             {
+                if (!ContractorChecksumValidator.ValidateINN(contractor.INN))
+                    throw new InvalidChecksumException(string.Format("Некорректный код ИНН - {0}", contractor.INN));
+                if (!ContractorChecksumValidator.ValidateOKPO(contractor.OKPO))
+                    throw new InvalidChecksumException(string.Format("Некорректный код ОКПО - {0}", contractor.OKPO));
+                if (!ContractorChecksumValidator.ValidateVATNumber(contractor.VATNumber))
+                    throw new InvalidChecksumException(string.Format("Некорректный код плательщика НДС - {0}", contractor.VATNumber));
+
                 db.Entry(contractor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

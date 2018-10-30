@@ -1,4 +1,6 @@
 ﻿using Data.Models;
+using Domain;
+using Domain.Models;
 using Mtrans_MDM.Models;
 using Newtonsoft.Json;
 using System;
@@ -14,6 +16,7 @@ namespace Mtrans_MDM.API_Controllers
 {
     public class ContractorInfoController : ApiController
     {
+        UnitOfWork unitOfWork = new UnitOfWork();
 
         [HttpPost]
         [Route("api/ContractorInfo/{NodeAlias}")]
@@ -27,18 +30,18 @@ namespace Mtrans_MDM.API_Controllers
 
             try
             {
-                contractorInfo.Validate();
+                //contractorInfo.Validate();
 
-                if (contractorInfo.IsValid)
-                {
-                    contractorInfo.NodeAlias = NodeAlias;
-                    contractorInfo.Save();
+                //if (contractorInfo.IsValid)
+                //{
+                //    contractorInfo.NodeAlias = NodeAlias;
+                //    contractorInfo.Save();
                     return Ok();
-                }
-                else
-                {
-                    return Content(HttpStatusCode.Forbidden, contractorInfo.ValidationResult);
-                }
+                //}
+                //else
+                //{
+                //    return Content(HttpStatusCode.Forbidden, contractorInfo.ValidationResult);
+                //}
             }
             catch (Exception ex)
             {
@@ -52,7 +55,8 @@ namespace Mtrans_MDM.API_Controllers
         [ResponseType(typeof(ContractorInfo))]
         public IHttpActionResult Get(string NodeAlias, string NativeId)
         {
-            ContractorInfo contractorInfo = ContractorInfo.GetByNodeAliasAndNativeId(NodeAlias, NativeId);
+            //ContractorInfo contractorInfo = ContractorInfo.GetByNodeAliasAndNativeId(NodeAlias, NativeId);
+            ContractorInfo contractorInfo = unitOfWork.ContractorInfos.GetByNativeId(NativeId, NodeAlias);
             if (contractorInfo == null)
             {
                 return NotFound();
@@ -69,7 +73,17 @@ namespace Mtrans_MDM.API_Controllers
             /// и надо ли это вообще ?
             /// 
 
-            return ContractorInfo.GetContratorInfosByNodeAlias(NodeAlias);
+            //return ContractorInfo.GetContratorInfosByNodeAlias(NodeAlias);
+            return unitOfWork.ContractorInfos.GetAllByNodeAlias(NodeAlias).ToList();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                unitOfWork.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

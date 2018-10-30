@@ -7,17 +7,18 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Data.Models;
+using Domain;
 
 namespace Mtrans_MDM.Controllers
 {
     public class NodesController : Controller
     {
-        private DataContext db = new DataContext();
+        UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Nodes
         public ActionResult Index()
         {
-            return View(db.Nodes.ToList());
+            return View(unitOfWork.Nodes.GetAll().ToList());
         }
 
         // GET: Nodes/Details/5
@@ -27,7 +28,8 @@ namespace Mtrans_MDM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Node node = db.Nodes.Find(id);
+
+            Node node = unitOfWork.Nodes.Get((Guid)id);
             if (node == null)
             {
                 return HttpNotFound();
@@ -50,9 +52,8 @@ namespace Mtrans_MDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                node.Id = Guid.NewGuid();
-                db.Nodes.Add(node);
-                db.SaveChanges();
+                unitOfWork.Nodes.Create(node);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +67,7 @@ namespace Mtrans_MDM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Node node = db.Nodes.Find(id);
+            Node node = unitOfWork.Nodes.Get((Guid)id);
             if (node == null)
             {
                 return HttpNotFound();
@@ -83,8 +84,8 @@ namespace Mtrans_MDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(node).State = EntityState.Modified;
-                db.SaveChanges();
+                unitOfWork.Nodes.Update(node);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(node);
@@ -97,7 +98,7 @@ namespace Mtrans_MDM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Node node = db.Nodes.Find(id);
+            Node node = unitOfWork.Nodes.Get((Guid)id);
             if (node == null)
             {
                 return HttpNotFound();
@@ -110,9 +111,8 @@ namespace Mtrans_MDM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Node node = db.Nodes.Find(id);
-            db.Nodes.Remove(node);
-            db.SaveChanges();
+            unitOfWork.Nodes.Delete(id);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +120,7 @@ namespace Mtrans_MDM.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

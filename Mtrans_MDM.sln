@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "Mtrans_MDM\WebApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{64D29242-1D1C-416A-BB74-9589ECB7F6CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{6801B144-2C49-42BF-B505-19588950DA8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{64D29242-1D1C-416A-BB74-9589ECB7F6CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64D29242-1D1C-416A-BB74-9589ECB7F6CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64D29242-1D1C-416A-BB74-9589ECB7F6CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6801B144-2C49-42BF-B505-19588950DA8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6801B144-2C49-42BF-B505-19588950DA8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6801B144-2C49-42BF-B505-19588950DA8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6801B144-2C49-42BF-B505-19588950DA8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
