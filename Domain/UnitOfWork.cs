@@ -2,6 +2,7 @@
 using Domain.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,16 @@ namespace Domain
         public void Save()
         {
             db.SaveChanges();
+        }
+
+        public void SetEntityStateAsModified(object item)
+        {
+            db.Entry(item).State = EntityState.Modified;
+        }
+
+        public void SetEntityStateAsUnchanged(object item)
+        {
+            db.Entry(item).State = EntityState.Unchanged;
         }
 
         #region IDisposable Support

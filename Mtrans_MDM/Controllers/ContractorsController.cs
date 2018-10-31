@@ -7,19 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Data.Models;
-using Mtrans_MDM.Validators;
-using Mtrans_MDM.Core;
+using Domain.Validators;
+using Domain.Core;
+using Domain;
 
 namespace Mtrans_MDM.Controllers
 {
     public class ContractorsController : Controller
     {
-        private DataContext db = new DataContext();
+        UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Contractors
         public ActionResult Index()
         {
-            return View(db.Contractors.ToList());
+            return View(unitOfWork.Contractors.GetAll().ToList());
         }
 
         // GET: Contractors/Details/5
@@ -29,7 +30,7 @@ namespace Mtrans_MDM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contractor contractor = db.Contractors.Find(id);
+            Contractor contractor = unitOfWork.Contractors.Get((Guid)id);
             if (contractor == null)
             {
                 return HttpNotFound();
@@ -52,9 +53,8 @@ namespace Mtrans_MDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                contractor.Id = Guid.NewGuid();
-                db.Contractors.Add(contractor);
-                db.SaveChanges();
+                unitOfWork.Contractors.Create(contractor);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -68,7 +68,7 @@ namespace Mtrans_MDM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contractor contractor = db.Contractors.Find(id);
+            Contractor contractor = unitOfWork.Contractors.Get((Guid)id);
             if (contractor == null)
             {
                 return HttpNotFound();
@@ -85,15 +85,16 @@ namespace Mtrans_MDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!ContractorChecksumValidator.ValidateINN(contractor.INN))
+                if (!ContractorValidator.ValidateINN(contractor.INN))
                     throw new InvalidChecksumException(string.Format("Некорректный код ИНН - {0}", contractor.INN));
-                if (!ContractorChecksumValidator.ValidateOKPO(contractor.OKPO))
+                if (!ContractorValidator.ValidateOKPO(contractor.OKPO))
                     throw new InvalidChecksumException(string.Format("Некорректный код ОКПО - {0}", contractor.OKPO));
-                if (!ContractorChecksumValidator.ValidateVATNumber(contractor.VATNumber))
+                if (!ContractorValidator.ValidateVATNumber(contractor.VATNumber))
                     throw new InvalidChecksumException(string.Format("Некорректный код плательщика НДС - {0}", contractor.VATNumber));
 
-                db.Entry(contractor).State = EntityState.Modified;
-                db.SaveChanges();
+                //unitOfWork.Contractors.Update(contractor);
+                unitOfWork.SetEntityStateAsModified(contractor);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(contractor);
@@ -106,7 +107,7 @@ namespace Mtrans_MDM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contractor contractor = db.Contractors.Find(id);
+            Contractor contractor = unitOfWork.Contractors.Get((Guid)id);
             if (contractor == null)
             {
                 return HttpNotFound();
@@ -119,9 +120,7 @@ namespace Mtrans_MDM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Contractor contractor = db.Contractors.Find(id);
-            db.Contractors.Remove(contractor);
-            db.SaveChanges();
+            unitOfWork.Contractors.Delete(id);
             return RedirectToAction("Index");
         }
 
@@ -129,7 +128,7 @@ namespace Mtrans_MDM.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

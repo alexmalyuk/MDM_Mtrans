@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Core\InvalidChecksumException.cs" />
     <Compile Include="Models\ContractorInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ContractorInfoRepository.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Repositories\LinkRepository.cs" />
     <Compile Include="Repositories\NodeRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
+    <Compile Include="Validators\ContractorChecksumValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">

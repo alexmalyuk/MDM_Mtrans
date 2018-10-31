@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Mtrans_MDM.Core
+namespace Domain.Core
 {
     public class InvalidChecksumException : Exception
     {

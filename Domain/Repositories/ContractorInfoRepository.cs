@@ -23,6 +23,90 @@ namespace Domain.Repositories
             throw new NotImplementedException();
         }
 
+        public void Update(ContractorInfo item)
+        {
+            //db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdate(ContractorInfo contractorInfo)
+        {
+
+            LinkRepository linkRepository = new LinkRepository(db);
+            ContractorRepository contractorRepository = new ContractorRepository(db);
+
+            Node node = new NodeRepository(db).GetByAlias(contractorInfo.NodeAlias);
+            Contractor contractor = null;
+            Link link = linkRepository.GetByNativeId(contractorInfo.NativeId, contractorInfo.NodeAlias);
+
+            if (link == null)
+            {
+                // нет линка - ищем контрагента по ИНН
+                contractor = contractorRepository.GetByINN(contractorInfo.INN);
+            }
+            else
+            {
+                contractor = db.Contractors.Where(a => a.Id == link.ContractorId).FirstOrDefault();
+            }
+
+            // Контрагент
+            if (contractor == null)
+            {
+                contractor = new Contractor();
+                contractorRepository.Create(contractor);
+            }
+            else
+            {
+                //contractorRepository.Update(contractor);
+                db.Entry(contractor).State = System.Data.Entity.EntityState.Unchanged;
+            }
+
+            if (contractor.Name != contractorInfo.Name)
+                contractor.Name = contractorInfo.Name;
+
+            if (contractor.FullName != contractorInfo.FullName)
+                contractor.FullName = contractorInfo.FullName;
+
+            if (contractor.INN != contractorInfo.INN)
+                contractor.INN = contractorInfo.INN;
+
+            if (contractor.OKPO != contractorInfo.OKPO)
+                contractor.OKPO = contractorInfo.OKPO;
+
+            if (contractor.VATNumber != contractorInfo.VATNumber)
+                contractor.VATNumber = contractorInfo.VATNumber;
+
+            if (contractor.LegalAddress != contractorInfo.LegalAddress)
+                contractor.LegalAddress = contractorInfo.LegalAddress;
+
+            // Link
+            if (link == null)
+            {
+                link = new Link();
+                linkRepository.Create(link);
+            }
+            else
+            {
+                //linkRepository.Update(link);
+                db.Entry(link).State = System.Data.Entity.EntityState.Unchanged;
+            }
+
+            if (link.NativeId != contractorInfo.NativeId)
+                link.NativeId = contractorInfo.NativeId;
+
+            if (link.NodeId != node.Id)
+                link.Node = node;
+
+            if (link.ContractorId != contractor.Id || contractor.Id == Guid.Empty)
+                link.Contractor = contractor;
+
+            if (link.User != contractorInfo.User)
+                link.User = contractorInfo.User;
+
+            link.Date = DateTime.Now;
+        }
+
+
         public void Delete(Guid id)
         {
             throw new NotImplementedException();
@@ -51,7 +135,6 @@ namespace Domain.Repositories
 
         public ContractorInfo GetByNativeId(string nativeId, string alias)
         {
-
             var q = db.Nodes.Where(a => a.Alias == alias).Join(
                 db.Links.Where(a => a.NativeId == nativeId),
                 n => n.Id,
@@ -83,7 +166,6 @@ namespace Domain.Repositories
 
         public IQueryable<ContractorInfo> GetAllByNodeAlias(string alias)
         {
-
             var q = db.Nodes.Where(a => a.Alias == alias).Join(
                 db.Links,
                 n => n.Id,
@@ -130,13 +212,9 @@ namespace Domain.Repositories
                     LegalAddress = c.LegalAddress,
                     Id = c.Id
                 });
+
             return q;
         }
 
-        public void Update(ContractorInfo item)
-        {
-            //db.Entry(item).State = System.Data.Entity.EntityState.Modified;
-            throw new NotImplementedException();
-        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using Domain.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,100 +74,41 @@ namespace Domain.Models
             //}
         }
 
-        //public static ContractorInfo GetByNodeAliasAndNativeId(string NodeAlias, string NativeId)
-        //{
-            
-        //    using(DataContext db = new DataContext())
-        //    {
-        //        Node node = db.Nodes.Where(a => a.Alias == NodeAlias).FirstOrDefault();
-        //        if (node == null)
-        //            return null;
+        public void Validate()
+        {
 
-        //        var q = db.Links.Where(a => (a.NativeId == NativeId || NativeId == null) && a.NodeId == node.Id).Join(
-        //            db.Contractors,
-        //            l => l.ContractorId,
-        //            c => c.Id,
-        //            (l, c) => new ContractorInfo
-        //            {
-        //                NativeId = l.NativeId.ToString(),
-        //                NodeAlias = NodeAlias,
-        //                Name = c.Name,
-        //                FullName = c.FullName,
-        //                INN = c.INN,
-        //                OKPO = c.OKPO,
-        //                VATNumber = c.VATNumber,
-        //                LegalAddress = c.LegalAddress,
-        //                Id = c.Id
-        //            });
+            StringBuilder sResult = new StringBuilder();
 
-        //        return q.FirstOrDefault();
-        //    }
-        //}
+            if (!ContractorValidator.ValidateINN(INN))
+            {
+                sResult.AppendFormat("- Некорректный код ИНН [{0}]", INN).AppendLine();
+            }
+            if (!ContractorValidator.ValidateOKPO(OKPO))
+            {
+                sResult.AppendFormat("- Некорректный код ОКПО [{0}]", OKPO).AppendLine();
+            }
+            if (!ContractorValidator.ValidateVATNumber(VATNumber))
+            {
+                sResult.AppendFormat("- Некорректный номер свидетельства [{0}]", VATNumber).AppendLine();
+            }
 
-        //public static List<ContractorInfo> GetContratorInfosByNodeAlias(string NodeAlias)
-        //{
-        //    using (DataContext db = new DataContext())
-        //    {
-        //        Node node = db.Nodes.Where(a => a.Alias == NodeAlias).FirstOrDefault();
-        //        if (node == null)
-        //            return null;
+            isValid = (sResult.Length == 0);
+            validationResult = sResult.ToString();
+        }
 
-        //        var q = db.Links.Where(a => a.NodeId == node.Id).Join(
-        //            db.Contractors,
-        //            l => l.ContractorId,
-        //            c => c.Id,
-        //            (l, c) => new ContractorInfo
-        //            {
-        //                NativeId = l.NativeId.ToString(),
-        //                NodeAlias = NodeAlias,
-        //                Name = c.Name,
-        //                FullName = c.FullName,
-        //                INN = c.INN,
-        //                OKPO = c.OKPO,
-        //                VATNumber = c.VATNumber,
-        //                LegalAddress = c.LegalAddress,
-        //                Id = c.Id
-        //            });
+        private bool isValid = false;
 
-        //        return q.ToList();
-        //    }
-        //}
+        public bool IsValid
+        {
+            get { return isValid; }
+        }
 
-        //public void Validate()
-        //{
+        private string validationResult;
 
-        //    StringBuilder sResult = new StringBuilder();
-
-        //    if (!ContractorChecksumValidator.ValidateINN(INN))
-        //    {
-        //        sResult.AppendFormat("- Некорректный код ИНН [{0}]", INN).AppendLine();
-        //    }
-        //    if (!ContractorChecksumValidator.ValidateOKPO(OKPO))
-        //    {
-        //        sResult.AppendFormat("- Некорректный код ОКПО [{0}]", OKPO).AppendLine();
-        //    }
-        //    if (!ContractorChecksumValidator.ValidateVATNumber(VATNumber))
-        //    {
-        //        sResult.AppendFormat("- Некорректный номер свидетельства [{0}]", VATNumber).AppendLine();
-        //    }
-
-        //    isValid = (sResult.Length == 0);
-        //    validationResult = sResult.ToString();
-        //}
-
-        //private bool isValid = false;
-
-        //public bool IsValid
-        //{
-        //    get { return isValid; }
-        //}
-
-        //private string validationResult;
-
-        //public string ValidationResult
-        //{
-        //    get { return validationResult; }
-        //}
+        public string ValidationResult
+        {
+            get { return validationResult; }
+        }
 
     }
 }

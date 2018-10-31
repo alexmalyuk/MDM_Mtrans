@@ -47,5 +47,11 @@ namespace Domain.Repositories
         {
             return db.Contractors.Where(a => a.INN == INN).FirstOrDefault();
         }
+
+        public Contractor GetByNativeId(string nativeId, string alias)
+        {
+            Link link = new LinkRepository(db).GetByNativeId(nativeId, alias);
+            return db.Contractors.Where(a => a.Id == link.ContractorId).FirstOrDefault();
+        }
     }
 }

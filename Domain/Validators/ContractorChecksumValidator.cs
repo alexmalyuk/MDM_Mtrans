@@ -1,15 +1,14 @@
-﻿using Mtrans_MDM.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace Mtrans_MDM.Validators
+namespace Domain.Validators
 {
     /// TODO: вычисление контр. суммы для разных стран разное
     /// 
-    public static class ContractorChecksumValidator
+    public static class ContractorValidator
     {
 
         private static int CalculateChecksumMod11(string stringValue, int[] weights)

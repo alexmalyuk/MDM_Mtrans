@@ -43,5 +43,10 @@ namespace Domain.Repositories
             db.Entry(item).State = System.Data.Entity.EntityState.Modified;
         }
 
+        public Link GetByNativeId(string nativeId, string alias)
+        {
+            Node node = new NodeRepository(db).GetByAlias(alias);
+            return node.Links.Where(a => a.NativeId == nativeId).FirstOrDefault();
+        }
     }
 }

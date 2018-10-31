@@ -30,18 +30,21 @@ namespace Mtrans_MDM.API_Controllers
 
             try
             {
-                //contractorInfo.Validate();
+                contractorInfo.Validate();
 
-                //if (contractorInfo.IsValid)
-                //{
-                //    contractorInfo.NodeAlias = NodeAlias;
-                //    contractorInfo.Save();
+                if (contractorInfo.IsValid)
+                {
+                    contractorInfo.NodeAlias = NodeAlias;
+
+                    unitOfWork.ContractorInfos.CreateOrUpdate(contractorInfo);
+                    unitOfWork.Save();
+
                     return Ok();
-                //}
-                //else
-                //{
-                //    return Content(HttpStatusCode.Forbidden, contractorInfo.ValidationResult);
-                //}
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Forbidden, contractorInfo.ValidationResult);
+                }
             }
             catch (Exception ex)
             {
