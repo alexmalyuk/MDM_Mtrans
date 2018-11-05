@@ -71,11 +71,11 @@ namespace Domain.Validators
         }
         public static bool ValidateVATNumber(string stringValue)
         {
-            return true;
-            // ua
-            //
-            if (!Regex.IsMatch(stringValue, @"^(\d{12})$"))
-                return false;
+            return Regex.IsMatch(stringValue, @"^(\d{9,12})$");
+            //// ua
+            ////
+            //if (!Regex.IsMatch(stringValue, @"^(\d{12})$"))
+            //    return false;
 
         }
     }
