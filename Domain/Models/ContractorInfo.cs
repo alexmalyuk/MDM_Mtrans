@@ -3,16 +3,21 @@ using Domain.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
 namespace Domain.Models
 {
+    [DataContract(Name = "ContractorInfo", Namespace = "http://www.metrans.com.ua")]
     public class ContractorInfo : Contractor
     {
+        [IgnoreDataMember]
         public String NodeAlias { get; set; }
+        [DataMember]
         public String NativeId { get; set; }
+        [DataMember]
         public string User { get; set; }
 
 
@@ -98,6 +103,7 @@ namespace Domain.Models
 
         private bool isValid = false;
 
+        [IgnoreDataMember]
         public bool IsValid
         {
             get { return isValid; }
@@ -105,6 +111,7 @@ namespace Domain.Models
 
         private string validationResult;
 
+        [IgnoreDataMember]
         public string ValidationResult
         {
             get { return validationResult; }

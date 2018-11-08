@@ -58,7 +58,6 @@ namespace Mtrans_MDM.API_Controllers
         [ResponseType(typeof(ContractorInfo))]
         public IHttpActionResult Get(string NodeAlias, string NativeId)
         {
-            //ContractorInfo contractorInfo = ContractorInfo.GetByNodeAliasAndNativeId(NodeAlias, NativeId);
             ContractorInfo contractorInfo = unitOfWork.ContractorInfos.GetByNativeId(NativeId, NodeAlias);
             if (contractorInfo == null)
             {

@@ -1,31 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Data.Models
 {
+    [DataContract(Name = "ContractorInfo", Namespace = "http://www.metrans.com.ua")]
     public class Contractor
     {
+        [IgnoreDataMember]
         public Guid Id { get; set; }
 
+        [DataMember]
         [Display(Name = "Наименование")]
         public string Name { get; set; }
 
+        [DataMember]
         [Display(Name = "Полное наименование")]
         public string FullName { get; set; }
 
+        [DataMember]
         [Display(Name = "Код ИНН")]
         public string INN { get; set; }
 
+        [DataMember]
         [Display(Name = "Код ОКПО")]
         public string OKPO { get; set; }
 
+        [DataMember]
         [Display(Name = "Код плательщика НДС")]
         public string VATNumber { get; set; }
 
+        [DataMember]
         [Display(Name = "Юридический адрес")]
         public string LegalAddress { get; set; }
 
