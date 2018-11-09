@@ -12,7 +12,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
 
-namespace Mtrans_MDM.API_Controllers
+namespace Mtrans_MDM.Controllers.API
 {
     public class ContractorInfoController : ApiController
     {

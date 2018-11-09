@@ -78,6 +78,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Contractor.cs" />
     <Compile Include="Models\ContractorConfig.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\Link.cs" />
     <Compile Include="Models\LinkConfig.cs" />

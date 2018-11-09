@@ -22,8 +22,6 @@ namespace Data.Models
                 .HasMaxLength(100)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
-            ///TODO: Индекс по INN сделать уникальным
-            ///
             Property(p => p.INN)
                 .IsRequired()
                 .HasMaxLength(12)
@@ -36,11 +34,6 @@ namespace Data.Models
             Property(p => p.VATNumber)
                 .HasMaxLength(10)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
-
-            //HasIndex(p => p.Name);
-            //HasIndex(p => p.INN);
-            //HasIndex(p => p.OKPO);
-            //HasIndex(p => p.VATCertificateNumber);
 
         }
     }
