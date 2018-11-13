@@ -35,6 +35,9 @@ namespace Data.Models
                 .HasMaxLength(10)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
+            Property(p => p.CountryCode)
+                .IsOptional()
+                .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
         }
     }
 }

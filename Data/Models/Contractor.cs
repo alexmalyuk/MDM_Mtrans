@@ -34,5 +34,12 @@ namespace Data.Models
         [Display(Name = "Юридический адрес")]
         public string LegalAddress { get; set; }
 
+        [DataMember]
+        [Display(Name = "Код страны")]
+        public int CountryCode { get; set; }
+
+        [IgnoreDataMember]
+        [Display(Name = "Тип контрагента")]
+        public int TypeOfCounterpartyId { get; set; }
     }
 }

@@ -121,6 +121,7 @@ namespace Mtrans_MDM.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             unitOfWork.Contractors.Delete(id);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 

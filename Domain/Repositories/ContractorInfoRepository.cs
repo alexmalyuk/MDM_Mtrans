@@ -79,6 +79,12 @@ namespace Domain.Repositories
             if (contractor.LegalAddress != contractorInfo.LegalAddress)
                 contractor.LegalAddress = contractorInfo.LegalAddress;
 
+            if (contractor.CountryCode != contractorInfo.CountryCode)
+                contractor.CountryCode = contractorInfo.CountryCode;
+
+            if (contractor.TypeOfCounterpartyId != contractorInfo.TypeOfCounterpartyId)
+                contractor.TypeOfCounterpartyId = contractorInfo.TypeOfCounterpartyId;
+
             // Link
             if (link == null)
             {

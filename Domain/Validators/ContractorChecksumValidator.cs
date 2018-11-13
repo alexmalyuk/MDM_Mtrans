@@ -21,7 +21,6 @@ namespace Domain.Validators
 
         public static bool ValidateINN(string stringValue)
         {
-
             // ua
             //
             if (!Regex.IsMatch(stringValue, @"^(\d{10})$|^(\d{12})$"))
@@ -71,6 +70,9 @@ namespace Domain.Validators
         }
         public static bool ValidateVATNumber(string stringValue)
         {
+            if (string.IsNullOrEmpty(stringValue))
+                return true;
+
             return Regex.IsMatch(stringValue, @"^(\d{9,12})$");
             //// ua
             ////

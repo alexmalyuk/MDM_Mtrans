@@ -75,6 +75,14 @@
     <Compile Include="Migrations\201810291644185_VAT_rename.Designer.cs">
       <DependentUpon>201810291644185_VAT_rename.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811130741403_CountryCode.cs" />
+    <Compile Include="Migrations\201811130741403_CountryCode.Designer.cs">
+      <DependentUpon>201811130741403_CountryCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811131250014_TypeOfCounterparty.cs" />
+    <Compile Include="Migrations\201811131250014_TypeOfCounterparty.Designer.cs">
+      <DependentUpon>201811131250014_TypeOfCounterparty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Contractor.cs" />
     <Compile Include="Models\ContractorConfig.cs" />
@@ -108,6 +116,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810291644185_VAT_rename.resx">
       <DependentUpon>201810291644185_VAT_rename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811130741403_CountryCode.resx">
+      <DependentUpon>201811130741403_CountryCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811131250014_TypeOfCounterparty.resx">
+      <DependentUpon>201811131250014_TypeOfCounterparty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
