@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Enums.cs" />
     <Compile Include="Core\InvalidChecksumException.cs" />
     <Compile Include="Models\ContractorInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

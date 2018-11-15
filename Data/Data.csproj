@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums.cs" />
     <Compile Include="Migrations\201810251258205_InitialCreate.cs" />
     <Compile Include="Migrations\201810251258205_InitialCreate.Designer.cs">
       <DependentUpon>201810251258205_InitialCreate.cs</DependentUpon>
@@ -82,6 +83,10 @@
     <Compile Include="Migrations\201811131250014_TypeOfCounterparty.cs" />
     <Compile Include="Migrations\201811131250014_TypeOfCounterparty.Designer.cs">
       <DependentUpon>201811131250014_TypeOfCounterparty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811150805243_TypeOfCounterpartyAsEnum.cs" />
+    <Compile Include="Migrations\201811150805243_TypeOfCounterpartyAsEnum.Designer.cs">
+      <DependentUpon>201811150805243_TypeOfCounterpartyAsEnum.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Contractor.cs" />
@@ -122,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811131250014_TypeOfCounterparty.resx">
       <DependentUpon>201811131250014_TypeOfCounterparty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811150805243_TypeOfCounterpartyAsEnum.resx">
+      <DependentUpon>201811150805243_TypeOfCounterpartyAsEnum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

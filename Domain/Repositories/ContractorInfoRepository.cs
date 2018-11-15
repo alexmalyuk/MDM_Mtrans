@@ -19,14 +19,12 @@ namespace Domain.Repositories
 
         public void Create(ContractorInfo item)
         {
-            //db.Links.Add(item);
-            throw new NotImplementedException();
+            CreateOrUpdate(item);
         }
 
         public void Update(ContractorInfo item)
         {
-            //db.Entry(item).State = System.Data.Entity.EntityState.Modified;
-            throw new NotImplementedException();
+            CreateOrUpdate(item);
         }
 
         public void CreateOrUpdate(ContractorInfo contractorInfo)
@@ -57,7 +55,6 @@ namespace Domain.Repositories
             }
             else
             {
-                //contractorRepository.Update(contractor);
                 db.Entry(contractor).State = System.Data.Entity.EntityState.Unchanged;
             }
 
@@ -82,8 +79,8 @@ namespace Domain.Repositories
             if (contractor.CountryCode != contractorInfo.CountryCode)
                 contractor.CountryCode = contractorInfo.CountryCode;
 
-            if (contractor.TypeOfCounterpartyId != contractorInfo.TypeOfCounterpartyId)
-                contractor.TypeOfCounterpartyId = contractorInfo.TypeOfCounterpartyId;
+            if (contractor.TypeOfCounterparty != contractorInfo.TypeOfCounterparty)
+                contractor.TypeOfCounterparty = contractorInfo.TypeOfCounterparty;
 
             // Link
             if (link == null)
@@ -112,15 +109,24 @@ namespace Domain.Repositories
             link.Date = DateTime.Now;
         }
 
-
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            new LinkRepository(db).Delete(id);
         }
 
         public ContractorInfo Get(Guid id)
         {
-            var q = db.Links.Where(a => a.Id == id).Join(
+            var q = db.Nodes.Join(
+                db.Links.Where(a => a.Id == id),
+                n => n.Id,
+                l => l.NodeId,
+                (n, l) => new
+                {
+                    NativeId = l.NativeId,
+                    ContractorId = l.ContractorId,
+                    NodeAlias = n.Alias,
+                    User = l.User
+                }).Join(
                 db.Contractors,
                 l => l.ContractorId,
                 c => c.Id,
@@ -133,7 +139,10 @@ namespace Domain.Repositories
                     OKPO = c.OKPO,
                     VATNumber = c.VATNumber,
                     LegalAddress = c.LegalAddress,
-                    Id = c.Id
+                    Id = c.Id,
+                    CountryCode = c.CountryCode,
+                    TypeOfCounterparty = c.TypeOfCounterparty,
+                    User = l.User
                 });
             
             return q.FirstOrDefault();
@@ -149,7 +158,8 @@ namespace Domain.Repositories
                 {
                     NativeId = l.NativeId,
                     ContractorId = l.ContractorId,
-                    NodeAlias = n.Alias
+                    NodeAlias = n.Alias,
+                    User = l.User
                 }).Join(
                 db.Contractors,
                 l => l.ContractorId,
@@ -164,7 +174,10 @@ namespace Domain.Repositories
                     OKPO = c.OKPO,
                     VATNumber = c.VATNumber,
                     LegalAddress = c.LegalAddress,
-                    Id = c.Id
+                    Id = c.Id,
+                    CountryCode = c.CountryCode,
+                    TypeOfCounterparty = c.TypeOfCounterparty,
+                    User = l.User
                 });
 
             return q.FirstOrDefault();
@@ -180,7 +193,8 @@ namespace Domain.Repositories
                 {
                     NativeId = l.NativeId,
                     ContractorId = l.ContractorId,
-                    NodeAlias = n.Alias
+                    NodeAlias = n.Alias,
+                    User = l.User
                 }).Join(
                 db.Contractors,
                 l => l.ContractorId,
@@ -195,7 +209,10 @@ namespace Domain.Repositories
                     OKPO = c.OKPO,
                     VATNumber = c.VATNumber,
                     LegalAddress = c.LegalAddress,
-                    Id = c.Id
+                    Id = c.Id,
+                    CountryCode = c.CountryCode,
+                    TypeOfCounterparty = c.TypeOfCounterparty,
+                    User = l.User
                 });
 
             return q;
@@ -203,20 +220,34 @@ namespace Domain.Repositories
 
         public IQueryable<ContractorInfo> GetAll()
         {
-            var q = db.Links.Join(
+            var q = db.Nodes.Join(
+                db.Links,
+                n => n.Id,
+                l => l.NodeId,
+                (n, l) => new
+                {
+                    NativeId = l.NativeId,
+                    ContractorId = l.ContractorId,
+                    NodeAlias = n.Alias,
+                    User = l.User
+                }).Join(
                 db.Contractors,
                 l => l.ContractorId,
                 c => c.Id,
                 (l, c) => new ContractorInfo
                 {
                     NativeId = l.NativeId.ToString(),
+                    NodeAlias = l.NodeAlias,
                     Name = c.Name,
                     FullName = c.FullName,
                     INN = c.INN,
                     OKPO = c.OKPO,
                     VATNumber = c.VATNumber,
                     LegalAddress = c.LegalAddress,
-                    Id = c.Id
+                    Id = c.Id,
+                    CountryCode = c.CountryCode,
+                    TypeOfCounterparty = c.TypeOfCounterparty,
+                    User = l.User
                 });
 
             return q;

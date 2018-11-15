@@ -20,18 +20,6 @@ namespace Domain.Models
         public String NativeId { get; set; }
         [DataMember]
         public string User { get; set; }
-        [DataMember]
-        public TypeOfCounterpartyEnum TypeOfCounterparty
-        {
-            get { return (TypeOfCounterpartyEnum)TypeOfCounterpartyId; }
-            set { TypeOfCounterpartyId = (int)value; }
-        }
-
-        [IgnoreDataMember]
-        public CountryEnum Country
-        {
-            get { return (CountryEnum)CountryCode; }
-        }
 
         public void Save()
         {

@@ -39,7 +39,13 @@ namespace Data.Models
         public int CountryCode { get; set; }
 
         [IgnoreDataMember]
+        public CountryEnum Country
+        {
+            get { return (CountryEnum)CountryCode; }
+        }
+
+        [DataMember]
         [Display(Name = "Тип контрагента")]
-        public int TypeOfCounterpartyId { get; set; }
+        public TypeOfCounterpartyEnum TypeOfCounterparty { get; set; }
     }
 }
