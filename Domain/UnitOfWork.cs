@@ -15,7 +15,7 @@ namespace Domain
         private DataContext db = new DataContext();
         private NodeRepository nodeRepository;
         private ContractorRepository contractorRepository;
-        private LinkRepository linkRepository;
+        //private LinkRepository linkRepository;
         private ContractorInfoRepository contractorInfoRepository;
 
         public NodeRepository Nodes
@@ -38,15 +38,15 @@ namespace Domain
             }
         }
 
-        public LinkRepository Links
-        {
-            get
-            {
-                if (linkRepository == null)
-                    linkRepository = new LinkRepository(db);
-                return linkRepository;
-            }
-        }
+        //public LinkRepository Links
+        //{
+        //    get
+        //    {
+        //        if (linkRepository == null)
+        //            linkRepository = new LinkRepository(db);
+        //        return linkRepository;
+        //    }
+        //}
         public ContractorInfoRepository ContractorInfos
         {
             get

@@ -88,15 +88,17 @@
     <Compile Include="Migrations\201811150805243_TypeOfCounterpartyAsEnum.Designer.cs">
       <DependentUpon>201811150805243_TypeOfCounterpartyAsEnum.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811201623238_TPT_refactoring.cs" />
+    <Compile Include="Migrations\201811201623238_TPT_refactoring.Designer.cs">
+      <DependentUpon>201811201623238_TPT_refactoring.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Contractor.cs" />
-    <Compile Include="Models\ContractorConfig.cs" />
-    <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\Contractor\Contractor.cs" />
+    <Compile Include="Models\Contractor\ContractorConfig.cs" />
     <Compile Include="Models\DataContext.cs" />
-    <Compile Include="Models\Link.cs" />
-    <Compile Include="Models\LinkConfig.cs" />
-    <Compile Include="Models\Node.cs" />
-    <Compile Include="Models\NodeConfig.cs" />
+    <Compile Include="Models\Core\Link.cs" />
+    <Compile Include="Models\Core\Node.cs" />
+    <Compile Include="Models\Core\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -131,7 +133,11 @@
     <EmbeddedResource Include="Migrations\201811150805243_TypeOfCounterpartyAsEnum.resx">
       <DependentUpon>201811150805243_TypeOfCounterpartyAsEnum.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811201623238_TPT_refactoring.resx">
+      <DependentUpon>201811201623238_TPT_refactoring.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

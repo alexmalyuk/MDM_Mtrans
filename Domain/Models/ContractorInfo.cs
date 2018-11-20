@@ -1,4 +1,5 @@
-﻿using Data.Models;
+﻿using Data;
+using Data.Models;
 using Domain.Core;
 using Domain.Validators;
 using System;
@@ -11,7 +12,7 @@ using System.Web;
 
 namespace Domain.Models
 {
-    [DataContract(Name = "ContractorInfo", Namespace = "http://www.metrans.com.ua")]
+    [DataContract(Name = "ContractorInfo", Namespace = Const.DataContractNameSpace)]
     public class ContractorInfo : Contractor
     {
         [IgnoreDataMember]

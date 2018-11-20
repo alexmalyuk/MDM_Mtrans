@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Data.Models;
 using Domain;
+using Data.Models.Core;
 
 namespace Mtrans_MDM.Controllers
 {

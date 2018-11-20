@@ -7,46 +7,46 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public class LinkRepository: IRepository<Link>
-    {
-        private DataContext db;
+    //public class LinkRepository: IRepository<Link>
+    //{
+    //    private DataContext db;
 
-        public LinkRepository(DataContext db)
-        {
-            this.db = db;
-        }
+    //    public LinkRepository(DataContext db)
+    //    {
+    //        this.db = db;
+    //    }
 
-        public void Create(Link item)
-        {
-            db.Links.Add(item);
-        }
+    //    public void Create(Link item)
+    //    {
+    //        db.Links.Add(item);
+    //    }
 
-        public void Delete(Guid id)
-        {
-            Link item = db.Links.Find(id);
-            if (item != null)
-                db.Links.Remove(item);
-        }
+    //    public void Delete(Guid id)
+    //    {
+    //        Link item = db.Links.Find(id);
+    //        if (item != null)
+    //            db.Links.Remove(item);
+    //    }
 
-        public Link Get(Guid id)
-        {
-            return db.Links.Find(id);
-        }
+    //    public Link Get(Guid id)
+    //    {
+    //        return db.Links.Find(id);
+    //    }
 
-        public IQueryable<Link> GetAll()
-        {
-            return db.Links;
-        }
+    //    public IQueryable<Link> GetAll()
+    //    {
+    //        return db.Links;
+    //    }
 
-        public void Update(Link item)
-        {
-            db.Entry(item).State = System.Data.Entity.EntityState.Modified;
-        }
+    //    public void Update(Link item)
+    //    {
+    //        db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+    //    }
 
-        public Link GetByNativeId(string nativeId, string alias)
-        {
-            Node node = new NodeRepository(db).GetByAlias(alias);
-            return node.Links.Where(a => a.NativeId == nativeId).FirstOrDefault();
-        }
-    }
+    //    public Link GetByNativeId(string nativeId, string alias)
+    //    {
+    //        Node node = new NodeRepository(db).GetByAlias(alias);
+    //        return node.Links.Where(a => a.NativeId == nativeId).FirstOrDefault();
+    //    }
+    //}
 }

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Data.Models.Core;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Data.Models
 {
-    [DataContract(Name = "ContractorInfo", Namespace = "http://www.metrans.com.ua")]
-    public class Contractor
+    [DataContract(Name = "ContractorInfo", Namespace = Const.DataContractNameSpace)]
+    public class Contractor : Subject
     {
         [IgnoreDataMember]
         public Guid Id { get; set; }
@@ -42,6 +43,7 @@ namespace Data.Models
         public CountryEnum Country
         {
             get { return (CountryEnum)CountryCode; }
+            set { CountryCode = (int)value; }
         }
 
         [DataMember]
