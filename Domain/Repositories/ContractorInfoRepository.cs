@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using Data.Models.Core;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,61 @@ namespace Domain.Repositories
 
         public void CreateOrUpdate(ContractorInfo contractorInfo)
         {
+
+            Contractor contractor = null;
+            ContractorRepository contractorRepository = new ContractorRepository(db);
+            Node node = new NodeRepository(db).GetByAlias(contractorInfo.NodeAlias);
+            Link link = node.Links.Where(c => c.TypeOfSubject == Data.TypeOfSubjectEnum.Contractor && c.NativeId == contractorInfo.NativeId).FirstOrDefault();
+
+            if (link == null)
+            {
+                // нет линка - ищем контрагента по ИНН
+                contractor = contractorRepository.GetByINN(contractorInfo.INN);
+                link = new Link() { Node = node, NativeId = contractorInfo.NativeId, TypeOfSubject = Data.TypeOfSubjectEnum.Contractor };
+            }
+            else
+            {
+                contractor = db.Contractors.Where(a => a.Id == link.Subject.Id).FirstOrDefault();
+            }
+
+            if (contractor == null)
+            {
+                contractor = new Contractor();
+                contractorRepository.Create(contractor);
+            }
+            else
+            {
+                db.Entry(contractor).State = System.Data.Entity.EntityState.Unchanged;
+            }
+
+            if (!contractor.Links.Contains(link))
+                contractor.Links.Add(link);
+
+            if (contractor.Name != contractorInfo.Name)
+                contractor.Name = contractorInfo.Name;
+
+            if (contractor.FullName != contractorInfo.FullName)
+                contractor.FullName = contractorInfo.FullName;
+
+            if (contractor.INN != contractorInfo.INN)
+                contractor.INN = contractorInfo.INN;
+
+            if (contractor.OKPO != contractorInfo.OKPO)
+                contractor.OKPO = contractorInfo.OKPO;
+
+            if (contractor.VATNumber != contractorInfo.VATNumber)
+                contractor.VATNumber = contractorInfo.VATNumber;
+
+            if (contractor.LegalAddress != contractorInfo.LegalAddress)
+                contractor.LegalAddress = contractorInfo.LegalAddress;
+
+            if (contractor.CountryCode != contractorInfo.CountryCode)
+                contractor.CountryCode = contractorInfo.CountryCode;
+
+            if (contractor.TypeOfCounterparty != contractorInfo.TypeOfCounterparty)
+                contractor.TypeOfCounterparty = contractorInfo.TypeOfCounterparty;
+
+
 
             //LinkRepository linkRepository = new LinkRepository(db);
             //ContractorRepository contractorRepository = new ContractorRepository(db);
