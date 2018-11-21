@@ -82,21 +82,15 @@ namespace Domain.Models
 
         public void Validate()
         {
-
+            ContractorValidator validator = new ContractorValidator(this);
             StringBuilder sResult = new StringBuilder();
 
-            if (!ContractorValidator.ValidateINN(INN))
-            {
+            if (!validator.ValidateINN())
                 sResult.AppendFormat("- Некорректный код ИНН [{0}]", INN).AppendLine();
-            }
-            if (!ContractorValidator.ValidateOKPO(OKPO))
-            {
+            if (!validator.ValidateOKPO())
                 sResult.AppendFormat("- Некорректный код ОКПО [{0}]", OKPO).AppendLine();
-            }
-            if (!ContractorValidator.ValidateVATNumber(VATNumber))
-            {
+            if (!validator.ValidateVATNumber())
                 sResult.AppendFormat("- Некорректный номер свидетельства [{0}]", VATNumber).AppendLine();
-            }
 
             isValid = (sResult.Length == 0);
             validationResult = sResult.ToString();

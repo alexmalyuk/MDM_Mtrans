@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<TEntity> where TEntity : class
     {
-        IQueryable<T> GetAll();
-        T Get(Guid id);
-        void Create(T item);
-        void Update(T item);
+        IQueryable<TEntity> GetAll();
+        TEntity Get(Guid id);
+        void Create(TEntity item);
+        void Update(TEntity item);
         void Delete(Guid id);
     }
 }

@@ -83,18 +83,20 @@ namespace Mtrans_MDM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Contractor contractor)
         {
+            ContractorValidator validator = new ContractorValidator(contractor);
+
+            if (!validator.ValidateINN())
+                ModelState.AddModelError("INN", "Некорректный код ИНН");
+            if (!validator.ValidateOKPO())
+                ModelState.AddModelError("OKPO", "Некорректный код ОКПО");
+            if (!validator.ValidateVATNumber())
+                ModelState.AddModelError("VATNumber", "Некорректный код плательщика НДС");
+
             if (ModelState.IsValid)
             {
-                if (!ContractorValidator.ValidateINN(contractor.INN))
-                    throw new InvalidChecksumException(string.Format("Некорректный код ИНН - {0}", contractor.INN));
-                if (!ContractorValidator.ValidateOKPO(contractor.OKPO))
-                    throw new InvalidChecksumException(string.Format("Некорректный код ОКПО - {0}", contractor.OKPO));
-                if (!ContractorValidator.ValidateVATNumber(contractor.VATNumber))
-                    throw new InvalidChecksumException(string.Format("Некорректный код плательщика НДС - {0}", contractor.VATNumber));
-
-                //unitOfWork.Contractors.Update(contractor);
                 unitOfWork.SetEntityStateAsModified(contractor);
                 unitOfWork.Save();
+
                 return RedirectToAction("Index");
             }
             return View(contractor);

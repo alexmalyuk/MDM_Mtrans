@@ -8,12 +8,12 @@ namespace Data.Models
     [DataContract(Name = "ContractorInfo", Namespace = Const.DataContractNameSpace)]
     public class Contractor : Subject
     {
-        [IgnoreDataMember]
-        public Guid Id { get; set; }
+        //[IgnoreDataMember]
+        //public Guid Id { get; set; }
 
-        [DataMember]
-        [Display(Name = "Наименование")]
-        public string Name { get; set; }
+        //[DataMember]
+        //[Display(Name = "Наименование")]
+        //public string Name { get; set; }
 
         [DataMember]
         [Display(Name = "Полное наименование")]

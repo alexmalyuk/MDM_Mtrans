@@ -59,7 +59,8 @@
     <Compile Include="Repositories\LinkRepository.cs" />
     <Compile Include="Repositories\NodeRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
-    <Compile Include="Validators\ContractorChecksumValidator.cs" />
+    <Compile Include="Validators\BaseValidator.cs" />
+    <Compile Include="Validators\ContractorValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
