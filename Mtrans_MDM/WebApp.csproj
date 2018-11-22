@@ -276,7 +276,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <None Include="Properties\PublishProfiles\MasterData_ToFile.pubxml" />
     <None Include="Properties\PublishProfiles\Mtrans_MDM_local_IIS.pubxml" />
-    <None Include="Properties\PublishProfiles\Node2.pubxml" />
+    <None Include="Properties\PublishProfiles\Liga-bz.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -206,7 +206,6 @@ namespace Domain.Repositories
 
             //return q.FirstOrDefault();
 
-            return new ContractorInfo();
         }
 
         public ContractorInfo GetByNativeId(string nativeId, string alias)

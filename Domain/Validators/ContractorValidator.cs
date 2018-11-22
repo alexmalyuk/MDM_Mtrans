@@ -19,13 +19,17 @@ namespace Domain.Validators
 
         public bool ValidateINN()
         {
+            int lastDigit = 0;
+            int checkSum = 0;
+
             switch (contractor.Country)
             {
+                #region UA
                 case Data.CountryEnum.UA:
+                    // Контрольная сумма ИНН для Украины http://1s.biz.ua/public/284564/
+
                     if (string.IsNullOrEmpty(contractor.INN))
                         return false;
-
-                    int checkSum = 0;
 
                     if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.Entrepreneur)
                     {
@@ -44,14 +48,49 @@ namespace Domain.Validators
                     else
                         return true;
 
-                    int lastDigit = int.Parse(contractor.INN[contractor.INN.Length - 1].ToString());
+                    lastDigit = int.Parse(contractor.INN[contractor.INN.Length - 1].ToString());
                     return (checkSum == lastDigit);
+                #endregion
 
+                #region RU
                 case Data.CountryEnum.RU:
+                    // Контрольная сумма ИНН для россии https://www.egrul.ru/test_inn.html
 
-                    ///TODO: Контрольная сумма ИНН для россии
-                    return true;
-                    break;
+                    int len = contractor.INN.Length;
+
+                    if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.Entrepreneur)
+                    {
+                        if (!Regex.IsMatch(contractor.INN, @"^(\d{12})$"))
+                            return false;
+
+                        int checkSum1 = CalculateChecksumMod11(contractor.INN, new int[] { 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0 }) % 11;
+                        if (checkSum1 > 9)
+                            checkSum1 %= 10;
+
+                        if (checkSum1 != int.Parse(contractor.INN[len - 2].ToString()))
+                            return false;
+
+                        int checkSum2 = CalculateChecksumMod11(contractor.INN, new int[] { 3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0 }) % 11;
+                        if (checkSum2 > 9)
+                            checkSum2 %= 10;
+
+                        return (checkSum2 != int.Parse(contractor.INN[len - 1].ToString()));
+                    }
+                    else if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.LegalEntity)
+                    {
+                        if (!Regex.IsMatch(contractor.INN, @"^(\d{10})$"))
+                            return false;
+
+                        checkSum = CalculateChecksumMod11(contractor.INN, new int[] { 2, 4, 10, 3, 5, 9, 4, 6, 8, 0 }) % 11;
+                        if (checkSum > 9)
+                            checkSum %= 10;
+
+                        lastDigit = int.Parse(contractor.INN[len - 1].ToString());
+                        return (checkSum == lastDigit);
+                    }
+                    else
+                        return false;
+                #endregion
 
                 default:
                     return true;
@@ -60,8 +99,11 @@ namespace Domain.Validators
 
         public bool ValidateOKPO()
         {
+            int checkSum = 0;
+
             switch (contractor.Country)
             {
+                #region UA
                 case Data.CountryEnum.UA:
 
                     if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.LegalEntity)
@@ -69,7 +111,6 @@ namespace Domain.Validators
                         if (string.IsNullOrEmpty(contractor.OKPO) || !Regex.IsMatch(contractor.OKPO, @"^(\d{8})$|^(\d{10})$"))
                             return false;
 
-                        int checkSum = 0;
                         long intValue = long.Parse(contractor.OKPO);
                         if (intValue > 30000000L && intValue <= 60000000L)
                         {
@@ -88,12 +129,18 @@ namespace Domain.Validators
                     }
                     else
                         return true;
+                #endregion
 
+                #region RU
                 case Data.CountryEnum.RU:
 
+                    //if (!Regex.IsMatch(contractor.OKPO, @"^(\d{8})$|^(\d{10})$"))
+                    //    return false;
+
+                    ////1 2 3 4 5 6
                     ///TODO: Контрольная сумма ОКПО для россии
                     return true;
-                    break;
+                #endregion
 
                 default:
                     return true;
@@ -115,7 +162,6 @@ namespace Domain.Validators
 
                     ///TODO: Контрольная сумма НДС для россии
                     return true;
-                    break;
 
                 default:
                     return true;
