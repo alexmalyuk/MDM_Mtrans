@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public class ContractorRepository : IRepository<Contractor>
+    public class ContractorRepository : IRepository<Data.Models.Contractor>
     {
         private DataContext db;
 
@@ -43,16 +44,36 @@ namespace Domain.Repositories
             db.Entry(item).State = System.Data.Entity.EntityState.Modified;
         }
 
-        public Contractor GetByINN(string INN)
+        public Contractor GetByCodes(ContractorInfo contractorInfo)
         {
-            return db.Contractors.Where(a => a.INN == INN).FirstOrDefault();
+            var q = db.Contractors.Where(c => c.TypeOfCounterparty == contractorInfo.TypeOfCounterparty && c.CountryCode == contractorInfo.CountryCode);
+
+            switch (contractorInfo.Country)
+            {
+                case Data.CountryEnum.UA:
+
+                    if (contractorInfo.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.Entrepreneur)
+                        return q.Where(c => c.INN == contractorInfo.INN).FirstOrDefault();
+
+                    else if (contractorInfo.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.LegalEntity)
+                        return q.Where(c => c.OKPO == contractorInfo.OKPO).FirstOrDefault();
+
+                    break;
+
+                case Data.CountryEnum.RU:
+                    return q.Where(c => c.INN == contractorInfo.INN).FirstOrDefault();
+
+            }
+
+            return null;
         }
 
         public Contractor GetByNativeId(string nativeId, string alias)
         {
+            throw new NotImplementedException();
+            
             //Link link = new LinkRepository(db).GetByNativeId(nativeId, alias);
             //return db.Contractors.Where(a => a.Id == link.ContractorId).FirstOrDefault();
-            throw new NotImplementedException();
         }
     }
 }

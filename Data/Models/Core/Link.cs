@@ -30,6 +30,11 @@ namespace Data.Models.Core
         {
             return string.Format("{0}\t{1}\t{2}\t - {3}", Node.Alias, TypeOfSubject, NativeId, Subject);
         }
+
+        public Link()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 
     //class LinkConfig : EntityTypeConfiguration<Link>

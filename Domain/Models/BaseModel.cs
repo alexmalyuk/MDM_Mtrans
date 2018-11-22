@@ -23,18 +23,12 @@ namespace Domain.Models
         public string Name { get; set; }
 
 
-        public BaseModel(Subject subject)
-        {
-            this.subject = subject;
-        }
-
         public virtual void Validate()
         {
         }
 
         internal bool isValid = false;
         internal string validationResult;
-        internal Subject subject;
 
         [IgnoreDataMember]
         public bool IsValid 
@@ -44,8 +38,5 @@ namespace Domain.Models
         public string ValidationResult
             => validationResult;
 
-        [IgnoreDataMember]
-        public Subject Subject
-            => subject;
     }
 }

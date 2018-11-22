@@ -10,9 +10,9 @@ namespace Domain.Validators
 {
     public class ContractorValidator : BaseValidator
     {
-        private Contractor contractor;
+        private IContractorData contractor;
 
-        public ContractorValidator(Contractor contractor)
+        public ContractorValidator(IContractorData contractor)
         {
             this.contractor = contractor;
         }
@@ -27,13 +27,13 @@ namespace Domain.Validators
 
                     int checkSum = 0;
 
-                    if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.LegalEntity)
+                    if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.Entrepreneur)
                     {
                         if (!Regex.IsMatch(contractor.INN, @"^(\d{10})$"))
                             return false;
                         checkSum = CalculateChecksumMod11(contractor.INN, new int[] { -1, 5, 7, 9, 4, 6, 10, 5, 7 }) % 10;
                     }
-                    else if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.Entrepreneur)
+                    else if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.LegalEntity)
                     {
                         if (!Regex.IsMatch(contractor.INN, @"^(\d{12})$"))
                             return false;
@@ -107,7 +107,7 @@ namespace Domain.Validators
                     if (string.IsNullOrEmpty(contractor.VATNumber))
                         return true;
 
-                    return Regex.IsMatch(contractor.VATNumber, @"^(\d{9,12})$");
+                    return Regex.IsMatch(contractor.VATNumber, @"^(\d{8,9})$");
 
                 ///TODO: Контрольная сумма НДС для Украины
 

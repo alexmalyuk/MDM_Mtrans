@@ -38,8 +38,8 @@ namespace Domain.Repositories
 
             if (link == null)
             {
-                // нет линка - ищем контрагента по ИНН
-                contractor = contractorRepository.GetByINN(contractorInfo.INN);
+                // нет линка - ищем контрагента по кодам
+                contractor = contractorRepository.GetByCodes(contractorInfo);
                 link = new Link() { Node = node, NativeId = contractorInfo.NativeId, TypeOfSubject = Data.TypeOfSubjectEnum.Contractor };
             }
             else
@@ -168,10 +168,13 @@ namespace Domain.Repositories
         public void Delete(Guid id)
         {
             //new LinkRepository(db).Delete(id);
+            throw new NotImplementedException();
         }
 
         public ContractorInfo Get(Guid id)
         {
+            throw new NotImplementedException();
+
             //var q = db.Nodes.Join(
             //    db.Links.Where(a => a.Id == id),
             //    n => n.Id,
@@ -208,43 +211,52 @@ namespace Domain.Repositories
 
         public ContractorInfo GetByNativeId(string nativeId, string alias)
         {
-            //var q = db.Nodes.Where(a => a.Alias == alias).Join(
-            //    db.Links.Where(a => a.NativeId == nativeId),
-            //    n => n.Id,
-            //    l => l.NodeId,
-            //    (n, l) => new
-            //    {
-            //        NativeId = l.NativeId,
-            //        ContractorId = l.ContractorId,
-            //        NodeAlias = n.Alias,
-            //        User = l.User
-            //    }).Join(
-            //    db.Contractors,
-            //    l => l.ContractorId,
-            //    c => c.Id,
-            //    (l, c) => new ContractorInfo
-            //    {
-            //        NativeId = l.NativeId.ToString(),
-            //        NodeAlias = l.NodeAlias,
-            //        Name = c.Name,
-            //        FullName = c.FullName,
-            //        INN = c.INN,
-            //        OKPO = c.OKPO,
-            //        VATNumber = c.VATNumber,
-            //        LegalAddress = c.LegalAddress,
-            //        Id = c.Id,
-            //        CountryCode = c.CountryCode,
-            //        TypeOfCounterparty = c.TypeOfCounterparty,
-            //        User = l.User
-            //    });
+            var q = db.Nodes.Where(c => c.Alias == alias).FirstOrDefault()
+                .Links.Where(c => c.NativeId == nativeId).Join(
+                db.Contractors,
+                l => l.Subject.Id,
+                c => c.Id,
+                (l, c) => new ContractorInfo
+                {
+                    NativeId = l.NativeId.ToString(),
+                    NodeAlias = l.Node.Alias,
+                    Name = c.Name,
+                    FullName = c.FullName,
+                    INN = c.INN,
+                    OKPO = c.OKPO,
+                    VATNumber = c.VATNumber,
+                    LegalAddress = c.LegalAddress,
+                    CountryCode = c.CountryCode,
+                    TypeOfCounterparty = c.TypeOfCounterparty
+                });
 
-            //return q.FirstOrDefault();
+            return q.FirstOrDefault();
 
-            throw new NotImplementedException();
         }
 
-        public IQueryable<ContractorInfo> GetAllByNodeAlias(string alias)
+        public IEnumerable<ContractorInfo> GetAllByNodeAlias(string alias)
         {
+            var q = db.Nodes.Where(c => c.Alias == alias).FirstOrDefault()
+                .Links.Join(
+                db.Contractors,
+                l => l.Subject.Id,
+                c => c.Id,
+                (l, c) => new ContractorInfo
+                {
+                    NativeId = l.NativeId.ToString(),
+                    NodeAlias = l.Node.Alias,
+                    Name = c.Name,
+                    FullName = c.FullName,
+                    INN = c.INN,
+                    OKPO = c.OKPO,
+                    VATNumber = c.VATNumber,
+                    LegalAddress = c.LegalAddress,
+                    CountryCode = c.CountryCode,
+                    TypeOfCounterparty = c.TypeOfCounterparty
+                });
+
+            return q.ToList();
+
             //var q = db.Nodes.Where(a => a.Alias == alias).Join(
             //    db.Links,
             //    n => n.Id,
@@ -276,12 +288,12 @@ namespace Domain.Repositories
             //    });
 
             //return q;
-
-            throw new NotImplementedException();
         }
 
         public IQueryable<ContractorInfo> GetAll()
         {
+            throw new NotImplementedException();
+            
             //var q = db.Nodes.Join(
             //    db.Links,
             //    n => n.Id,
@@ -313,9 +325,6 @@ namespace Domain.Repositories
             //    });
 
             //return q;
-
-            throw new NotImplementedException();
-
         }
 
     }

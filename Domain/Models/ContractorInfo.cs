@@ -13,7 +13,7 @@ using System.Web;
 namespace Domain.Models
 {
     [DataContract(Name = "ContractorInfo", Namespace = Const.DataContractNameSpace)]
-    public class ContractorInfo : BaseModel
+    public class ContractorInfo : BaseModel, IContractorData
     {
         [Display(Name = "Полное наименование")]
         public string FullName { get; set; }
@@ -39,6 +39,14 @@ namespace Domain.Models
         public int CountryCode { get; set; }
 
         [DataMember]
+        [Display(Name = "Страна регистрации")]
+        public CountryEnum Country
+        {
+            get { return (CountryEnum)CountryCode; }
+            set { CountryCode = (int)value; }
+        }
+
+        [DataMember]
         [Display(Name = "Тип контрагента")]
         public TypeOfCounterpartyEnum TypeOfCounterparty { get; set; }
 
@@ -54,7 +62,7 @@ namespace Domain.Models
 
         public override void Validate()
         {
-            ContractorValidator validator = new ContractorValidator(this);
+            ContractorValidator validator = new ContractorValidator(this as IContractorData);
             StringBuilder sResult = new StringBuilder();
 
             if (!validator.ValidateINN())

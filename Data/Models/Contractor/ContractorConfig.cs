@@ -11,21 +11,18 @@ namespace Data.Models
             ToTable("Contractors");
 
             Property(p => p.INN)
-                .IsRequired()
-                .HasMaxLength(12)
+                //.IsRequired()
+                .HasMaxLength(20)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
             Property(p => p.OKPO)
-                .HasMaxLength(10)
+                .HasMaxLength(20)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
             Property(p => p.VATNumber)
-                .HasMaxLength(10)
+                .HasMaxLength(20)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
-            //Property(p => p.CountryCode)
-            //    .IsOptional()
-            //    .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
         }
     }
 }

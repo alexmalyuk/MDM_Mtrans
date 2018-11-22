@@ -1,4 +1,5 @@
-﻿using Data.Models.Core;
+﻿using Data.Models;
+using Data.Models.Core;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
@@ -6,7 +7,7 @@ using System.Runtime.Serialization;
 namespace Data.Models
 {
     
-    public class Contractor : Subject
+    public class Contractor : Subject, IContractorData
     {
         [Display(Name = "Полное наименование")]
         public string FullName { get; set; }
@@ -26,6 +27,7 @@ namespace Data.Models
         [Display(Name = "Код страны")]
         public int CountryCode { get; set; }
 
+        [Display(Name = "Страна регистрации")]
         public CountryEnum Country
         {
             get { return (CountryEnum)CountryCode; }

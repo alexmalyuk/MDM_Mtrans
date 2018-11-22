@@ -46,7 +46,7 @@ namespace Domain.Repositories
 
         public Node GetByAlias(string alias)
         {
-            return db.Nodes.Where(a => a.Alias == alias).FirstOrDefault();
+            return db.Nodes.Include("Links").Include("Links.Subject").Where(a => a.Alias == alias).FirstOrDefault();
         }
     }
 }

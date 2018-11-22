@@ -56,9 +56,14 @@
     <Compile Include="Migrations\201811201646591_InitialCreate.Designer.cs">
       <DependentUpon>201811201646591_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811221413532_set_lengths_20_for_ContractorCodes.cs" />
+    <Compile Include="Migrations\201811221413532_set_lengths_20_for_ContractorCodes.Designer.cs">
+      <DependentUpon>201811221413532_set_lengths_20_for_ContractorCodes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Contractor\Contractor.cs" />
     <Compile Include="Models\Contractor\ContractorConfig.cs" />
+    <Compile Include="Models\Contractor\IContractorData.cs" />
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\Core\Link.cs" />
     <Compile Include="Models\Core\Node.cs" />
@@ -72,6 +77,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811201646591_InitialCreate.resx">
       <DependentUpon>201811201646591_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811221413532_set_lengths_20_for_ContractorCodes.resx">
+      <DependentUpon>201811221413532_set_lengths_20_for_ContractorCodes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
