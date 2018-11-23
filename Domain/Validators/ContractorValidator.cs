@@ -63,14 +63,14 @@ namespace Domain.Validators
                         if (!Regex.IsMatch(contractor.INN, @"^(\d{12})$"))
                             return false;
 
-                        int checkSum1 = CalculateChecksumMod11(contractor.INN, new int[] { 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0 }) % 11;
+                        int checkSum1 = CalculateChecksumMod11(contractor.INN, new int[] { 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0 });
                         if (checkSum1 > 9)
                             checkSum1 %= 10;
 
                         if (checkSum1 != int.Parse(contractor.INN[len - 2].ToString()))
                             return false;
 
-                        int checkSum2 = CalculateChecksumMod11(contractor.INN, new int[] { 3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0 }) % 11;
+                        int checkSum2 = CalculateChecksumMod11(contractor.INN, new int[] { 3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0 });
                         if (checkSum2 > 9)
                             checkSum2 %= 10;
 
@@ -81,7 +81,7 @@ namespace Domain.Validators
                         if (!Regex.IsMatch(contractor.INN, @"^(\d{10})$"))
                             return false;
 
-                        checkSum = CalculateChecksumMod11(contractor.INN, new int[] { 2, 4, 10, 3, 5, 9, 4, 6, 8, 0 }) % 11;
+                        checkSum = CalculateChecksumMod11(contractor.INN, new int[] { 2, 4, 10, 3, 5, 9, 4, 6, 8, 0 }) ;
                         if (checkSum > 9)
                             checkSum %= 10;
 
@@ -124,8 +124,7 @@ namespace Domain.Validators
                             if (checkSum >= 10)
                                 checkSum = CalculateChecksumMod11(contractor.OKPO, new int[] { 3, 4, 5, 6, 7, 8, 9 }) % 10;
                         }
-                        int lastDigit = int.Parse(contractor.OKPO[contractor.OKPO.Length - 1].ToString());
-                        return (checkSum == lastDigit);
+                        return (checkSum == int.Parse(contractor.OKPO[contractor.OKPO.Length - 1].ToString()));
                     }
                     else
                         return true;
@@ -134,12 +133,26 @@ namespace Domain.Validators
                 #region RU
                 case Data.CountryEnum.RU:
 
-                    //if (!Regex.IsMatch(contractor.OKPO, @"^(\d{8})$|^(\d{10})$"))
-                    //    return false;
+                    // http://www.temabiz.com/terminy/chto-takoe-kod-okpo.html 
+                    //
+                    if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.LegalEntity)
+                    {
+                        if (string.IsNullOrEmpty(contractor.OKPO) || !Regex.IsMatch(contractor.OKPO, @"^(\d{8})$"))
+                            return false;
 
-                    ////1 2 3 4 5 6
-                    ///TODO: Контрольная сумма ОКПО для россии
-                    return true;
+                        checkSum = CalculateChecksumMod11(contractor.OKPO, new int[] { 1, 2, 3, 4, 5, 6, 7 }) % 10;
+                    }
+                    else if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.Entrepreneur)
+                    {
+                        if (string.IsNullOrEmpty(contractor.OKPO) || !Regex.IsMatch(contractor.OKPO, @"^(\d{10})$"))
+                            return false;
+
+                        checkSum = CalculateChecksumMod11(contractor.OKPO, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }) % 10;
+                    }
+                    else
+                        return true;
+
+                    return (checkSum == int.Parse(contractor.OKPO[contractor.OKPO.Length - 1].ToString()));
                 #endregion
 
                 default:
