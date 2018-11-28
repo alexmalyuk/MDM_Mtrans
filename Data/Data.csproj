@@ -68,6 +68,7 @@
     <Compile Include="Models\Core\Link.cs" />
     <Compile Include="Models\Core\Node.cs" />
     <Compile Include="Models\Core\Subject.cs" />
+    <Compile Include="Models\DataContextInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

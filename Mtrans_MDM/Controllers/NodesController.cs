@@ -12,6 +12,7 @@ using Data.Models.Core;
 
 namespace Mtrans_MDM.Controllers
 {
+    [Authorize]
     public class NodesController : Controller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
@@ -39,6 +40,7 @@ namespace Mtrans_MDM.Controllers
         }
 
         // GET: Nodes/Create
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
@@ -49,6 +51,7 @@ namespace Mtrans_MDM.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult Create([Bind(Include = "Id,Name,Alias")] Node node)
         {
             if (ModelState.IsValid)
@@ -62,6 +65,7 @@ namespace Mtrans_MDM.Controllers
         }
 
         // GET: Nodes/Edit/5
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -81,6 +85,7 @@ namespace Mtrans_MDM.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit([Bind(Include = "Id,Name,Alias")] Node node)
         {
             if (ModelState.IsValid)
@@ -93,6 +98,7 @@ namespace Mtrans_MDM.Controllers
         }
 
         // GET: Nodes/Delete/5
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -110,6 +116,7 @@ namespace Mtrans_MDM.Controllers
         // POST: Nodes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult DeleteConfirmed(Guid id)
         {
             unitOfWork.Nodes.Delete(id);

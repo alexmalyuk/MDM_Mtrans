@@ -12,6 +12,7 @@ using Domain;
 
 namespace Mtrans_MDM.Controllers
 {
+    [Authorize]
     public class ContractorsController : Controller
     {
         UnitOfWork unitOfWork = new UnitOfWork();

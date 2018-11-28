@@ -3,6 +3,7 @@ using Data.Models.Core;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -210,7 +211,7 @@ namespace Domain.Repositories
 
         public ContractorInfo GetByNativeId(string nativeId, string alias)
         {
-            var q = db.Nodes.Where(c => c.Alias == alias).FirstOrDefault()
+            var q = db.Nodes.Include("Links").Where(c => c.Alias == alias).FirstOrDefault()
                 .Links.Where(c => c.NativeId == nativeId).Join(
                 db.Contractors,
                 l => l.Subject.Id,
@@ -235,7 +236,7 @@ namespace Domain.Repositories
 
         public IEnumerable<ContractorInfo> GetAllByNodeAlias(string alias)
         {
-            var q = db.Nodes.Where(c => c.Alias == alias).FirstOrDefault()
+            var q = db.Nodes.Include("Links").Where(c => c.Alias == alias).FirstOrDefault()
                 .Links.Join(
                 db.Contractors,
                 l => l.Subject.Id,

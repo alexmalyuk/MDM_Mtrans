@@ -14,6 +14,8 @@ using System.Web.Http.Results;
 
 namespace Mtrans_MDM.Controllers.API
 {
+
+    //[Authorize]
     public class ContractorInfoController : ApiController
     {
         UnitOfWork unitOfWork = new UnitOfWork();
@@ -58,6 +60,9 @@ namespace Mtrans_MDM.Controllers.API
         [ResponseType(typeof(ContractorInfo))]
         public IHttpActionResult Get(string NodeAlias, string NativeId)
         {
+            //if (!User.IsInRole("api"))
+            //    return Content(HttpStatusCode.Forbidden, "Unauthorized request");
+
             ContractorInfo contractorInfo = unitOfWork.ContractorInfos.GetByNativeId(NativeId, NodeAlias);
             if (contractorInfo == null)
             {
