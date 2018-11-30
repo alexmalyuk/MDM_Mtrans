@@ -16,7 +16,7 @@ namespace Mtrans_MDM.Controllers.API
 {
 
     //[Authorize]
-    public class ContractorInfoController : ControllerBase
+    public class ContractorInfoController : ApiController
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 

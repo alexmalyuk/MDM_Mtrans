@@ -45,7 +45,7 @@ namespace Domain.Repositories
             }
             else
             {
-                contractor = db.Contractors.Where(a => a.Id == link.Subject.Id).FirstOrDefault();
+                contractor = db.Contractors.Include(c => c.Address).Where(a => a.Id == link.Subject.Id).FirstOrDefault();
             }
 
             if (contractor == null)
@@ -79,8 +79,8 @@ namespace Domain.Repositories
             if (contractor.LegalAddress != contractorInfo.LegalAddress)
                 contractor.LegalAddress = contractorInfo.LegalAddress;
 
-            //if (contractor.CountryCode != contractorInfo.CountryCode)
-            //    contractor.CountryCode = contractorInfo.CountryCode;
+            if (contractor.CountryOfRegistration != contractorInfo.CountryOfRegistration)
+                contractor.CountryOfRegistration = contractorInfo.CountryOfRegistration;
 
             if (contractor.TypeOfCounterparty != contractorInfo.TypeOfCounterparty)
                 contractor.TypeOfCounterparty = contractorInfo.TypeOfCounterparty;
@@ -88,7 +88,15 @@ namespace Domain.Repositories
             // Address
             ContractorAddress contractorAddress = contractor.Address;
             if (contractorAddress == null)
+            {
                 contractorAddress = new ContractorAddress();
+                contractor.Address = contractorAddress;
+                db.Entry(contractorAddress).State = EntityState.Added;
+            }
+            else
+            {
+                db.Entry(contractorAddress).State = EntityState.Unchanged;
+            }
 
             if (contractorAddress.Street != contractorInfo.Street)
                 contractorAddress.Street = contractorInfo.Street;
@@ -111,8 +119,8 @@ namespace Domain.Repositories
             if (contractorAddress.PostalCode != contractorInfo.PostalCode)
                 contractorAddress.PostalCode = contractorInfo.PostalCode;
 
-            //if (contractorAddress.Country != contractorInfo.Country)
-            //    contractorAddress.Country = contractorInfo.Country;
+            if (contractorAddress.Country != contractorInfo.Country)
+                contractorAddress.Country = contractorInfo.Country;
         }
 
         public void Delete(Guid id)

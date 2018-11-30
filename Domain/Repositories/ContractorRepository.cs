@@ -46,7 +46,7 @@ namespace Domain.Repositories
 
         public Contractor GetByCodes(ContractorInfo contractorInfo)
         {
-            var q = db.Contractors.Where(c => c.TypeOfCounterparty == contractorInfo.TypeOfCounterparty && c.CountryOfRegistration == contractorInfo.CountryOfRegistration);
+            var q = db.Contractors.Include("Address").Where(c => c.TypeOfCounterparty == contractorInfo.TypeOfCounterparty && c.CountryOfRegistration == contractorInfo.CountryOfRegistration);
 
             switch (contractorInfo.CountryOfRegistration)
             {
