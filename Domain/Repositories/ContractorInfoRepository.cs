@@ -55,7 +55,7 @@ namespace Domain.Repositories
             }
             else
             {
-                db.Entry(contractor).State = System.Data.Entity.EntityState.Unchanged;
+                db.Entry(contractor).State = EntityState.Unchanged;
             }
 
             if (!contractor.Links.Contains(link))
@@ -79,91 +79,40 @@ namespace Domain.Repositories
             if (contractor.LegalAddress != contractorInfo.LegalAddress)
                 contractor.LegalAddress = contractorInfo.LegalAddress;
 
-            if (contractor.CountryCode != contractorInfo.CountryCode)
-                contractor.CountryCode = contractorInfo.CountryCode;
+            //if (contractor.CountryCode != contractorInfo.CountryCode)
+            //    contractor.CountryCode = contractorInfo.CountryCode;
 
             if (contractor.TypeOfCounterparty != contractorInfo.TypeOfCounterparty)
                 contractor.TypeOfCounterparty = contractorInfo.TypeOfCounterparty;
 
+            // Address
+            ContractorAddress contractorAddress = contractor.Address;
+            if (contractorAddress == null)
+                contractorAddress = new ContractorAddress();
 
+            if (contractorAddress.Street != contractorInfo.Street)
+                contractorAddress.Street = contractorInfo.Street;
 
-            //LinkRepository linkRepository = new LinkRepository(db);
-            //ContractorRepository contractorRepository = new ContractorRepository(db);
+            if (contractorAddress.House != contractorInfo.House)
+                contractorAddress.House = contractorInfo.House;
 
-            //Node node = new NodeRepository(db).GetByAlias(contractorInfo.NodeAlias);
-            //Contractor contractor = null;
-            //Link link = linkRepository.GetByNativeId(contractorInfo.NativeId, contractorInfo.NodeAlias);
+            if (contractorAddress.Flat != contractorInfo.Flat)
+                contractorAddress.Flat = contractorInfo.Flat;
 
-            //if (link == null)
-            //{
-            //    // нет линка - ищем контрагента по ИНН
-            //    contractor = contractorRepository.GetByINN(contractorInfo.INN);
-            //}
-            //else
-            //{
-            //    contractor = db.Contractors.Where(a => a.Id == link.ContractorId).FirstOrDefault();
-            //}
+            if (contractorAddress.City != contractorInfo.City)
+                contractorAddress.City = contractorInfo.City;
 
-            //// Контрагент
-            //if (contractor == null)
-            //{
-            //    contractor = new Contractor();
-            //    contractorRepository.Create(contractor);
-            //}
-            //else
-            //{
-            //    db.Entry(contractor).State = System.Data.Entity.EntityState.Unchanged;
-            //}
+            if (contractorAddress.District != contractorInfo.District)
+                contractorAddress.District = contractorInfo.District;
 
-            //if (contractor.Name != contractorInfo.Name)
-            //    contractor.Name = contractorInfo.Name;
+            if (contractorAddress.Region != contractorInfo.Region)
+                contractorAddress.Region = contractorInfo.Region;
 
-            //if (contractor.FullName != contractorInfo.FullName)
-            //    contractor.FullName = contractorInfo.FullName;
+            if (contractorAddress.PostalCode != contractorInfo.PostalCode)
+                contractorAddress.PostalCode = contractorInfo.PostalCode;
 
-            //if (contractor.INN != contractorInfo.INN)
-            //    contractor.INN = contractorInfo.INN;
-
-            //if (contractor.OKPO != contractorInfo.OKPO)
-            //    contractor.OKPO = contractorInfo.OKPO;
-
-            //if (contractor.VATNumber != contractorInfo.VATNumber)
-            //    contractor.VATNumber = contractorInfo.VATNumber;
-
-            //if (contractor.LegalAddress != contractorInfo.LegalAddress)
-            //    contractor.LegalAddress = contractorInfo.LegalAddress;
-
-            //if (contractor.CountryCode != contractorInfo.CountryCode)
-            //    contractor.CountryCode = contractorInfo.CountryCode;
-
-            //if (contractor.TypeOfCounterparty != contractorInfo.TypeOfCounterparty)
-            //    contractor.TypeOfCounterparty = contractorInfo.TypeOfCounterparty;
-
-            //// Link
-            //if (link == null)
-            //{
-            //    link = new Link();
-            //    linkRepository.Create(link);
-            //}
-            //else
-            //{
-            //    //linkRepository.Update(link);
-            //    db.Entry(link).State = System.Data.Entity.EntityState.Unchanged;
-            //}
-
-            //if (link.NativeId != contractorInfo.NativeId)
-            //    link.NativeId = contractorInfo.NativeId;
-
-            //if (link.NodeId != node.Id)
-            //    link.Node = node;
-
-            //if (link.ContractorId != contractor.Id || contractor.Id == Guid.Empty)
-            //    link.Contractor = contractor;
-
-            //if (link.User != contractorInfo.User)
-            //    link.User = contractorInfo.User;
-
-            //link.Date = DateTime.Now;
+            //if (contractorAddress.Country != contractorInfo.Country)
+            //    contractorAddress.Country = contractorInfo.Country;
         }
 
         public void Delete(Guid id)
@@ -211,9 +160,9 @@ namespace Domain.Repositories
 
         public ContractorInfo GetByNativeId(string nativeId, string alias)
         {
-            var q = db.Nodes.Include("Links").Where(c => c.Alias == alias).FirstOrDefault()
+            var q = db.Nodes.Include(n => n.Links).Where(c => c.Alias == alias).FirstOrDefault()
                 .Links.Where(c => c.NativeId == nativeId).Join(
-                db.Contractors,
+                db.Contractors.Include(c => c.Address),
                 l => l.Subject.Id,
                 c => c.Id,
                 (l, c) => new ContractorInfo
@@ -226,8 +175,17 @@ namespace Domain.Repositories
                     OKPO = c.OKPO,
                     VATNumber = c.VATNumber,
                     LegalAddress = c.LegalAddress,
-                    CountryCode = c.CountryCode,
-                    TypeOfCounterparty = c.TypeOfCounterparty
+                    CountryOfRegistration = c.CountryOfRegistration,
+                    TypeOfCounterparty = c.TypeOfCounterparty,
+                    Street = c.Address.Street,
+                    House = c.Address.House,
+                    Flat = c.Address.Flat,
+                    City = c.Address.City,
+                    District = c.Address.District,
+                    Region = c.Address.Region,
+                    PostalCode = c.Address.PostalCode,
+                    Country = c.Address.Country,
+                    StringRepresentedAddress = c.Address.StringRepresentedAddress
                 });
 
             return q.FirstOrDefault();
@@ -236,9 +194,9 @@ namespace Domain.Repositories
 
         public IEnumerable<ContractorInfo> GetAllByNodeAlias(string alias)
         {
-            var q = db.Nodes.Include("Links").Where(c => c.Alias == alias).FirstOrDefault()
+            var q = db.Nodes.Include(n => n.Links).Where(c => c.Alias == alias).FirstOrDefault()
                 .Links.Join(
-                db.Contractors,
+                db.Contractors.Include(c => c.Address),
                 l => l.Subject.Id,
                 c => c.Id,
                 (l, c) => new ContractorInfo
@@ -251,8 +209,17 @@ namespace Domain.Repositories
                     OKPO = c.OKPO,
                     VATNumber = c.VATNumber,
                     LegalAddress = c.LegalAddress,
-                    CountryCode = c.CountryCode,
-                    TypeOfCounterparty = c.TypeOfCounterparty
+                    CountryOfRegistration = c.CountryOfRegistration,
+                    TypeOfCounterparty = c.TypeOfCounterparty,
+                    Street = c.Address.Street,
+                    House = c.Address.House,
+                    Flat = c.Address.Flat,
+                    City = c.Address.City,
+                    District = c.Address.District,
+                    Region = c.Address.Region,
+                    PostalCode = c.Address.PostalCode,
+                    Country = c.Address.Country,
+                    StringRepresentedAddress = c.Address.StringRepresentedAddress
                 });
 
             return q.ToList();
@@ -293,7 +260,7 @@ namespace Domain.Repositories
         public IQueryable<ContractorInfo> GetAll()
         {
             throw new NotImplementedException();
-            
+
             //var q = db.Nodes.Join(
             //    db.Links,
             //    n => n.Id,

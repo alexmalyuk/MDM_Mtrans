@@ -46,9 +46,9 @@ namespace Domain.Repositories
 
         public Contractor GetByCodes(ContractorInfo contractorInfo)
         {
-            var q = db.Contractors.Where(c => c.TypeOfCounterparty == contractorInfo.TypeOfCounterparty && c.CountryCode == contractorInfo.CountryCode);
+            var q = db.Contractors.Where(c => c.TypeOfCounterparty == contractorInfo.TypeOfCounterparty && c.CountryOfRegistration == contractorInfo.CountryOfRegistration);
 
-            switch (contractorInfo.Country)
+            switch (contractorInfo.CountryOfRegistration)
             {
                 case Data.CountryEnum.UA:
 

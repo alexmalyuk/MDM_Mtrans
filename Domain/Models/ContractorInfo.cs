@@ -13,7 +13,7 @@ using System.Web;
 namespace Domain.Models
 {
     [DataContract(Name = "ContractorInfo", Namespace = Const.DataContractNameSpace)]
-    public class ContractorInfo : BaseModel, IContractorData
+    public class ContractorInfo : BaseModel, IContractorData, IContractorAddress
     {
         [Display(Name = "Полное наименование")]
         public string FullName { get; set; }
@@ -34,21 +34,58 @@ namespace Domain.Models
         [Display(Name = "Юридический адрес")]
         public string LegalAddress { get; set; }
 
-        [DataMember]
-        [Display(Name = "Код страны")]
-        public int CountryCode { get; set; }
+        //[DataMember]
+        //[Display(Name = "Код страны")]
+        //public int CountryCode { get; set; }
 
         [DataMember]
         [Display(Name = "Страна регистрации")]
-        public CountryEnum Country
-        {
-            get { return (CountryEnum)CountryCode; }
-            set { CountryCode = (int)value; }
-        }
+        public CountryEnum? CountryOfRegistration { get; set; }
+        //{
+        //    get { return (CountryEnum)CountryCode; }
+        //    set { CountryCode = (int)value; }
+        //}
 
         [DataMember]
         [Display(Name = "Тип контрагента")]
         public TypeOfCounterpartyEnum TypeOfCounterparty { get; set; }
+
+        [DataMember]
+        [Display(Name = "Индекс")]
+        public string PostalCode { get; set; }
+
+        [DataMember]
+        [Display(Name = "Страна")]
+        public string Country { get; set; }
+
+        [DataMember]
+        [Display(Name = "Область")]
+        public string Region { get; set; }
+
+        [DataMember]
+        [Display(Name = "Район")]
+        public string District { get; set; }
+
+        [DataMember]
+        [Display(Name = "Город")]
+        public string City { get; set; }
+
+        [DataMember]
+        [Display(Name = "Улица")]
+        public string Street { get; set; }
+
+        [DataMember]
+        [Display(Name = "Дом")]
+        public string House { get; set; }
+
+        [DataMember]
+        [Display(Name = "Офис")]
+        public string Flat { get; set; }
+
+
+        [DataMember]
+        [Display(Name = "Адрес одной строкой (устар.)")]
+        public string StringRepresentedAddress { get; set; }
 
 
         public void Save()

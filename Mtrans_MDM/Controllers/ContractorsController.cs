@@ -49,8 +49,17 @@ namespace Mtrans_MDM.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,LegalAddress")] Contractor contractor)
+        public ActionResult Create([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,CountryOfRegistration,TypeOfCounterparty")] Contractor contractor)
         {
+            ContractorValidator validator = new ContractorValidator(contractor);
+
+            if (!validator.ValidateINN())
+                ModelState.AddModelError("INN", "Некорректный код ИНН");
+            if (!validator.ValidateOKPO())
+                ModelState.AddModelError("OKPO", "Некорректный код ОКПО");
+            if (!validator.ValidateVATNumber())
+                ModelState.AddModelError("VATNumber", "Некорректный код плательщика НДС");
+
             if (ModelState.IsValid)
             {
                 unitOfWork.Contractors.Create(contractor);
@@ -81,7 +90,7 @@ namespace Mtrans_MDM.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Contractor contractor)
+        public ActionResult Edit([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,CountryOfRegistration,TypeOfCounterparty")] Contractor contractor)
         {
             ContractorValidator validator = new ContractorValidator(contractor);
 

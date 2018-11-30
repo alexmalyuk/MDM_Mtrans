@@ -17,12 +17,13 @@
             modelBuilder.Configurations.Add(new NodeConfig());
             modelBuilder.Configurations.Add(new SubjectConfig());
             modelBuilder.Configurations.Add(new ContractorConfig());
-            //modelBuilder.Configurations.Add(new LinkConfig());
+            modelBuilder.Configurations.Add(new ContractorAddressConfig());
         }
 
         public virtual DbSet<Node> Nodes { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<Contractor> Contractors { get; set; }
+        public virtual DbSet<ContractorAddress> ContractorAddreses { get; set; }
     }
 
 }
