@@ -1,10 +1,8 @@
 ﻿using Data.Models;
 using Data.Models.Core;
 using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
@@ -41,12 +39,12 @@ namespace Domain.Repositories
 
         public void Update(Node item)
         {
-            db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(item).State = EntityState.Modified;
         }
 
         public Node GetByAlias(string alias)
         {
-            return db.Nodes.Include("Links").Include("Links.Subject").Where(a => a.Alias == alias).FirstOrDefault();
+            return db.Nodes.Include(n => n.Links).Include("Links.Subject").Where(a => a.Alias == alias).FirstOrDefault();
         }
     }
 }

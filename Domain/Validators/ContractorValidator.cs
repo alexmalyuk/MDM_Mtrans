@@ -22,7 +22,7 @@ namespace Domain.Validators
             int lastDigit = 0;
             int checkSum = 0;
 
-            switch (contractor.Country)
+            switch (contractor.CountryOfRegistration)
             {
                 #region UA
                 case Data.CountryEnum.UA:
@@ -101,7 +101,7 @@ namespace Domain.Validators
         {
             int checkSum = 0;
 
-            switch (contractor.Country)
+            switch (contractor.CountryOfRegistration)
             {
                 #region UA
                 case Data.CountryEnum.UA:
@@ -161,7 +161,7 @@ namespace Domain.Validators
         }
         public bool ValidateVATNumber()
         {
-            switch (contractor.Country)
+            switch (contractor.CountryOfRegistration)
             {
                 case Data.CountryEnum.UA:
                     if (string.IsNullOrEmpty(contractor.VATNumber))

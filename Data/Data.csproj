@@ -60,8 +60,15 @@
     <Compile Include="Migrations\201811221413532_set_lengths_20_for_ContractorCodes.Designer.cs">
       <DependentUpon>201811221413532_set_lengths_20_for_ContractorCodes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811281349275_Address.cs" />
+    <Compile Include="Migrations\201811281349275_Address.Designer.cs">
+      <DependentUpon>201811281349275_Address.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ContractorAddress\ContractorAddressConfig.cs" />
+    <Compile Include="Models\ContractorAddress\IContractorAddress.cs" />
     <Compile Include="Models\Contractor\Contractor.cs" />
+    <Compile Include="Models\ContractorAddress\ContractorAddress.cs" />
     <Compile Include="Models\Contractor\ContractorConfig.cs" />
     <Compile Include="Models\Contractor\IContractorData.cs" />
     <Compile Include="Models\DataContext.cs" />
@@ -81,6 +88,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811221413532_set_lengths_20_for_ContractorCodes.resx">
       <DependentUpon>201811221413532_set_lengths_20_for_ContractorCodes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811281349275_Address.resx">
+      <DependentUpon>201811281349275_Address.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

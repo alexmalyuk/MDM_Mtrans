@@ -11,7 +11,6 @@ namespace Data.Models
             ToTable("Contractors");
 
             Property(p => p.INN)
-                //.IsRequired()
                 .HasMaxLength(20)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
@@ -23,6 +22,7 @@ namespace Data.Models
                 .HasMaxLength(20)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
+            HasOptional(c => c.Address).WithRequired(a => a.Contractor).WillCascadeOnDelete(true);
         }
     }
 }
