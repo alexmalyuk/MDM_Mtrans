@@ -245,6 +245,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ContractorEditViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -330,16 +331,16 @@
     <Content Include="Views\Nodes\Details.cshtml" />
     <Content Include="Views\Nodes\Edit.cshtml" />
     <Content Include="Views\Nodes\Index.cshtml" />
-    <Content Include="Views\Contractors\Create.cshtml" />
-    <Content Include="Views\Contractors\Delete.cshtml" />
-    <Content Include="Views\Contractors\Details.cshtml" />
-    <Content Include="Views\Contractors\Edit.cshtml" />
-    <Content Include="Views\Contractors\Index.cshtml" />
     <Content Include="Views\Links\Create.cshtml" />
     <Content Include="Views\Links\Delete.cshtml" />
     <Content Include="Views\Links\Details.cshtml" />
     <Content Include="Views\Links\Edit.cshtml" />
     <Content Include="Views\Links\Index.cshtml" />
+    <Content Include="Views\Contractors\Create.cshtml" />
+    <Content Include="Views\Contractors\Delete.cshtml" />
+    <Content Include="Views\Contractors\Details.cshtml" />
+    <Content Include="Views\Contractors\Edit.cshtml" />
+    <Content Include="Views\Contractors\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

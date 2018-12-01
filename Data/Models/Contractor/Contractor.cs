@@ -1,6 +1,7 @@
 ﻿using Data.Models;
 using Data.Models.Core;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -24,19 +25,13 @@ namespace Data.Models
         [Display(Name = "Юридический адрес")]
         public string LegalAddress { get; set; }
 
-        //[Display(Name = "Код страны")]
-        //public int CountryCode { get; set; }
-
         [Display(Name = "Страна регистрации")]
         public CountryEnum? CountryOfRegistration { get; set; }
-        //{
-        //    get { return (CountryEnum)CountryCode; }
-        //    set { CountryCode = (int)value; }
-        //}
 
         [Display(Name = "Тип контрагента")]
         public TypeOfCounterpartyEnum TypeOfCounterparty { get; set; }
 
+        [Display(Name = "Адрес")]
         public ContractorAddress Address { get; set; }
 
     }

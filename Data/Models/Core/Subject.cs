@@ -15,6 +15,7 @@ namespace Data.Models.Core
     {
         public Guid Id { get; set; }
 
+        [Display(Name = "Наименование")]
         public string Name { get; set; }
 
         public ICollection<Link> Links { get; set; }

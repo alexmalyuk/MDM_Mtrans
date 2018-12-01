@@ -14,8 +14,6 @@ namespace Data.Models
         string INN { get; set; }
         string OKPO { get; set; }
         string VATNumber { get; set; }
-        string LegalAddress { get; set; }
-        //int? CountryCode { get; set; }
         CountryEnum? CountryOfRegistration { get; set; }
         TypeOfCounterpartyEnum TypeOfCounterparty { get; set; }
 

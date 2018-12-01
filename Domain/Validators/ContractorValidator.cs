@@ -1,6 +1,7 @@
 ﻿using Data.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -15,6 +16,22 @@ namespace Domain.Validators
         public ContractorValidator(IContractorData contractor)
         {
             this.contractor = contractor;
+        }
+
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> errors = new List<ValidationResult>();
+
+            if (!ValidateINN())
+                errors.Add(new ValidationResult(string.Format("Некорректный код ИНН [{0}]", contractor.INN), new List<string>() { "INN" }));
+
+            if (!ValidateOKPO())
+                errors.Add(new ValidationResult(string.Format("Некорректный код ОКПО [{0}]", contractor.OKPO), new List<string>() { "OKPO" }));
+
+            if (!ValidateVATNumber())
+                errors.Add(new ValidationResult(string.Format("Некорректный номер свидетельства [{0}]", contractor.VATNumber), new List<string>() { "VATNumber" }));
+
+            return errors;
         }
 
         public bool ValidateINN()

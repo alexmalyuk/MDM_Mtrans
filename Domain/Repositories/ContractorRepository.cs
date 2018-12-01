@@ -31,7 +31,7 @@ namespace Domain.Repositories
 
         public Contractor Get(Guid id)
         {
-            return db.Contractors.Find(id);
+            return db.Contractors.Include("Address").Where(c => c.Id == id).FirstOrDefault();
         }
 
         public IQueryable<Contractor> GetAll()

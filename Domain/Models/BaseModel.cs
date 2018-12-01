@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Domain.Models
 {
     [DataContract(Namespace = Const.DataContractNameSpace)]
-    public class BaseModel
+    public class BaseApiModel
     {
         [IgnoreDataMember]
         public string NodeAlias { get; set; }
