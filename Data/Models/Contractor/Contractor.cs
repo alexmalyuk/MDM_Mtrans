@@ -22,17 +22,13 @@ namespace Data.Models
         [Display(Name = "Код плательщика НДС")]
         public string VATNumber { get; set; }
 
-        [Display(Name = "Юридический адрес")]
-        public string LegalAddress { get; set; }
-
         [Display(Name = "Страна регистрации")]
         public CountryEnum? CountryOfRegistration { get; set; }
 
         [Display(Name = "Тип контрагента")]
         public TypeOfCounterpartyEnum TypeOfCounterparty { get; set; }
 
-        [Display(Name = "Адрес")]
+        [Display(Name = "Юридический адрес")]
         public ContractorAddress Address { get; set; }
-
     }
 }

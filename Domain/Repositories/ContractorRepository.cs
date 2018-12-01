@@ -1,5 +1,6 @@
 ﻿using Data.Models;
 using Domain.Models;
+using Domain.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public class ContractorRepository : IRepository<Data.Models.Contractor>
+    public class ContractorRepository : IRepository<Contractor>
     {
         private DataContext db;
 
@@ -17,9 +18,17 @@ namespace Domain.Repositories
             this.db = db;
         }
 
-        public void Create(Contractor item)
+        public void AddOrUpdate(Contractor item)
         {
-            db.Contractors.Add(item);
+            Contractor contractor = db.Contractors.Find(item.Id);
+            if (contractor == null)
+            {
+                db.Entry(item).State = System.Data.Entity.EntityState.Added;
+            }
+            else
+            {
+                db.Entry(item).State = System.Data.Entity.EntityState.Unchanged;
+            }
         }
 
         public void Delete(Guid id)
@@ -39,12 +48,7 @@ namespace Domain.Repositories
             return db.Contractors;
         }
 
-        public void Update(Contractor item)
-        {
-            db.Entry(item).State = System.Data.Entity.EntityState.Modified;
-        }
-
-        public Contractor GetByCodes(ContractorInfo contractorInfo)
+        public Contractor GetByCodes(ContractorApiModel contractorInfo)
         {
             var q = db.Contractors.Include("Address").Where(c => c.TypeOfCounterparty == contractorInfo.TypeOfCounterparty && c.CountryOfRegistration == contractorInfo.CountryOfRegistration);
 
@@ -75,5 +79,6 @@ namespace Domain.Repositories
             //Link link = new LinkRepository(db).GetByNativeId(nativeId, alias);
             //return db.Contractors.Where(a => a.Id == link.ContractorId).FirstOrDefault();
         }
+
     }
 }

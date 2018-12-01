@@ -10,26 +10,16 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public class ContractorInfoRepository : IRepository<ContractorInfo>
+    public class ContractorApiModelRepository : IRepository<ContractorApiModel>
     {
         private DataContext db;
 
-        public ContractorInfoRepository(DataContext db)
+        public ContractorApiModelRepository(DataContext db)
         {
             this.db = db;
         }
 
-        public void Create(ContractorInfo item)
-        {
-            CreateOrUpdate(item);
-        }
-
-        public void Update(ContractorInfo item)
-        {
-            CreateOrUpdate(item);
-        }
-
-        public void CreateOrUpdate(ContractorInfo contractorInfo)
+        public void AddOrUpdate(ContractorApiModel contractorInfo)
         {
 
             Contractor contractor = null;
@@ -51,7 +41,7 @@ namespace Domain.Repositories
             if (contractor == null)
             {
                 contractor = new Contractor();
-                contractorRepository.Create(contractor);
+                contractorRepository.AddOrUpdate(contractor);
             }
             else
             {
@@ -75,9 +65,6 @@ namespace Domain.Repositories
 
             if (contractor.VATNumber != contractorInfo.VATNumber)
                 contractor.VATNumber = contractorInfo.VATNumber;
-
-            if (contractor.LegalAddress != contractorInfo.LegalAddress)
-                contractor.LegalAddress = contractorInfo.LegalAddress;
 
             if (contractor.CountryOfRegistration != contractorInfo.CountryOfRegistration)
                 contractor.CountryOfRegistration = contractorInfo.CountryOfRegistration;
@@ -125,55 +112,22 @@ namespace Domain.Repositories
 
         public void Delete(Guid id)
         {
-            //new LinkRepository(db).Delete(id);
             throw new NotImplementedException();
         }
 
-        public ContractorInfo Get(Guid id)
+        public ContractorApiModel Get(Guid id)
         {
             throw new NotImplementedException();
-
-            //var q = db.Nodes.Join(
-            //    db.Links.Where(a => a.Id == id),
-            //    n => n.Id,
-            //    l => l.NodeId,
-            //    (n, l) => new
-            //    {
-            //        NativeId = l.NativeId,
-            //        ContractorId = l.ContractorId,
-            //        NodeAlias = n.Alias,
-            //        User = l.User
-            //    }).Join(
-            //    db.Contractors,
-            //    l => l.ContractorId,
-            //    c => c.Id,
-            //    (l, c) => new ContractorInfo
-            //    {
-            //        NativeId = l.NativeId.ToString(),
-            //        Name = c.Name,
-            //        FullName = c.FullName,
-            //        INN = c.INN,
-            //        OKPO = c.OKPO,
-            //        VATNumber = c.VATNumber,
-            //        LegalAddress = c.LegalAddress,
-            //        Id = c.Id,
-            //        CountryCode = c.CountryCode,
-            //        TypeOfCounterparty = c.TypeOfCounterparty,
-            //        User = l.User
-            //    });
-
-            //return q.FirstOrDefault();
-
         }
 
-        public ContractorInfo GetByNativeId(string nativeId, string alias)
+        public ContractorApiModel GetByNativeId(string nativeId, string alias)
         {
             var q = db.Nodes.Include(n => n.Links).Where(c => c.Alias == alias).FirstOrDefault()
                 .Links.Where(c => c.NativeId == nativeId).Join(
                 db.Contractors.Include(c => c.Address),
                 l => l.Subject.Id,
                 c => c.Id,
-                (l, c) => new ContractorInfo
+                (l, c) => new ContractorApiModel
                 {
                     NativeId = l.NativeId.ToString(),
                     NodeAlias = l.Node.Alias,
@@ -182,7 +136,6 @@ namespace Domain.Repositories
                     INN = c.INN,
                     OKPO = c.OKPO,
                     VATNumber = c.VATNumber,
-                    LegalAddress = c.LegalAddress,
                     CountryOfRegistration = c.CountryOfRegistration,
                     TypeOfCounterparty = c.TypeOfCounterparty,
                     Street = c.Address.Street,
@@ -197,17 +150,16 @@ namespace Domain.Repositories
                 });
 
             return q.FirstOrDefault();
-
         }
 
-        public IEnumerable<ContractorInfo> GetAllByNodeAlias(string alias)
+        public IEnumerable<ContractorApiModel> GetAllByNodeAlias(string alias)
         {
             var q = db.Nodes.Include(n => n.Links).Where(c => c.Alias == alias).FirstOrDefault()
                 .Links.Join(
                 db.Contractors.Include(c => c.Address),
                 l => l.Subject.Id,
                 c => c.Id,
-                (l, c) => new ContractorInfo
+                (l, c) => new ContractorApiModel
                 {
                     NativeId = l.NativeId.ToString(),
                     NodeAlias = l.Node.Alias,
@@ -216,7 +168,6 @@ namespace Domain.Repositories
                     INN = c.INN,
                     OKPO = c.OKPO,
                     VATNumber = c.VATNumber,
-                    LegalAddress = c.LegalAddress,
                     CountryOfRegistration = c.CountryOfRegistration,
                     TypeOfCounterparty = c.TypeOfCounterparty,
                     Street = c.Address.Street,
@@ -231,75 +182,11 @@ namespace Domain.Repositories
                 });
 
             return q.ToList();
-
-            //var q = db.Nodes.Where(a => a.Alias == alias).Join(
-            //    db.Links,
-            //    n => n.Id,
-            //    l => l.NodeId,
-            //    (n, l) => new
-            //    {
-            //        NativeId = l.NativeId,
-            //        ContractorId = l.ContractorId,
-            //        NodeAlias = n.Alias,
-            //        User = l.User
-            //    }).Join(
-            //    db.Contractors,
-            //    l => l.ContractorId,
-            //    c => c.Id,
-            //    (l, c) => new ContractorInfo
-            //    {
-            //        NativeId = l.NativeId.ToString(),
-            //        NodeAlias = l.NodeAlias,
-            //        Name = c.Name,
-            //        FullName = c.FullName,
-            //        INN = c.INN,
-            //        OKPO = c.OKPO,
-            //        VATNumber = c.VATNumber,
-            //        LegalAddress = c.LegalAddress,
-            //        Id = c.Id,
-            //        CountryCode = c.CountryCode,
-            //        TypeOfCounterparty = c.TypeOfCounterparty,
-            //        User = l.User
-            //    });
-
-            //return q;
         }
 
-        public IQueryable<ContractorInfo> GetAll()
+        public IQueryable<ContractorApiModel> GetAll()
         {
             throw new NotImplementedException();
-
-            //var q = db.Nodes.Join(
-            //    db.Links,
-            //    n => n.Id,
-            //    l => l.NodeId,
-            //    (n, l) => new
-            //    {
-            //        NativeId = l.NativeId,
-            //        ContractorId = l.ContractorId,
-            //        NodeAlias = n.Alias,
-            //        User = l.User
-            //    }).Join(
-            //    db.Contractors,
-            //    l => l.ContractorId,
-            //    c => c.Id,
-            //    (l, c) => new ContractorInfo
-            //    {
-            //        NativeId = l.NativeId.ToString(),
-            //        NodeAlias = l.NodeAlias,
-            //        Name = c.Name,
-            //        FullName = c.FullName,
-            //        INN = c.INN,
-            //        OKPO = c.OKPO,
-            //        VATNumber = c.VATNumber,
-            //        LegalAddress = c.LegalAddress,
-            //        Id = c.Id,
-            //        CountryCode = c.CountryCode,
-            //        TypeOfCounterparty = c.TypeOfCounterparty,
-            //        User = l.User
-            //    });
-
-            //return q;
         }
 
     }

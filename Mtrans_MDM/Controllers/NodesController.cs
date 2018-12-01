@@ -56,7 +56,7 @@ namespace Mtrans_MDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                unitOfWork.Nodes.Create(node);
+                unitOfWork.Nodes.AddOrUpdate(node);
                 unitOfWork.Save();
                 return RedirectToAction("Index");
             }
@@ -90,8 +90,9 @@ namespace Mtrans_MDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                unitOfWork.Nodes.Update(node);
+                unitOfWork.Nodes.AddOrUpdate(node);
                 unitOfWork.Save();
+
                 return RedirectToAction("Index");
             }
             return View(node);

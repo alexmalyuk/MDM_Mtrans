@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Data.Models;
 using Domain.Validators;
 using Domain;
+using Domain.ViewModels;
 
 namespace Mtrans_MDM.Controllers
 {
@@ -20,7 +21,7 @@ namespace Mtrans_MDM.Controllers
         // GET: Contractors
         public ActionResult Index()
         {
-            return View(unitOfWork.Contractors.GetAll().ToList());
+            return View(unitOfWork.ContractorViewModel.GetAll().ToList());
         }
 
         // GET: Contractors/Details/5
@@ -30,7 +31,7 @@ namespace Mtrans_MDM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contractor contractor = unitOfWork.Contractors.Get((Guid)id);
+            ContractorViewModel contractor = unitOfWork.ContractorViewModel.Get((Guid)id);
             if (contractor == null)
             {
                 return HttpNotFound();
@@ -49,21 +50,13 @@ namespace Mtrans_MDM.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,CountryOfRegistration,TypeOfCounterparty")] Contractor contractor)
+        public ActionResult Create([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,CountryOfRegistration,TypeOfCounterparty,Street,House,Flat,District,Region,City,Country,PostalCode,StringRepresentedAddress")] ContractorViewModel contractor)
         {
-            ContractorValidator validator = new ContractorValidator(contractor);
-
-            if (!validator.ValidateINN())
-                ModelState.AddModelError("INN", "Некорректный код ИНН");
-            if (!validator.ValidateOKPO())
-                ModelState.AddModelError("OKPO", "Некорректный код ОКПО");
-            if (!validator.ValidateVATNumber())
-                ModelState.AddModelError("VATNumber", "Некорректный код плательщика НДС");
-
             if (ModelState.IsValid)
             {
-                unitOfWork.Contractors.Create(contractor);
+                unitOfWork.ContractorViewModel.AddOrUpdate(contractor);
                 unitOfWork.Save();
+
                 return RedirectToAction("Index");
             }
 
@@ -77,7 +70,7 @@ namespace Mtrans_MDM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contractor contractor = unitOfWork.Contractors.Get((Guid)id);
+            ContractorViewModel contractor = unitOfWork.ContractorViewModel.Get((Guid)id);
             if (contractor == null)
             {
                 return HttpNotFound();
@@ -90,20 +83,12 @@ namespace Mtrans_MDM.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,CountryOfRegistration,TypeOfCounterparty,Address")] Contractor contractor)
+        public ActionResult Edit([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,CountryOfRegistration,TypeOfCounterparty,Street,House,Flat,District,Region,City,Country,PostalCode,StringRepresentedAddress")] ContractorViewModel contractor)
         {
-            //ContractorValidator validator = new ContractorValidator(contractor);
-
-            //if (!validator.ValidateINN())
-            //    ModelState.AddModelError("INN", "Некорректный код ИНН");
-            //if (!validator.ValidateOKPO())
-            //    ModelState.AddModelError("OKPO", "Некорректный код ОКПО");
-            //if (!validator.ValidateVATNumber())
-            //    ModelState.AddModelError("VATNumber", "Некорректный код плательщика НДС");
-
             if (ModelState.IsValid)
             {
-                unitOfWork.SetEntityStateAsModified(contractor);
+
+                unitOfWork.ContractorViewModel.AddOrUpdate(contractor);
                 unitOfWork.Save();
 
                 return RedirectToAction("Index");
@@ -118,7 +103,7 @@ namespace Mtrans_MDM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contractor contractor = unitOfWork.Contractors.Get((Guid)id);
+            ContractorViewModel contractor = unitOfWork.ContractorViewModel.Get((Guid)id);
             if (contractor == null)
             {
                 return HttpNotFound();
@@ -131,7 +116,7 @@ namespace Mtrans_MDM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            unitOfWork.Contractors.Delete(id);
+            unitOfWork.ContractorViewModel.Delete(id);
             unitOfWork.Save();
             return RedirectToAction("Index");
         }

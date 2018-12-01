@@ -13,7 +13,7 @@ using System.Web;
 namespace Domain.Models
 {
     [DataContract(Name = "ContractorInfo", Namespace = Const.DataContractNameSpace)]
-    public class ContractorInfo : BaseApiModel, IContractorData, IContractorAddress, IValidatableObject
+    public class ContractorApiModel : BaseApiModel, IContractorData, IContractorAddress, IValidatableObject
     {
         [DataMember]
         [Display(Name = "Полное наименование")]
@@ -84,7 +84,7 @@ namespace Domain.Models
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                unitOfWork.ContractorInfos.CreateOrUpdate(this);
+                unitOfWork.ContractorInfos.AddOrUpdate(this);
                 unitOfWork.Save();
             }
         }

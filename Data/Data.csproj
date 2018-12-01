@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201811281349275_Address.Designer.cs">
       <DependentUpon>201811281349275_Address.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812011249588_LegalAddress_removed.cs" />
+    <Compile Include="Migrations\201812011249588_LegalAddress_removed.Designer.cs">
+      <DependentUpon>201812011249588_LegalAddress_removed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContractorAddress\ContractorAddressConfig.cs" />
     <Compile Include="Models\ContractorAddress\IContractorAddress.cs" />
@@ -91,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811281349275_Address.resx">
       <DependentUpon>201811281349275_Address.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812011249588_LegalAddress_removed.resx">
+      <DependentUpon>201812011249588_LegalAddress_removed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

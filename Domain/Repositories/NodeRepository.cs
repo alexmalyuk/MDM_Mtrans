@@ -15,9 +15,17 @@ namespace Domain.Repositories
             this.db = db;
         }
 
-        public void Create(Node item)
+        public void AddOrUpdate(Node item)
         {
-            db.Nodes.Add(item);
+            Node node = db.Nodes.Find(item.Id);
+            if (node == null)
+            {
+                db.Entry(item).State = EntityState.Added;
+            }
+            else
+            {
+                db.Entry(item).State = EntityState.Modified;
+            }
         }
 
         public void Delete(Guid id)
@@ -35,11 +43,6 @@ namespace Domain.Repositories
         public IQueryable<Node> GetAll()
         {
             return db.Nodes;
-        }
-
-        public void Update(Node item)
-        {
-            db.Entry(item).State = EntityState.Modified;
         }
 
         public Node GetByAlias(string alias)

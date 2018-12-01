@@ -7,10 +7,11 @@ using System.Web;
 using Data;
 using Domain.Validators;
 
-namespace Mtrans_MDM.ViewModels
+namespace Domain.ViewModels
 {
-    public class ContractorEditViewModel : IContractorData, IContractorAddress, IValidatableObject
+    public class ContractorViewModel : IContractorData, IContractorAddress, IValidatableObject
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string FullName { get; set; }
         public CountryEnum? CountryOfRegistration { get; set; }

@@ -22,8 +22,8 @@ namespace Mtrans_MDM.Controllers.API
 
         [HttpPost]
         [Route("api/ContractorInfo/{NodeAlias}")]
-        [ResponseType(typeof(ContractorInfo))]
-        public IHttpActionResult PostNode(string NodeAlias, [FromBody]ContractorInfo contractorInfo)
+        [ResponseType(typeof(ContractorApiModel))]
+        public IHttpActionResult PostNode(string NodeAlias, [FromBody]ContractorApiModel contractorInfo)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Mtrans_MDM.Controllers.API
                     return BadRequest(ModelState);
                 }
 
-                unitOfWork.ContractorInfos.CreateOrUpdate(contractorInfo);
+                unitOfWork.ContractorInfos.AddOrUpdate(contractorInfo);
                 unitOfWork.Save();
 
                 return Ok();
@@ -77,13 +77,13 @@ namespace Mtrans_MDM.Controllers.API
 
         [HttpGet]
         [Route("api/ContractorInfo/{NodeAlias}/{NativeId}")]
-        [ResponseType(typeof(ContractorInfo))]
+        [ResponseType(typeof(ContractorApiModel))]
         public IHttpActionResult Get(string NodeAlias, string NativeId)
         {
             //if (!User.IsInRole("api"))
             //    return Content(HttpStatusCode.Forbidden, "Unauthorized request");
 
-            ContractorInfo contractorInfo = unitOfWork.ContractorInfos.GetByNativeId(NativeId, NodeAlias);
+            ContractorApiModel contractorInfo = unitOfWork.ContractorInfos.GetByNativeId(NativeId, NodeAlias);
             if (contractorInfo == null)
             {
                 return NotFound();
@@ -94,7 +94,7 @@ namespace Mtrans_MDM.Controllers.API
 
         [HttpGet]
         [Route("api/ContractorInfo/{NodeAlias}")]
-        public List<ContractorInfo> Get(string NodeAlias)
+        public List<ContractorApiModel> Get(string NodeAlias)
         {
             ///TODO: добавить PostDate и ReadDate - подумать как их сочетать для того чтобы давать выборку данных всех контрагентов с момента последнего получения данных
             /// и надо ли это вообще ?

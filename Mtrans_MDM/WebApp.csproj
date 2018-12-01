@@ -245,7 +245,6 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\ContractorEditViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -339,8 +338,8 @@
     <Content Include="Views\Contractors\Create.cshtml" />
     <Content Include="Views\Contractors\Delete.cshtml" />
     <Content Include="Views\Contractors\Details.cshtml" />
-    <Content Include="Views\Contractors\Edit.cshtml" />
     <Content Include="Views\Contractors\Index.cshtml" />
+    <Content Include="Views\Contractors\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

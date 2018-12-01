@@ -10,8 +10,7 @@ namespace Domain.Repositories
     {
         IQueryable<TEntity> GetAll();
         TEntity Get(Guid id);
-        void Create(TEntity item);
-        void Update(TEntity item);
+        void AddOrUpdate(TEntity item);
         void Delete(Guid id);
     }
 }
