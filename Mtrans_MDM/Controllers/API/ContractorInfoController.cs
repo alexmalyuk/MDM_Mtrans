@@ -25,34 +25,54 @@ namespace Mtrans_MDM.Controllers.API
         [ResponseType(typeof(ContractorInfo))]
         public IHttpActionResult PostNode(string NodeAlias, [FromBody]ContractorInfo contractorInfo)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             try
             {
-                contractorInfo.Validate();
+                contractorInfo.NodeAlias = NodeAlias;
 
-                if (contractorInfo.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    contractorInfo.NodeAlias = NodeAlias;
-
-                    unitOfWork.ContractorInfos.CreateOrUpdate(contractorInfo);
-                    unitOfWork.Save();
-
-                    return Ok();
+                    return BadRequest(ModelState);
                 }
-                else
-                {
-                    return Content(HttpStatusCode.Forbidden, contractorInfo.ValidationResult);
-                }
+
+                unitOfWork.ContractorInfos.CreateOrUpdate(contractorInfo);
+                unitOfWork.Save();
+
+                return Ok();
             }
             catch (Exception ex)
             {
                 //Log.For(this).Error("POST: api/ContractorInfo/" + NodeAlias, ex);
                 return InternalServerError(ex);
             }
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            //try
+            //{
+            //    contractorInfo.Validate();
+
+            //    if (contractorInfo.IsValid)
+            //    {
+            //        contractorInfo.NodeAlias = NodeAlias;
+
+            //        unitOfWork.ContractorInfos.CreateOrUpdate(contractorInfo);
+            //        unitOfWork.Save();
+
+            //        return Ok();
+            //    }
+            //    else
+            //    {
+            //        return Content(HttpStatusCode.Forbidden, contractorInfo.ValidationResult);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    //Log.For(this).Error("POST: api/ContractorInfo/" + NodeAlias, ex);
+            //    return InternalServerError(ex);
+            //}
         }
 
         [HttpGet]

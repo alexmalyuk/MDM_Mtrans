@@ -15,6 +15,7 @@ namespace Domain.Models
     [DataContract(Name = "ContractorInfo", Namespace = Const.DataContractNameSpace)]
     public class ContractorInfo : BaseModel, IContractorData, IContractorAddress
     {
+        [DataMember]
         [Display(Name = "Полное наименование")]
         public string FullName { get; set; }
 
@@ -34,17 +35,9 @@ namespace Domain.Models
         [Display(Name = "Юридический адрес")]
         public string LegalAddress { get; set; }
 
-        //[DataMember]
-        //[Display(Name = "Код страны")]
-        //public int CountryCode { get; set; }
-
         [DataMember]
         [Display(Name = "Страна регистрации")]
         public CountryEnum? CountryOfRegistration { get; set; }
-        //{
-        //    get { return (CountryEnum)CountryCode; }
-        //    set { CountryCode = (int)value; }
-        //}
 
         [DataMember]
         [Display(Name = "Тип контрагента")]
@@ -81,7 +74,6 @@ namespace Domain.Models
         [DataMember]
         [Display(Name = "Офис")]
         public string Flat { get; set; }
-
 
         [DataMember]
         [Display(Name = "Адрес одной строкой (устар.)")]
