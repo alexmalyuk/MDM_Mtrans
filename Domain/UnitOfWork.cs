@@ -18,6 +18,7 @@ namespace Domain
         //private LinkRepository linkRepository;
         private ContractorApiModelRepository contractorInfoRepository;
         private ContractorViewModelRepository contractorViewModelRepository;
+        private NodeViewModelRepository nodeViewModelRepository;
 
         public NodeRepository Nodes
         {
@@ -46,6 +47,16 @@ namespace Domain
                 if (contractorViewModelRepository == null)
                     contractorViewModelRepository = new ContractorViewModelRepository(db);
                 return contractorViewModelRepository;
+            }
+        }
+
+        public NodeViewModelRepository NodeViewModel
+        {
+            get
+            {
+                if (nodeViewModelRepository == null)
+                    nodeViewModelRepository = new NodeViewModelRepository(db);
+                return nodeViewModelRepository;
             }
         }
 

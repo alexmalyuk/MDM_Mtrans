@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Data.Models;
 using Domain;
 using Data.Models.Core;
+using Domain.ViewModels;
 
 namespace Mtrans_MDM.Controllers
 {
@@ -20,7 +21,7 @@ namespace Mtrans_MDM.Controllers
         // GET: Nodes
         public ActionResult Index()
         {
-            return View(unitOfWork.Nodes.GetAll().ToList());
+            return View(unitOfWork.NodeViewModel.GetAll().ToList());
         }
 
         // GET: Nodes/Details/5
@@ -31,7 +32,7 @@ namespace Mtrans_MDM.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Node node = unitOfWork.Nodes.Get((Guid)id);
+            NodeViewModel node = unitOfWork.NodeViewModel.Get((Guid)id);
             if (node == null)
             {
                 return HttpNotFound();
@@ -52,11 +53,11 @@ namespace Mtrans_MDM.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "admin")]
-        public ActionResult Create([Bind(Include = "Id,Name,Alias")] Node node)
+        public ActionResult Create([Bind(Include = "Id,Name,Alias")] NodeViewModel node)
         {
             if (ModelState.IsValid)
             {
-                unitOfWork.Nodes.AddOrUpdate(node);
+                unitOfWork.NodeViewModel.AddOrUpdate(node);
                 unitOfWork.Save();
                 return RedirectToAction("Index");
             }
@@ -72,7 +73,7 @@ namespace Mtrans_MDM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Node node = unitOfWork.Nodes.Get((Guid)id);
+            NodeViewModel node = unitOfWork.NodeViewModel.Get((Guid)id);
             if (node == null)
             {
                 return HttpNotFound();
@@ -86,11 +87,11 @@ namespace Mtrans_MDM.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "admin")]
-        public ActionResult Edit([Bind(Include = "Id,Name,Alias")] Node node)
+        public ActionResult Edit([Bind(Include = "Id,Name,Alias")] NodeViewModel node)
         {
             if (ModelState.IsValid)
             {
-                unitOfWork.Nodes.AddOrUpdate(node);
+                unitOfWork.NodeViewModel.AddOrUpdate(node);
                 unitOfWork.Save();
 
                 return RedirectToAction("Index");
@@ -106,7 +107,7 @@ namespace Mtrans_MDM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Node node = unitOfWork.Nodes.Get((Guid)id);
+            NodeViewModel node = unitOfWork.NodeViewModel.Get((Guid)id);
             if (node == null)
             {
                 return HttpNotFound();
@@ -120,7 +121,7 @@ namespace Mtrans_MDM.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            unitOfWork.Nodes.Delete(id);
+            unitOfWork.NodeViewModel.Delete(id);
             unitOfWork.Save();
             return RedirectToAction("Index");
         }

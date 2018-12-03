@@ -13,14 +13,8 @@ namespace Data.Models.Core
     public class Node
     {
         public Guid Id { get; set; }
-
-        [Display(Name = "Наименование")]
         public string Name { get; set; }
-
-        [Display(Name = "Алиас"), MaxLength(10), MinLength(2)]
-        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Допускаются только латинские символы и цифры")]
         public string Alias { get; set; }
-
 
         public ICollection<Link> Links { get; set; }
         public Node()
