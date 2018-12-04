@@ -84,7 +84,7 @@ namespace Domain.Models
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                unitOfWork.ContractorInfos.AddOrUpdate(this);
+                unitOfWork.ContractorApiModel.AddOrUpdate(this);
                 unitOfWork.Save();
             }
         }

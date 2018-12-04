@@ -73,41 +73,44 @@ namespace Domain.Repositories
                 contractor.TypeOfCounterparty = contractorInfo.TypeOfCounterparty;
 
             // Address
-            ContractorAddress contractorAddress = contractor.Address;
-            if (contractorAddress == null)
+            ContractorAddress address = contractor.Address;
+            if (address == null)
             {
-                contractorAddress = new ContractorAddress();
-                contractor.Address = contractorAddress;
-                db.Entry(contractorAddress).State = EntityState.Added;
+                address = new ContractorAddress();
+                contractor.Address = address;
+                db.Entry(address).State = EntityState.Added;
             }
             else
             {
-                db.Entry(contractorAddress).State = EntityState.Unchanged;
+                db.Entry(address).State = EntityState.Unchanged;
             }
 
-            if (contractorAddress.Street != contractorInfo.Street)
-                contractorAddress.Street = contractorInfo.Street;
+            if ((!string.IsNullOrEmpty(contractorInfo.Street)) && (address.Street != contractorInfo.Street))
+                address.Street = contractorInfo.Street;
 
-            if (contractorAddress.House != contractorInfo.House)
-                contractorAddress.House = contractorInfo.House;
+            if ((!string.IsNullOrEmpty(contractorInfo.House)) && (address.House != contractorInfo.House))
+                address.House = contractorInfo.House;
 
-            if (contractorAddress.Flat != contractorInfo.Flat)
-                contractorAddress.Flat = contractorInfo.Flat;
+            if ((!string.IsNullOrEmpty(contractorInfo.Flat)) && (address.Flat != contractorInfo.Flat))
+                address.Flat = contractorInfo.Flat;
 
-            if (contractorAddress.City != contractorInfo.City)
-                contractorAddress.City = contractorInfo.City;
+            if ((!string.IsNullOrEmpty(contractorInfo.City)) && (address.City != contractorInfo.City))
+                address.City = contractorInfo.City;
 
-            if (contractorAddress.District != contractorInfo.District)
-                contractorAddress.District = contractorInfo.District;
+            if ((!string.IsNullOrEmpty(contractorInfo.District)) && (address.District != contractorInfo.District))
+                address.District = contractorInfo.District;
 
-            if (contractorAddress.Region != contractorInfo.Region)
-                contractorAddress.Region = contractorInfo.Region;
+            if ((!string.IsNullOrEmpty(contractorInfo.Region)) && (address.Region != contractorInfo.Region))
+                address.Region = contractorInfo.Region;
 
-            if (contractorAddress.PostalCode != contractorInfo.PostalCode)
-                contractorAddress.PostalCode = contractorInfo.PostalCode;
+            if ((!string.IsNullOrEmpty(contractorInfo.PostalCode)) && (address.PostalCode != contractorInfo.PostalCode))
+                address.PostalCode = contractorInfo.PostalCode;
 
-            if (contractorAddress.Country != contractorInfo.Country)
-                contractorAddress.Country = contractorInfo.Country;
+            if ((!string.IsNullOrEmpty(contractorInfo.Country)) && (address.Country != contractorInfo.Country))
+                address.Country = contractorInfo.Country;
+
+            if ((!string.IsNullOrEmpty(contractorInfo.StringRepresentedAddress)) && (address.StringRepresentedAddress != contractorInfo.StringRepresentedAddress))
+                address.StringRepresentedAddress = contractorInfo.StringRepresentedAddress;
         }
 
         public void Delete(Guid id)

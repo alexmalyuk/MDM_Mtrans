@@ -67,6 +67,7 @@ namespace Domain.Repositories
                 db.Entry(address).State = EntityState.Unchanged;
             }
 
+
             if (address.Street != model.Street)
                 address.Street = model.Street;
 
@@ -90,6 +91,9 @@ namespace Domain.Repositories
 
             if (address.Country != model.Country)
                 address.Country = model.Country;
+
+            if (address.StringRepresentedAddress != model.StringRepresentedAddress)
+                address.StringRepresentedAddress = model.StringRepresentedAddress;
         }
 
         public void Delete(Guid id)

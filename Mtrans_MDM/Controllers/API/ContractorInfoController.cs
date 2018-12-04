@@ -29,50 +29,21 @@ namespace Mtrans_MDM.Controllers.API
             {
                 contractorInfo.NodeAlias = NodeAlias;
 
-                if (!ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    return BadRequest(ModelState);
+                    unitOfWork.ContractorApiModel.AddOrUpdate(contractorInfo);
+                    unitOfWork.Save();
+
+                    return Ok();
                 }
-
-                unitOfWork.ContractorInfos.AddOrUpdate(contractorInfo);
-                unitOfWork.Save();
-
-                return Ok();
+                else
+                    return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
                 //Log.For(this).Error("POST: api/ContractorInfo/" + NodeAlias, ex);
                 return InternalServerError(ex);
             }
-
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-
-            //try
-            //{
-            //    contractorInfo.Validate();
-
-            //    if (contractorInfo.IsValid)
-            //    {
-            //        contractorInfo.NodeAlias = NodeAlias;
-
-            //        unitOfWork.ContractorInfos.CreateOrUpdate(contractorInfo);
-            //        unitOfWork.Save();
-
-            //        return Ok();
-            //    }
-            //    else
-            //    {
-            //        return Content(HttpStatusCode.Forbidden, contractorInfo.ValidationResult);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    //Log.For(this).Error("POST: api/ContractorInfo/" + NodeAlias, ex);
-            //    return InternalServerError(ex);
-            //}
         }
 
         [HttpGet]
@@ -83,7 +54,7 @@ namespace Mtrans_MDM.Controllers.API
             //if (!User.IsInRole("api"))
             //    return Content(HttpStatusCode.Forbidden, "Unauthorized request");
 
-            ContractorApiModel contractorInfo = unitOfWork.ContractorInfos.GetByNativeId(NativeId, NodeAlias);
+            ContractorApiModel contractorInfo = unitOfWork.ContractorApiModel.GetByNativeId(NativeId, NodeAlias);
             if (contractorInfo == null)
             {
                 return NotFound();
@@ -101,7 +72,7 @@ namespace Mtrans_MDM.Controllers.API
             /// 
 
             //return ContractorInfo.GetContratorInfosByNodeAlias(NodeAlias);
-            return unitOfWork.ContractorInfos.GetAllByNodeAlias(NodeAlias).ToList();
+            return unitOfWork.ContractorApiModel.GetAllByNodeAlias(NodeAlias).ToList();
         }
 
         protected override void Dispose(bool disposing)
