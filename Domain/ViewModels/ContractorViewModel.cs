@@ -17,8 +17,10 @@ namespace Domain.ViewModels
         [Display(Name = "Полное наименование")]
         public string FullName { get; set; }
         [Display(Name = "Страна регистрации")]
-        public CountryEnum? CountryOfRegistration { get; set; }
+        [Required]
+        public CountryEnum CountryOfRegistration { get; set; }
         [Display(Name = "Тип контрагента")]
+        [Required]
         public TypeOfCounterpartyEnum TypeOfCounterparty { get; set; }
         [Display(Name = "Код ИНН")]
         public string INN { get; set; }

@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201812011249588_LegalAddress_removed.Designer.cs">
       <DependentUpon>201812011249588_LegalAddress_removed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812061141516_CountryOfRegistration_set_not_nullable.cs" />
+    <Compile Include="Migrations\201812061141516_CountryOfRegistration_set_not_nullable.Designer.cs">
+      <DependentUpon>201812061141516_CountryOfRegistration_set_not_nullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContractorAddress\ContractorAddressConfig.cs" />
     <Compile Include="Models\ContractorAddress\IContractorAddress.cs" />
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812011249588_LegalAddress_removed.resx">
       <DependentUpon>201812011249588_LegalAddress_removed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812061141516_CountryOfRegistration_set_not_nullable.resx">
+      <DependentUpon>201812061141516_CountryOfRegistration_set_not_nullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

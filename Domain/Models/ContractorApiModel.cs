@@ -32,15 +32,13 @@ namespace Domain.Models
         public string VATNumber { get; set; }
 
         [DataMember]
-        [Display(Name = "Юридический адрес")]
-        public string LegalAddress { get; set; }
-
-        [DataMember]
         [Display(Name = "Страна регистрации")]
-        public CountryEnum? CountryOfRegistration { get; set; }
+        [Required]
+        public CountryEnum CountryOfRegistration { get; set; }
 
         [DataMember]
         [Display(Name = "Тип контрагента")]
+        [Required]
         public TypeOfCounterpartyEnum TypeOfCounterparty { get; set; }
 
         [DataMember]

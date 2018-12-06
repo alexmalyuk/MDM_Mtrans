@@ -3,6 +3,7 @@ using Mtrans_MDM.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -26,6 +27,8 @@ namespace Mtrans_MDM
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             GlobalConfiguration.Configuration.MessageHandlers.Add(new AuthorizationHeaderHandler());
+
+            Debug.WriteLine("Application_Start()", "111");
         }
 
     }

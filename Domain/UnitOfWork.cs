@@ -19,6 +19,11 @@ namespace Domain
         private ContractorViewModelRepository contractorViewModelRepository;
         private NodeViewModelRepository nodeViewModelRepository;
 
+        public string GetConnectionString()
+        {
+            return db.Database.Connection.ConnectionString;
+        }
+
         public NodeRepository Nodes
         {
             get

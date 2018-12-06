@@ -21,7 +21,9 @@ namespace Mtrans_MDM.Controllers
         // GET: Nodes
         public ActionResult Index()
         {
-            return View(unitOfWork.NodeViewModel.GetAll().ToList());
+            ViewResult view = View(unitOfWork.NodeViewModel.GetAll().ToList());
+            view.ViewBag.ConnectionString = unitOfWork.GetConnectionString();
+            return view;
         }
 
         // GET: Nodes/Details/5
