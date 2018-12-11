@@ -53,7 +53,8 @@ namespace Domain.Repositories
         {
             var q = db.Contractors.Include("Address").Include("Links")
                 .Where(c => c.TypeOfCounterparty == contractorInfo.TypeOfCounterparty && c.CountryOfRegistration == contractorInfo.CountryOfRegistration)
-                    .Where(c => c.Links.Where(l=>l.Node.Alias == contractorInfo.NodeAlias).Count() == 0);
+                    //.Where(c => c.Links.Where(l=>l.Node.Alias == contractorInfo.NodeAlias).Count() == 0)
+                    ;
 
             switch (contractorInfo.CountryOfRegistration)
             {
