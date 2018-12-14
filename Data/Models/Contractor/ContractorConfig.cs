@@ -22,7 +22,7 @@ namespace Data.Models
                 .HasMaxLength(20)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
-            HasOptional(c => c.Address).WithRequired(a => a.Contractor).WillCascadeOnDelete(true);
+            HasOptional(c => c.Address).WithRequired(a => a.Contractor).WillCascadeOnDelete(true);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
         }
     }
 }
