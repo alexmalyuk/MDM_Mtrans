@@ -9,7 +9,7 @@ using Domain.Validators;
 
 namespace Domain.ViewModels
 {
-    public class ContractorViewModel : IContractorData, IContractorAddress, IValidatableObject
+    public class ContractorViewModel : IContractor, IContractorAddress, IValidatableObject
     {
         public Guid Id { get; set; }
         [Display(Name = "Наименование")]

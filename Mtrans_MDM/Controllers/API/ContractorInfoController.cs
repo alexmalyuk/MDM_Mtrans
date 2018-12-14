@@ -41,7 +41,6 @@ namespace Mtrans_MDM.Controllers.API
             }
             catch (Exception ex)
             {
-                //Log.For(this).Error("POST: api/ContractorInfo/" + NodeAlias, ex);
                 return InternalServerError(ex);
             }
         }
@@ -67,11 +66,6 @@ namespace Mtrans_MDM.Controllers.API
         [Route("api/ContractorInfo/{NodeAlias}")]
         public List<ContractorApiModel> Get(string NodeAlias)
         {
-            ///TODO: добавить PostDate и ReadDate - подумать как их сочетать для того чтобы давать выборку данных всех контрагентов с момента последнего получения данных
-            /// и надо ли это вообще ?
-            /// 
-
-            //return ContractorInfo.GetContratorInfosByNodeAlias(NodeAlias);
             return unitOfWork.ContractorApiModel.GetAllByNodeAlias(NodeAlias).ToList();
         }
 

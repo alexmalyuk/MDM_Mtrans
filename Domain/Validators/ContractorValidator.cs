@@ -11,9 +11,9 @@ namespace Domain.Validators
 {
     public class ContractorValidator : BaseValidator
     {
-        private IContractorData contractor;
+        private IContractor contractor;
 
-        public ContractorValidator(IContractorData contractor)
+        public ContractorValidator(IContractor contractor)
         {
             this.contractor = contractor;
         }

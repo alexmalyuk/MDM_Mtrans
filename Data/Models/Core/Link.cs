@@ -13,17 +13,11 @@ namespace Data.Models.Core
     public class Link
     {
         public Guid Id { get; set; }
-
-        [Display(Name = "Тип элемента")]
         public TypeOfSubjectEnum TypeOfSubject { get; set; }
-
-        [Display(Name = "Id в узле")]
         public string NativeId { get; set; }
-
-        [Display(Name = "Узел")]
+        public Guid NodeId { get; set; }
         public Node Node { get; set; }
-
-        [Display(Name = "Элемент")]
+        public Guid SubjectId { get; set; }
         public Subject Subject { get; set; }
 
         public override string ToString()
@@ -37,29 +31,30 @@ namespace Data.Models.Core
         }
     }
 
-    //class LinkConfig : EntityTypeConfiguration<Link>
-    //{
-    //    public LinkConfig()
-    //    {
-    //        Property(p => p.Id)
-    //            .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+    class LinkConfig : EntityTypeConfiguration<Link>
+    {
+        public LinkConfig()
+        {
+            //Property(p => p.Id)
+            //    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-    //        //Property(p => p.ContractorId)
-    //        //    .IsRequired()
-    //        //    .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
+            //Property(p => p.ContractorId)
+            //    .IsRequired()
+            //    .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
-    //        //Property(p => p.NodeId)
-    //        //    .IsRequired()
-    //        //    .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
+            //Property(p => p.NodeId)
+            //    .IsRequired()
+            //    .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
-    //        Property(p => p.NativeId)
-    //            .IsRequired()
-    //            .HasMaxLength(36)
-    //            .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
+            Property(p => p.NativeId)
+                .IsRequired()
+                .HasMaxLength(36);
+                //.HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute() { IsUnique = false }));
 
+            HasRequired(p => p.Node).WithMany(p => p.Links).WillCascadeOnDelete(false);
 
-    //        //HasRequired(p => p.Node).WithMany(p => p.Links).WillCascadeOnDelete(false);
+            HasKey(l => new { l.SubjectId, l.NodeId });
 
-    //    }
-    //}
+        }
+    }
 }

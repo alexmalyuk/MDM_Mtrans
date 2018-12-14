@@ -22,21 +22,9 @@ namespace Domain.Models
         [DataMember]
         public string Name { get; set; }
 
-
         public virtual void Validate()
         {
         }
-
-        internal bool isValid = false;
-        internal string validationResult;
-
-        [IgnoreDataMember]
-        public bool IsValid 
-            => isValid;
-
-        [IgnoreDataMember]
-        public string ValidationResult
-            => validationResult;
 
     }
 }

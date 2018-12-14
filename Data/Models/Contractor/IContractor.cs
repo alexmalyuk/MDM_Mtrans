@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    public interface IContractorData
+    public interface IContractor
     {
         string Name { get; set; }
         string FullName { get; set; }

@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace Data.Models
 {
     
-    public class Contractor : Subject, IContractorData
+    public class Contractor : Subject, IContractor
     {
         public string FullName { get; set; }
         public string INN { get; set; }

@@ -13,7 +13,7 @@ using System.Web;
 namespace Domain.Models
 {
     [DataContract(Name = "ContractorInfo", Namespace = Const.DataContractNameSpace)]
-    public class ContractorApiModel : BaseApiModel, IContractorData, IContractorAddress, IValidatableObject
+    public class ContractorApiModel : BaseApiModel, IContractor, IContractorAddress, IValidatableObject
     {
         [DataMember]
         [Display(Name = "Полное наименование")]
@@ -89,7 +89,7 @@ namespace Domain.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            ContractorValidator validator = new ContractorValidator(this as IContractorData);
+            ContractorValidator validator = new ContractorValidator(this as IContractor);
             return validator.Validate(validationContext);
         }
     }

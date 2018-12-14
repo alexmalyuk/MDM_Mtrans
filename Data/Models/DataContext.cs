@@ -18,6 +18,7 @@
             modelBuilder.Configurations.Add(new SubjectConfig());
             modelBuilder.Configurations.Add(new ContractorConfig());
             modelBuilder.Configurations.Add(new ContractorAddressConfig());
+            modelBuilder.Configurations.Add(new LinkConfig());
         }
 
         public virtual DbSet<Node> Nodes { get; set; }
