@@ -83,6 +83,7 @@
     <Compile Include="Models\ContractorAddress\ContractorAddress.cs" />
     <Compile Include="Models\Contractor\ContractorConfig.cs" />
     <Compile Include="Models\Contractor\IContractor.cs" />
+    <Compile Include="Models\Core\History.cs" />
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\Core\Link.cs" />
     <Compile Include="Models\Core\Node.cs" />
