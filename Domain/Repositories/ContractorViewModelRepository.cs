@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using Data.Models.Core;
 using Domain.Models;
 using Domain.ViewModels;
 using System;
@@ -19,7 +20,7 @@ namespace Domain.Repositories
             this.db = db;
         }
 
-        public void AddOrUpdate(ContractorViewModel model)
+        public void AddOrUpdate(ContractorViewModel model, string currentUserName)
         {
             Contractor contractor = db.Contractors.Include(c => c.Address).Where(a => a.Id == model.Id).FirstOrDefault();
 
@@ -94,6 +95,13 @@ namespace Domain.Repositories
 
             if (address.StringRepresentedAddress != model.StringRepresentedAddress)
                 address.StringRepresentedAddress = model.StringRepresentedAddress;
+
+            // History
+            History historyEntry = new History();
+            historyEntry.User = currentUserName;
+            historyEntry.SubjectSnapshot = contractor;
+
+            contractor.Histories.Add(historyEntry);
         }
 
         public void Delete(Guid id)

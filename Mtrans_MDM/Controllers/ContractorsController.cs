@@ -54,7 +54,7 @@ namespace Mtrans_MDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                unitOfWork.ContractorViewModel.AddOrUpdate(contractor);
+                unitOfWork.ContractorViewModel.AddOrUpdate(contractor, User.ToString());
                 unitOfWork.Save();
 
                 return RedirectToAction("Index");
@@ -88,7 +88,7 @@ namespace Mtrans_MDM.Controllers
             if (ModelState.IsValid)
             {
 
-                unitOfWork.ContractorViewModel.AddOrUpdate(contractor);
+                unitOfWork.ContractorViewModel.AddOrUpdate(contractor, User?.Identity?.Name);
                 unitOfWork.Save();
 
                 return RedirectToAction("Index");

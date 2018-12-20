@@ -10,7 +10,7 @@ namespace Domain.Repositories
     {
         IQueryable<TEntity> GetAll();
         TEntity Get(Guid id);
-        void AddOrUpdate(TEntity item);
+        void AddOrUpdate(TEntity item, string currentUserName = "");
         void Delete(Guid id);
     }
 }

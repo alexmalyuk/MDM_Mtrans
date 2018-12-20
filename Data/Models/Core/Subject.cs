@@ -4,18 +4,23 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Data.Models.Core
 {
+    [Serializable]
+    [DataContract]
     public class Subject
     {
         public Guid Id { get; set; }
 
         [Display(Name = "Наименование")]
+        [DataMember]
         public string Name { get; set; }
 
         public ICollection<Link> Links { get; set; }
@@ -30,6 +35,33 @@ namespace Data.Models.Core
         public override string ToString()
         {
             return Name;
+        }
+
+        public string Serialize()
+        {
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            using (StreamReader reader = new StreamReader(memoryStream))
+            {
+                DataContractSerializer serializer = new DataContractSerializer(this.GetType());
+                serializer.WriteObject(memoryStream, this);
+                memoryStream.Position = 0;
+
+                return reader.ReadToEnd();
+            }
+        }
+
+        public static Subject Deserialize(string valueXML, Type toType)
+        {
+            using (Stream stream = new MemoryStream())
+            {
+                byte[] data = Encoding.UTF8.GetBytes(valueXML);
+                stream.Write(data, 0, data.Length);
+                stream.Position = 0;
+                DataContractSerializer deserializer = new DataContractSerializer(toType);
+
+                return deserializer.ReadObject(stream) as Subject;
+            }
         }
     }
 

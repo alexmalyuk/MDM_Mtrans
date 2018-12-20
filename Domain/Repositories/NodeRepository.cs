@@ -15,7 +15,7 @@ namespace Domain.Repositories
             this.db = db;
         }
 
-        public void AddOrUpdate(Node item)
+        public void AddOrUpdate(Node item, string currentUserName = "")
         {
             Node node = db.Nodes.Find(item.Id);
             if (node == null)

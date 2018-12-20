@@ -19,7 +19,7 @@ namespace Domain.Repositories
             this.db = db;
         }
 
-        public void AddOrUpdate(Contractor item)
+        public void AddOrUpdate(Contractor item, string currentUserName = "")
         {
             Contractor contractor = db.Contractors.Find(item.Id);
             if (contractor == null)

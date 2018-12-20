@@ -76,6 +76,10 @@
     <Compile Include="Migrations\201812140816419_Link_composite_index_added.Designer.cs">
       <DependentUpon>201812140816419_Link_composite_index_added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812200818339_Subject_History.cs" />
+    <Compile Include="Migrations\201812200818339_Subject_History.Designer.cs">
+      <DependentUpon>201812200818339_Subject_History.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContractorAddress\ContractorAddressConfig.cs" />
     <Compile Include="Models\ContractorAddress\IContractorAddress.cs" />
@@ -113,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812140816419_Link_composite_index_added.resx">
       <DependentUpon>201812140816419_Link_composite_index_added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812200818339_Subject_History.resx">
+      <DependentUpon>201812200818339_Subject_History.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

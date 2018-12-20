@@ -20,7 +20,7 @@ namespace Domain.Repositories
             this.db = db;
         }
 
-        public void AddOrUpdate(NodeViewModel model)
+        public void AddOrUpdate(NodeViewModel model, string currentUserName = "")
         {
             Node node = db.Nodes.Where(a => a.Id == model.Id).FirstOrDefault();
 

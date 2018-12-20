@@ -19,7 +19,7 @@ namespace Domain.Repositories
             this.db = db;
         }
 
-        public void AddOrUpdate(ContractorApiModel contractorInfo)
+        public void AddOrUpdate(ContractorApiModel contractorInfo, string currentUserName = "")
         {
 
             Contractor contractor = null;
