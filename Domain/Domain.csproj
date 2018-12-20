@@ -64,6 +64,7 @@
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Validators\BaseValidator.cs" />
     <Compile Include="Validators\ContractorValidator.cs" />
+    <Compile Include="ViewModels\HistoryListViewModel.cs" />
     <Compile Include="ViewModels\NodeViewModel.cs" />
     <Compile Include="ViewModels\ContractorViewModel.cs" />
   </ItemGroup>

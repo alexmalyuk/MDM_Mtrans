@@ -10,6 +10,7 @@ using Data.Models;
 using Domain.Validators;
 using Domain;
 using Domain.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace Mtrans_MDM.Controllers
 {
@@ -36,7 +37,10 @@ namespace Mtrans_MDM.Controllers
             {
                 return HttpNotFound();
             }
-            return View(contractor);
+
+            ViewResult view = View(contractor);
+            view.ViewBag.HistoryList = unitOfWork.Contractors.GetHistoryList((Guid)id);
+            return view;
         }
 
         // GET: Contractors/Create
@@ -54,7 +58,7 @@ namespace Mtrans_MDM.Controllers
         {
             if (ModelState.IsValid)
             {
-                unitOfWork.ContractorViewModel.AddOrUpdate(contractor, User.ToString());
+                unitOfWork.ContractorViewModel.AddOrUpdate(contractor, User.Identity.GetUserName());
                 unitOfWork.Save();
 
                 return RedirectToAction("Index");
@@ -88,7 +92,7 @@ namespace Mtrans_MDM.Controllers
             if (ModelState.IsValid)
             {
 
-                unitOfWork.ContractorViewModel.AddOrUpdate(contractor, User?.Identity?.Name);
+                unitOfWork.ContractorViewModel.AddOrUpdate(contractor, User.Identity.GetUserName());
                 unitOfWork.Save();
 
                 return RedirectToAction("Index");

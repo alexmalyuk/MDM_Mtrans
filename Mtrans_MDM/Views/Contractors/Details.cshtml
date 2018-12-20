@@ -1,4 +1,5 @@
 ﻿@model Domain.ViewModels.ContractorViewModel
+@using Domain.ViewModels;
 
 @{
     ViewBag.Title = "Details";
@@ -7,66 +8,179 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Contractor</h4>
+    <h4>Контргаенты</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div class="row">
+        <div class="col-md-6">
+            <div>Реквизиты</div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.FullName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.INN)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.INN)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.INN)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.INN)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OKPO)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.OKPO)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.OKPO)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.OKPO)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.VATNumber)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.VATNumber)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.VATNumber)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.VATNumber)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CountryOfRegistration)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CountryOfRegistration)
-        </dd>
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.TypeOfCounterparty)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TypeOfCounterparty)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CountryOfRegistration)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CountryOfRegistration)
+                </dd>
 
-    </dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TypeOfCounterparty)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TypeOfCounterparty)
+                </dd>
+
+            </dl>
+        </div>
+        <div class="col-md-5">
+            <div>Адрес</div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Street)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Street)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.House)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.House)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Flat)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Flat)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.City)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.City)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.District)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.District)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Region)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Region)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Country)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Country)
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<p>
+    <hr />
+    @*@Html.Partial("_HistoryListPartial", ViewBag.HistoryList)*@
+    @Html.Partial("_HistoryListPartial", ViewBag.HistoryList as IEnumerable<HistoryViewModel>)
+</p>
+
+    @*<div class="col-md-7">
+    <hr />
+    <div>История изменений</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => "Date")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => "User")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => "Node")
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (HistoryViewModel item in ViewBag.HistoryList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.User)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Node)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Compare", "CompareHistory", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+</div>*@

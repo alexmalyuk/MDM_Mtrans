@@ -19,7 +19,7 @@ namespace Domain.Repositories
             this.db = db;
         }
 
-        public void AddOrUpdate(ContractorApiModel contractorInfo, string currentUserName = "")
+        public void AddOrUpdate(ContractorApiModel contractorInfo, string currentUserName="")
         {
 
             Contractor contractor = null;
@@ -111,6 +111,12 @@ namespace Domain.Repositories
 
             if ((!string.IsNullOrEmpty(contractorInfo.StringRepresentedAddress)) && (address.StringRepresentedAddress != contractorInfo.StringRepresentedAddress))
                 address.StringRepresentedAddress = contractorInfo.StringRepresentedAddress;
+            
+            // History
+            History historyEntry = new History();
+            historyEntry.User = contractorInfo.User;
+            historyEntry.SubjectSnapshot = contractor;
+            contractor.Histories.Add(historyEntry);
         }
 
         public void Delete(Guid id)

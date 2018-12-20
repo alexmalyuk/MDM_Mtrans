@@ -100,7 +100,6 @@ namespace Domain.Repositories
             History historyEntry = new History();
             historyEntry.User = currentUserName;
             historyEntry.SubjectSnapshot = contractor;
-
             contractor.Histories.Add(historyEntry);
         }
 

@@ -53,7 +53,7 @@ namespace Domain.Repositories
         {
             var q = db.Contractors.Include("Address").Include("Links")
                 .Where(c => c.TypeOfCounterparty == contractorInfo.TypeOfCounterparty && c.CountryOfRegistration == contractorInfo.CountryOfRegistration);
-                    //.Where(c => c.Links.Where(l=>l.Node.Alias == contractorInfo.NodeAlias).Count() == 0);
+            //.Where(c => c.Links.Where(l=>l.Node.Alias == contractorInfo.NodeAlias).Count() == 0);
 
             switch (contractorInfo.CountryOfRegistration)
             {
@@ -81,10 +81,24 @@ namespace Domain.Repositories
 
         }
 
+        public IQueryable<HistoryViewModel> GetHistoryList(Guid Id)
+        {
+            var q = db.HistoryList.Where(l => l.Subject.Id == Id).OrderByDescending(l => l.DateUTC)
+                .Select(l => new HistoryViewModel
+                {
+                    Id = l.Id,
+                    DateUTC = l.DateUTC,
+                    Node = l.Node.Name,
+                    User = l.User
+                });
+
+            return q;
+        }
+
         public Contractor GetByNativeId(string nativeId, string alias)
         {
             throw new NotImplementedException();
-            
+
             //Link link = new LinkRepository(db).GetByNativeId(nativeId, alias);
             //return db.Contractors.Where(a => a.Id == link.ContractorId).FirstOrDefault();
         }

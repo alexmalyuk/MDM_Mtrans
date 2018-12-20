@@ -26,6 +26,7 @@
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<Contractor> Contractors { get; set; }
         public virtual DbSet<ContractorAddress> ContractorAddreses { get; set; }
+        public virtual DbSet<History> HistoryList { get; set; }
     }
 
 }
