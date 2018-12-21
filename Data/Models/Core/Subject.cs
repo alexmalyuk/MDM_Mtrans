@@ -59,8 +59,8 @@ namespace Data.Models.Core
                 stream.Write(data, 0, data.Length);
                 stream.Position = 0;
                 DataContractSerializer deserializer = new DataContractSerializer(toType);
-
-                return deserializer.ReadObject(stream) as Subject;
+                var des = deserializer.ReadObject(stream);
+                return des as Subject;
             }
         }
     }

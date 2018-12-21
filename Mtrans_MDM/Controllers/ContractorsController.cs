@@ -11,6 +11,7 @@ using Domain.Validators;
 using Domain;
 using Domain.ViewModels;
 using Microsoft.AspNet.Identity;
+using Data.Models.Core;
 
 namespace Mtrans_MDM.Controllers
 {
@@ -41,6 +42,25 @@ namespace Mtrans_MDM.Controllers
             ViewResult view = View(contractor);
             view.ViewBag.HistoryList = unitOfWork.HistoryViewModel.GetAllBySubject((Guid)id);
             return view;
+        }
+
+        // GET: Contractors/Snapshot/5
+        public ActionResult Snapshot(Guid? snapshotId)
+        {
+            if (snapshotId == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Subject subjectSnapshot = unitOfWork.HistoryViewModel.GetSubjectSnapshot((Guid)snapshotId);
+            Contractor contractor = subjectSnapshot as Contractor;
+            if(contractor != null)
+            {
+                ViewResult view = View("Details", contractor);
+                view.ViewBag.HistoryList = unitOfWork.HistoryViewModel.GetAllBySubject(contractor.Id);
+                view.ViewBag.ItIsSnapshot = true;
+                return view;
+            }
+            else
+                return HttpNotFound();
         }
 
         // GET: Contractors/Create

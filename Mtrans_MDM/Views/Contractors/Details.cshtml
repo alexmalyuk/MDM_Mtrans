@@ -134,11 +134,16 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") |
+    @*@Html.ActionLink("History", "Index", "History", new { id = Model.Id }, null)*@
 </p>
 
 <p>
     <hr />
     @Html.Partial("_HistoryListPartial", ViewBag.HistoryList as IEnumerable<HistoryViewModel>)
 </p>
+
+@*<p>
+    <a class="btn btn-default" @Html.ActionLink("История", "Index", "History", new { id = Model.Id }, null)</a>
+</p>*@
 

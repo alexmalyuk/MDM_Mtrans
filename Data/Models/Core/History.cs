@@ -21,7 +21,7 @@ namespace Data.Models.Core
             get
             {
                 return SubjectXML != null
-                    ? Subject.Deserialize(SubjectXML, GetType())
+                    ? Subject.Deserialize(SubjectXML, Subject.GetType())
                     : null;
             }
             set

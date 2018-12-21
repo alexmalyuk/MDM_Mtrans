@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Data.Models.Core;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,21 @@ namespace Mtrans_MDM.Controllers
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        // GET: History/5
         [HttpGet]
         [Route("History/Index/{Id}")]
-        public ActionResult Index(Guid? Id)
+        public ActionResult Index(Guid? Id, Guid? versionId = null)
         {
             if(Id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            return View(unitOfWork.HistoryViewModel.GetAllBySubject((Guid)Id).ToList());
+            ViewResult view = View(unitOfWork.HistoryViewModel.GetAllBySubject((Guid)Id).ToList());
+
+            view.ViewBag.SubjectSnapshot = 
+                versionId != null
+                ? unitOfWork.HistoryViewModel.GetSubjectSnapshot((Guid)versionId)
+                : null;
+
+            return view;
         }
     }
 }

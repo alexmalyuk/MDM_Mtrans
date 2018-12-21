@@ -12,13 +12,13 @@ namespace Domain.ViewModels
     {
         public Guid SubjectId { get; set; }
         public Guid Id { get; set; }
-        [Display(Name = "Дата изменения (UTC)")]
+        [Display(Name = "Дата (UTC)")]
         public DateTime DateUTC { get; set; }
         [Display(Name = "Пользователь")]
         public string User { get; set; }
         [Display(Name = "Узел")]
         public string Node { get; set; }
-        [Display(Name = "Дата изменения")]
+        [Display(Name = "Дата")]
         public DateTime Date => DateUTC.ToLocalTime();
     }
 

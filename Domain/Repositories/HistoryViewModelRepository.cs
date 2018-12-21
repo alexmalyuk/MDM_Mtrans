@@ -3,6 +3,7 @@ using Data.Models.Core;
 using Domain.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,11 @@ namespace Domain.Repositories
                 });
 
             return q.FirstOrDefault();
+        }
+        public Subject GetSubjectSnapshot(Guid id)
+        {
+            HistoryEntry historyEntry = db.HistoryEntries.Where(h => h.Id == id).Include("Subject").FirstOrDefault();
+            return historyEntry?.SubjectSnapshot;
         }
 
         public IQueryable<HistoryViewModel> GetAllBySubject(Guid subjectId)

@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ModelConvertor.cs" />
     <Compile Include="Core\XMLComparer.cs" />
     <Compile Include="ApiModels\BaseApiModel.cs" />
     <Compile Include="ApiModels\ContractorApiModel.cs" />
