@@ -232,8 +232,8 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContractorsController.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LinksController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NodesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -341,6 +341,7 @@
     <Content Include="Views\Contractors\Index.cshtml" />
     <Content Include="Views\Contractors\Edit.cshtml" />
     <Content Include="Views\Shared\_HistoryListPartial.cshtml" />
+    <Content Include="Views\History\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -51,20 +51,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\XMLComparer.cs" />
-    <Compile Include="Models\BaseApiModel.cs" />
-    <Compile Include="Models\ContractorApiModel.cs" />
+    <Compile Include="ApiModels\BaseApiModel.cs" />
+    <Compile Include="ApiModels\ContractorApiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ContractorApiModelRepository.cs" />
+    <Compile Include="Repositories\HistoryViewModelRepository.cs" />
     <Compile Include="Repositories\NodeViewModelRepository.cs" />
     <Compile Include="Repositories\ContractorViewModelRepository.cs" />
     <Compile Include="Repositories\ContractorRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\LinkRepository.cs" />
     <Compile Include="Repositories\NodeRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Validators\BaseValidator.cs" />
     <Compile Include="Validators\ContractorValidator.cs" />
-    <Compile Include="ViewModels\HistoryListViewModel.cs" />
+    <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="ViewModels\NodeViewModel.cs" />
     <Compile Include="ViewModels\ContractorViewModel.cs" />
   </ItemGroup>

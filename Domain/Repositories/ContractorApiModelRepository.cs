@@ -113,7 +113,7 @@ namespace Domain.Repositories
                 address.StringRepresentedAddress = contractorInfo.StringRepresentedAddress;
             
             // History
-            History historyEntry = new History();
+            HistoryEntry historyEntry = new HistoryEntry();
             historyEntry.User = contractorInfo.User;
             historyEntry.SubjectSnapshot = contractor;
             contractor.Histories.Add(historyEntry);

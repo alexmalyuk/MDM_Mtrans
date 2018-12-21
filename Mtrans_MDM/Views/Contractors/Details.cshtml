@@ -139,48 +139,6 @@
 
 <p>
     <hr />
-    @*@Html.Partial("_HistoryListPartial", ViewBag.HistoryList)*@
     @Html.Partial("_HistoryListPartial", ViewBag.HistoryList as IEnumerable<HistoryViewModel>)
 </p>
 
-    @*<div class="col-md-7">
-    <hr />
-    <div>История изменений</div>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(m => "Date")
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(m => "User")
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(m => "Node")
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (HistoryViewModel item in ViewBag.HistoryList)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(m => item.Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => item.User)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => item.Node)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Compare", "CompareHistory", new { id = item.Id })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-</div>*@

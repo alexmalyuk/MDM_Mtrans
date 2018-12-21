@@ -81,19 +81,6 @@ namespace Domain.Repositories
 
         }
 
-        public IQueryable<HistoryViewModel> GetHistoryList(Guid Id)
-        {
-            var q = db.HistoryList.Where(l => l.Subject.Id == Id).OrderByDescending(l => l.DateUTC)
-                .Select(l => new HistoryViewModel
-                {
-                    Id = l.Id,
-                    DateUTC = l.DateUTC,
-                    Node = l.Node.Name,
-                    User = l.User
-                });
-
-            return q;
-        }
 
         public Contractor GetByNativeId(string nativeId, string alias)
         {

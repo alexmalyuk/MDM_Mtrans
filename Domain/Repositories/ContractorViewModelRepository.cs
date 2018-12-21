@@ -97,7 +97,7 @@ namespace Domain.Repositories
                 address.StringRepresentedAddress = model.StringRepresentedAddress;
 
             // History
-            History historyEntry = new History();
+            HistoryEntry historyEntry = new HistoryEntry();
             historyEntry.User = currentUserName;
             historyEntry.SubjectSnapshot = contractor;
             contractor.Histories.Add(historyEntry);

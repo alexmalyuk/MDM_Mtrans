@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models.Core
 {
-    public class History
+    public class HistoryEntry
     {
         public Guid Id { get; set; }
         public Subject Subject { get; set; }
@@ -32,10 +32,7 @@ namespace Data.Models.Core
             }
         }
 
-        ///TODO: About saving a snapshot of an entity in a database
-        /// https://stackoverflow.com/questions/27711671/entity-framework-saving-a-snapshot-of-a-document-in-a-sql-database
-
-        public History()
+        public HistoryEntry()
         {
             DateUTC = DateTime.UtcNow;
         }
@@ -46,7 +43,7 @@ namespace Data.Models.Core
         }
     }
 
-    class HistoryConfig : EntityTypeConfiguration<History>
+    class HistoryConfig : EntityTypeConfiguration<HistoryEntry>
     {
         public HistoryConfig()
         {

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Domain.ViewModels.HistoryViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>History</h2>
+
+<p>
+    History for subject here
+</p>
+
+<div class="table-responsive">
+    @Html.Partial("_HistoryListPartial", Model);
+</div>

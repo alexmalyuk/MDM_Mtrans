@@ -18,10 +18,26 @@ namespace Domain
         private ContractorApiModelRepository contractorApiModelRepository;
         private ContractorViewModelRepository contractorViewModelRepository;
         private NodeViewModelRepository nodeViewModelRepository;
+        private HistoryViewModelRepository historyRepository;
 
         public string GetConnectionString()
         {
             return db.Database.Connection.ConnectionString;
+        }
+
+        public void Save()
+        {
+            db.SaveChanges();
+        }
+
+        public void SetEntityStateAsModified(object item)
+        {
+            db.Entry(item).State = EntityState.Modified;
+        }
+
+        public void SetEntityStateAsUnchanged(object item)
+        {
+            db.Entry(item).State = EntityState.Unchanged;
         }
 
         public NodeRepository Nodes
@@ -74,20 +90,16 @@ namespace Domain
             }
         }
 
-        public void Save()
+        public HistoryViewModelRepository HistoryViewModel
         {
-            db.SaveChanges();
+            get
+            {
+                if (historyRepository == null)
+                    historyRepository = new HistoryViewModelRepository(db);
+                return historyRepository;
+            }
         }
 
-        public void SetEntityStateAsModified(object item)
-        {
-            db.Entry(item).State = EntityState.Modified;
-        }
-
-        public void SetEntityStateAsUnchanged(object item)
-        {
-            db.Entry(item).State = EntityState.Unchanged;
-        }
 
         #region IDisposable Support
         private bool disposedValue = false; // Для определения избыточных вызовов

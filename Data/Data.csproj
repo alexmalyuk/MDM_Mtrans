@@ -80,6 +80,10 @@
     <Compile Include="Migrations\201812200818339_Subject_History.Designer.cs">
       <DependentUpon>201812200818339_Subject_History.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812211013301_History_renamed.cs" />
+    <Compile Include="Migrations\201812211013301_History_renamed.Designer.cs">
+      <DependentUpon>201812211013301_History_renamed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContractorAddress\ContractorAddressConfig.cs" />
     <Compile Include="Models\ContractorAddress\IContractorAddress.cs" />
@@ -120,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812200818339_Subject_History.resx">
       <DependentUpon>201812200818339_Subject_History.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812211013301_History_renamed.resx">
+      <DependentUpon>201812211013301_History_renamed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -30,8 +30,13 @@
                 <td>
                     @Html.DisplayFor(m => item.Node)
                 </td>
+                @*<td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Compare", "Compare", new { id = item.Id })
+                </td>*@
                 <td>
-                    @Html.ActionLink("Compare", "CompareHistory", new { id = item.Id })
+                    @Html.ActionLink("Открыть", "Index", "History", new { id = item.Id }, null) |
+                    @Html.ActionLink("Сравнить", "Compare", "History", new { id = item.Id }, null)
                 </td>
             </tr>
         }

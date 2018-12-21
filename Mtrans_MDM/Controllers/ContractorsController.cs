@@ -39,7 +39,7 @@ namespace Mtrans_MDM.Controllers
             }
 
             ViewResult view = View(contractor);
-            view.ViewBag.HistoryList = unitOfWork.Contractors.GetHistoryList((Guid)id);
+            view.ViewBag.HistoryList = unitOfWork.HistoryViewModel.GetAllBySubject((Guid)id);
             return view;
         }
 

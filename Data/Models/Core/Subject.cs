@@ -24,12 +24,12 @@ namespace Data.Models.Core
         public string Name { get; set; }
 
         public ICollection<Link> Links { get; set; }
-        public ICollection<History> Histories { get; set; }
+        public ICollection<HistoryEntry> Histories { get; set; }
 
         public Subject()
         {
             Links = new List<Link>();
-            Histories = new List<History>();
+            Histories = new List<HistoryEntry>();
         }
 
         public override string ToString()
