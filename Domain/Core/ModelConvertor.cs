@@ -22,12 +22,14 @@ namespace Domain.Core
                 contractorVM.OKPO = contractor.OKPO;
                 contractorVM.VATNumber = contractor.VATNumber;
                 contractorVM.CountryOfRegistration = contractor.CountryOfRegistration;
-                contractorVM.Id = contractor.Id;
-                contractorVM.Id = contractor.Id;
-                contractorVM.Id = contractor.Id;
-                contractorVM.Id = contractor.Id;
-                contractorVM.Id = contractor.Id;
-                contractorVM.Id = contractor.Id;
+                contractorVM.Street = contractor.Address.Street;
+                contractorVM.House = contractor.Address.House;
+                contractorVM.Flat = contractor.Address.Flat;
+                contractorVM.City = contractor.Address.City;
+                contractorVM.District = contractor.Address.District;
+                contractorVM.Region = contractor.Address.Region;
+                contractorVM.Country = contractor.Address.Country;
+                contractorVM.StringRepresentedAddress = contractor.Address.StringRepresentedAddress;
             }
         }
     }

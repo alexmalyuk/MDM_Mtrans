@@ -12,6 +12,7 @@ using Domain;
 using Domain.ViewModels;
 using Microsoft.AspNet.Identity;
 using Data.Models.Core;
+using Domain.Core;
 
 namespace Mtrans_MDM.Controllers
 {
@@ -50,17 +51,27 @@ namespace Mtrans_MDM.Controllers
             if (snapshotId == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
+
+            unitOfWork.HistoryViewModel.Get((Guid)snapshotId);
+
             Subject subjectSnapshot = unitOfWork.HistoryViewModel.GetSubjectSnapshot((Guid)snapshotId);
             Contractor contractor = subjectSnapshot as Contractor;
-            if(contractor != null)
-            {
-                ViewResult view = View("Details", contractor);
-                view.ViewBag.HistoryList = unitOfWork.HistoryViewModel.GetAllBySubject(contractor.Id);
-                view.ViewBag.ItIsSnapshot = true;
-                return view;
-            }
-            else
+
+            if (contractor == null)
                 return HttpNotFound();
+
+            ContractorViewModel contractorVM;
+            ModelConvertor.ContractorToContractorViewModel(contractor, out contractorVM);
+            ViewResult view = View(contractorVM);
+
+
+
+            view.ViewBag.HistoryList = unitOfWork.HistoryViewModel.GetAllBySubject(contractor.Id);
+            //view.ViewBag.CurrentSnapshot = ;
+
+
+
+            return view;
         }
 
         // GET: Contractors/Create

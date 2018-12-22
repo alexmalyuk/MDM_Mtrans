@@ -17,6 +17,7 @@ namespace Data.Models.Core
     [DataContract]
     public class Subject
     {
+        [DataMember]
         public Guid Id { get; set; }
 
         [Display(Name = "Наименование")]
@@ -55,12 +56,20 @@ namespace Data.Models.Core
         {
             using (Stream stream = new MemoryStream())
             {
-                byte[] data = Encoding.UTF8.GetBytes(valueXML);
-                stream.Write(data, 0, data.Length);
-                stream.Position = 0;
-                DataContractSerializer deserializer = new DataContractSerializer(toType);
-                var des = deserializer.ReadObject(stream);
-                return des as Subject;
+                try
+                {
+                    byte[] data = Encoding.UTF8.GetBytes(valueXML);
+                    stream.Write(data, 0, data.Length);
+                    stream.Position = 0;
+                    DataContractSerializer deserializer = new DataContractSerializer(toType);
+
+                    return deserializer.ReadObject(stream) as Subject;
+                }
+                catch(XmlException)
+                {
+                    return null;
+                }
+
             }
         }
     }

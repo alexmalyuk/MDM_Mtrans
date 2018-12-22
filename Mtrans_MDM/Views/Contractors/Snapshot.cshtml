@@ -1,0 +1,26 @@
+﻿@model Domain.ViewModels.ContractorViewModel
+@using Domain.ViewModels;
+
+@{
+    ViewBag.Title = "Snapshot";
+}
+
+<h2>Snapshot</h2>
+
+<div>
+    <h4>Контрагенты</h4>
+    <hr />
+    <div class="row">
+        @Html.DisplayForModel();
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index") |
+</p>
+
+<p>
+    <hr />
+    @Html.Partial("_HistoryListPartial", ViewBag.HistoryList as IEnumerable<HistoryViewModel>)
+</p>
+

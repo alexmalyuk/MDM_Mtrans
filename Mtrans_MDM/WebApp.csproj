@@ -342,6 +342,7 @@
     <Content Include="Views\Contractors\Edit.cshtml" />
     <Content Include="Views\Shared\_HistoryListPartial.cshtml" />
     <Content Include="Views\History\Index.cshtml" />
+    <Content Include="Views\Contractors\Snapshot.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
