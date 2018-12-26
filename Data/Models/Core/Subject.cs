@@ -65,7 +65,7 @@ namespace Data.Models.Core
 
                     return deserializer.ReadObject(stream) as Subject;
                 }
-                catch(XmlException)
+                catch(Exception)
                 {
                     return null;
                 }

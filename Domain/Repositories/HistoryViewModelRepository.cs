@@ -37,7 +37,7 @@ namespace Domain.Repositories
 
         public Subject GetSubjectSnapshot(Guid id)
         {
-            HistoryEntry historyEntry = db.HistoryEntries.Where(h => h.Id == id).Include("Subject").FirstOrDefault();
+            HistoryEntry historyEntry = db.HistoryEntries.Where(h => h.Id == id).FirstOrDefault();
             return historyEntry?.SubjectSnapshot;
         }
 

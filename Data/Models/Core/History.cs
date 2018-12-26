@@ -16,19 +16,36 @@ namespace Data.Models.Core
         public string User { get; set; }
         public Node Node { get; set; }
         public string SubjectXML { get; set; }
+        public string SubjectTypeName { get; set; }
+        public Type SubjectType
+        {
+            get
+            {
+                return SubjectTypeName != null
+                    ? Type.GetType(SubjectTypeName, false, true)
+                    : Type.GetType("System.Object", false, true);
+            }
+        }
         public Subject SubjectSnapshot
         {
             get
             {
                 return SubjectXML != null
-                    ? Subject.Deserialize(SubjectXML, Subject.GetType())
+                    ? Subject.Deserialize(SubjectXML, SubjectType)
                     : null;
             }
             set
             {
-                SubjectXML = value != null 
-                    ? value.Serialize() 
-                    : null;
+                if (value != null)
+                {
+                    SubjectXML = value.Serialize();
+                    SubjectTypeName = value.GetType().ToString();
+                }
+                else
+                {
+                    SubjectXML = null;
+                    SubjectTypeName = null;
+                }
             }
         }
 
@@ -56,6 +73,7 @@ namespace Data.Models.Core
                 .HasMaxLength(50);
 
             Ignore(h => h.SubjectSnapshot);
+            Ignore(h => h.SubjectType);
 
             HasRequired(h => h.Subject).WithMany(s => s.Histories).WillCascadeOnDelete(false);
         }
