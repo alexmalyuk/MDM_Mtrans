@@ -77,6 +77,32 @@ namespace Domain.Models
         [Display(Name = "Адрес одной строкой (устар.)")]
         public string StringRepresentedAddress { get; set; }
 
+        [DataMember]
+        [Display(Name = "Является филиалом")]
+        public bool IsBranch { get; set; }
+
+        [DataMember]
+        [Display(Name = "ID головного контрагента в базе узла")]
+        public string HeadContractorNativeId { get; set; }
+
+        [DataMember]
+        [Display(Name = "Код филиала")]
+        public string BranchCode { get; set; }
+
+        public Contractor HeadContractor { get; set; }
+        //{
+        //    get
+        //    {
+        //        using (UnitOfWork unitOfWork = new UnitOfWork())
+        //        {
+        //            return unitOfWork.Contractors.GetByNativeId(NativeId, NodeAlias);
+        //        }
+        //    }
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
         public void Save()
         {

@@ -55,6 +55,15 @@ namespace Domain.Repositories
             if (contractor.TypeOfCounterparty != model.TypeOfCounterparty)
                 contractor.TypeOfCounterparty = model.TypeOfCounterparty;
 
+            if (contractor.IsBranch != model.IsBranch)
+                contractor.IsBranch = model.IsBranch;
+
+            if (contractor.HeadContractor != model.HeadContractor)
+                contractor.HeadContractor = model.HeadContractor;
+
+            if (contractor.BranchCode != model.BranchCode)
+                contractor.BranchCode = model.BranchCode;
+
             // Address
             ContractorAddress address = contractor.Address;
             if (address == null)
@@ -135,7 +144,10 @@ namespace Domain.Repositories
                     City = c.Address.City,
                     Country = c.Address.Country,
                     PostalCode = c.Address.PostalCode,
-                    StringRepresentedAddress = c.Address.StringRepresentedAddress
+                    StringRepresentedAddress = c.Address.StringRepresentedAddress,
+                    IsBranch = c.IsBranch,
+                    HeadContractor = c.HeadContractor,
+                    BranchCode = c.BranchCode
                 });
 
             return q.FirstOrDefault();
@@ -162,7 +174,10 @@ namespace Domain.Repositories
                     City = c.Address.City,
                     Country = c.Address.Country,
                     PostalCode = c.Address.PostalCode,
-                    StringRepresentedAddress = c.Address.StringRepresentedAddress
+                    StringRepresentedAddress = c.Address.StringRepresentedAddress,
+                    IsBranch = c.IsBranch,
+                    HeadContractor = c.HeadContractor,
+                    BranchCode = c.BranchCode
                 });
 
             return q;

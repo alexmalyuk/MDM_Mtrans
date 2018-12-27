@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace Data.Models
 {
     
-    public class Contractor : Subject, IContractor
+    public class Contractor : Subject, ISubject, IContractor
     {
         [DataMember]
         public string FullName { get; set; }
@@ -24,5 +24,13 @@ namespace Data.Models
         public TypeOfCounterpartyEnum TypeOfCounterparty { get; set; }
         [DataMember]
         public ContractorAddress Address { get; set; }
+        [DataMember]
+        public bool IsBranch { get; set; }
+        [DataMember]
+        public Guid? HeadContractorId { get; set; }
+        [DataMember]
+        public Contractor HeadContractor { get; set; }
+        [DataMember]
+        public string BranchCode { get; set; }
     }
 }

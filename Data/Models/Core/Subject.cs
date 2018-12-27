@@ -15,7 +15,7 @@ namespace Data.Models.Core
 {
     [Serializable]
     [DataContract]
-    public class Subject
+    public class Subject : ISubject
     {
         [DataMember]
         public Guid Id { get; set; }

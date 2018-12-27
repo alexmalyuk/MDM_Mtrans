@@ -79,17 +79,20 @@ namespace Domain.Repositories
 
             }
 
+            if (contractorInfo.IsBranch)
+            {
+                q = q.Where(c => c.BranchCode == contractorInfo.BranchCode);
+            }
+
             return q.FirstOrDefault();
 
         }
 
 
-        public Contractor GetByNativeId(string nativeId, string alias)
+        public Contractor GetByNativeId(string nativeId, string nodeAlias)
         {
-            throw new NotImplementedException();
-
-            //Link link = new LinkRepository(db).GetByNativeId(nativeId, alias);
-            //return db.Contractors.Where(a => a.Id == link.ContractorId).FirstOrDefault();
+            var q = db.Contractors.Where(c => c.Links.Where(l => l.NativeId == nativeId && l.Node.Alias == nodeAlias).Any());
+            return q.FirstOrDefault();
         }
 
     }

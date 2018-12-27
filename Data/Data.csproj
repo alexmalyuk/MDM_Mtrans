@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201812260904088_History_SubjectTypeName.Designer.cs">
       <DependentUpon>201812260904088_History_SubjectTypeName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812261357244_HeadBranch_Contractor.cs" />
+    <Compile Include="Migrations\201812261357244_HeadBranch_Contractor.Designer.cs">
+      <DependentUpon>201812261357244_HeadBranch_Contractor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContractorAddress\ContractorAddressConfig.cs" />
     <Compile Include="Models\ContractorAddress\IContractorAddress.cs" />
@@ -96,6 +100,7 @@
     <Compile Include="Models\Contractor\ContractorConfig.cs" />
     <Compile Include="Models\Contractor\IContractor.cs" />
     <Compile Include="Models\Core\History.cs" />
+    <Compile Include="Models\Core\ISubject.cs" />
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\Core\Link.cs" />
     <Compile Include="Models\Core\Node.cs" />
@@ -134,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812260904088_History_SubjectTypeName.resx">
       <DependentUpon>201812260904088_History_SubjectTypeName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812261357244_HeadBranch_Contractor.resx">
+      <DependentUpon>201812261357244_HeadBranch_Contractor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

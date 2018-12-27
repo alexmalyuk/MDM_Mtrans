@@ -27,6 +27,7 @@
         public virtual DbSet<Contractor> Contractors { get; set; }
         public virtual DbSet<ContractorAddress> ContractorAddreses { get; set; }
         public virtual DbSet<HistoryEntry> HistoryEntries { get; set; }
+        public virtual DbSet<Link> Links { get; set; }
     }
 
 }

@@ -85,7 +85,7 @@ namespace Mtrans_MDM.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,CountryOfRegistration,TypeOfCounterparty,Street,House,Flat,District,Region,City,Country,PostalCode,StringRepresentedAddress")] ContractorViewModel contractor)
+        public ActionResult Create([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,CountryOfRegistration,TypeOfCounterparty,Street,House,Flat,District,Region,City,Country,PostalCode,StringRepresentedAddress,IsBranch,HeadContractor,BranchCode")] ContractorViewModel contractor)
         {
             if (ModelState.IsValid)
             {
@@ -118,7 +118,7 @@ namespace Mtrans_MDM.Controllers
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,CountryOfRegistration,TypeOfCounterparty,Street,House,Flat,District,Region,City,Country,PostalCode,StringRepresentedAddress")] ContractorViewModel contractor)
+        public ActionResult Edit([Bind(Include = "Id,Name,FullName,INN,OKPO,VATNumber,CountryOfRegistration,TypeOfCounterparty,Street,House,Flat,District,Region,City,Country,PostalCode,StringRepresentedAddress,IsBranch,HeadContractor,BranchCode")] ContractorViewModel contractor)
         {
             if (ModelState.IsValid)
             {

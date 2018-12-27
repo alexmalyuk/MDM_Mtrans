@@ -47,6 +47,12 @@ namespace Domain.ViewModels
         public string Country { get; set; }
         [Display(Name = "Адрес одной строкой")]
         public string StringRepresentedAddress { get; set; }
+        [Display(Name = "Является филиалом")]
+        public bool IsBranch { get; set; }
+        [Display(Name = "Головной контрагент")]
+        public Contractor HeadContractor { get; set; }
+        [Display(Name = "Код филиала")]
+        public string BranchCode { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

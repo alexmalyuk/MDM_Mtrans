@@ -51,6 +51,7 @@ namespace Domain.Repositories
             if (!contractor.Links.Contains(link))
                 contractor.Links.Add(link);
 
+
             if (contractor.Name != contractorInfo.Name)
                 contractor.Name = contractorInfo.Name;
 
@@ -71,6 +72,20 @@ namespace Domain.Repositories
 
             if (contractor.TypeOfCounterparty != contractorInfo.TypeOfCounterparty)
                 contractor.TypeOfCounterparty = contractorInfo.TypeOfCounterparty;
+
+            if (contractor.IsBranch != contractorInfo.IsBranch)
+                contractor.IsBranch = contractorInfo.IsBranch;
+
+            if (contractor.IsBranch)
+            {
+                Contractor headContractor = contractorRepository.GetByNativeId(contractorInfo.HeadContractorNativeId, contractorInfo.NodeAlias);
+
+                if (contractor.HeadContractor != headContractor)
+                    contractor.HeadContractor = headContractor;
+
+                if (contractor.BranchCode != contractorInfo.BranchCode)
+                    contractor.BranchCode = contractorInfo.BranchCode;
+            }
 
             // Address
             ContractorAddress address = contractor.Address;
@@ -115,6 +130,7 @@ namespace Domain.Repositories
             // History
             HistoryEntry historyEntry = new HistoryEntry();
             historyEntry.User = contractorInfo.User;
+            historyEntry.Node = node;
             historyEntry.SubjectSnapshot = contractor;
             contractor.Histories.Add(historyEntry);
         }
@@ -155,7 +171,10 @@ namespace Domain.Repositories
                     Region = c.Address.Region,
                     PostalCode = c.Address.PostalCode,
                     Country = c.Address.Country,
-                    StringRepresentedAddress = c.Address.StringRepresentedAddress
+                    StringRepresentedAddress = c.Address.StringRepresentedAddress,
+                    IsBranch = c.IsBranch,
+                    HeadContractor = c.HeadContractor,
+                    BranchCode = c.BranchCode
                 });
 
             return q.FirstOrDefault();
@@ -187,7 +206,10 @@ namespace Domain.Repositories
                     Region = c.Address.Region,
                     PostalCode = c.Address.PostalCode,
                     Country = c.Address.Country,
-                    StringRepresentedAddress = c.Address.StringRepresentedAddress
+                    StringRepresentedAddress = c.Address.StringRepresentedAddress,
+                    IsBranch = c.IsBranch,
+                    HeadContractor = c.HeadContractor,
+                    BranchCode = c.BranchCode
                 });
 
             return q.ToList();

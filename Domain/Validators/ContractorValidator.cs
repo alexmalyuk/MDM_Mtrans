@@ -31,6 +31,14 @@ namespace Domain.Validators
             if (!ValidateVATNumber())
                 errors.Add(new ValidationResult(string.Format("Некорректный номер свидетельства [{0}]", contractor.VATNumber), new List<string>() { "VATNumber" }));
 
+            if (contractor.IsBranch)
+            {
+                //if (contractor. HeadContractor == null)
+                //    errors.Add(new ValidationResult(string.Format("Не выбран головной контрагент"), new List<string>() { "HeadContractor" }));
+                if (string.IsNullOrEmpty(contractor.BranchCode))
+                    errors.Add(new ValidationResult(string.Format("Не указан код филиала"), new List<string>() { "BranchCode" }));
+            }
+
             return errors;
         }
 

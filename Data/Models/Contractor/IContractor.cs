@@ -16,6 +16,8 @@ namespace Data.Models
         string VATNumber { get; set; }
         CountryEnum CountryOfRegistration { get; set; }
         TypeOfCounterpartyEnum TypeOfCounterparty { get; set; }
-
+        bool IsBranch { get; set; }
+        Contractor HeadContractor { get; set; }
+        string BranchCode{ get; set; }
     }
 }
