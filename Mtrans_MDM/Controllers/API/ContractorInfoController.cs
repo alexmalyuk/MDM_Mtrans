@@ -32,7 +32,16 @@ namespace Mtrans_MDM.Controllers.API
                 if (ModelState.IsValid)
                 {
                     unitOfWork.ContractorApiModel.AddOrUpdate(contractorInfo);
-                    unitOfWork.Save();
+
+                    try
+                    {
+                        unitOfWork.Save();
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("Model", "Попытка записать дублирующиеся данные. Контрагент с такими кодами уже существует.");
+                        return BadRequest(ModelState);
+                    }
 
                     return Ok();
                 }
