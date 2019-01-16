@@ -291,7 +291,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -363,6 +365,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{6801b144-2c49-42bf-b505-19588950da8f}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenDataProvider\OpenDataProvider.csproj">
+      <Project>{3cea000a-498a-490d-9d23-85584a7db7aa}</Project>
+      <Name>OpenDataProvider</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

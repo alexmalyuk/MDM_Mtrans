@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{6801B144-2C49-42BF-B505-19588950DA8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkursiAPIService", "VkursiAPIService\VkursiAPIService.csproj", "{CE963929-0DF6-473E-9B5E-3CDB98390D52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenDataProvider", "OpenDataProvider\OpenDataProvider.csproj", "{3CEA000A-498A-490D-9D23-85584A7DB7AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{6801B144-2C49-42BF-B505-19588950DA8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6801B144-2C49-42BF-B505-19588950DA8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6801B144-2C49-42BF-B505-19588950DA8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE963929-0DF6-473E-9B5E-3CDB98390D52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE963929-0DF6-473E-9B5E-3CDB98390D52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE963929-0DF6-473E-9B5E-3CDB98390D52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE963929-0DF6-473E-9B5E-3CDB98390D52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CEA000A-498A-490D-9D23-85584A7DB7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CEA000A-498A-490D-9D23-85584A7DB7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CEA000A-498A-490D-9D23-85584A7DB7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CEA000A-498A-490D-9D23-85584A7DB7AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
