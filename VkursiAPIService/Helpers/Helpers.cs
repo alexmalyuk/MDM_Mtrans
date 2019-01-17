@@ -27,7 +27,7 @@ namespace VkursiAPI.Helpers
         /// <returns>
         /// string, that contains a response from server in json format
         /// </returns>
-        public static async Task<string> POSTRequestForAuth(string postData, string url)
+        public static string POSTRequestForAuth(string postData, string url)
         {
             byte[] dataBytes = Encoding.UTF8.GetBytes("{" + postData + "}");
 
@@ -37,16 +37,16 @@ namespace VkursiAPI.Helpers
             request.ContentType = "application/json";
             request.Method = "POST";
 
-            using (Stream requestBody = await request.GetRequestStreamAsync())
+            using (Stream requestBody = request.GetRequestStream())
             {
                 requestBody.Write(dataBytes, 0, dataBytes.Length);
             }
 
-            using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
+            using (HttpWebResponse response = (HttpWebResponse) request.GetResponse())
             using (Stream stream = response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))
             {
-                return await reader.ReadToEndAsync();
+                return reader.ReadToEnd();
             }
         }
 
@@ -60,7 +60,7 @@ namespace VkursiAPI.Helpers
         /// <returns>
         /// String, that contains response data from server in json format
         /// </returns>
-        public static async Task<string> RequestForData(string postData, string url, string bearer)
+        public static string RequestForData(string postData, string url, string bearer)
         {
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
@@ -87,7 +87,7 @@ namespace VkursiAPI.Helpers
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
-                return await streamReader.ReadToEndAsync();
+                return streamReader.ReadToEnd();
             }
         }
 

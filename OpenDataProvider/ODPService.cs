@@ -12,7 +12,7 @@ using VkursiAPI.Services;
 namespace OpenData
 {
 
-    public class ODPService : IODPService
+    public class ODPService : IODPService, IDisposable
     {
         private APIService _api;
         private bool _authentificated = false;
@@ -42,9 +42,14 @@ namespace OpenData
             }
         }
 
-        public ContractorODPModel GetContractorData(string okpo)
+        public void Dispose()
         {
-            ContractorODPModel contractorODPModel = new ContractorODPModel();
+            _api = null;
+        }
+
+        public IContractorODPModel GetContractorData(string okpo)
+        {
+            IContractorODPModel contractorODPModel = new ContractorODPModel();
             CompanyModel[] result = (CompanyModel[])_api.GetData(new string[] { okpo }, VkursiAPI.Enums.APIType.GetOrganizationInfo);
             if (result.Count() > 0)
             {

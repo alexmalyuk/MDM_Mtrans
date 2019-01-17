@@ -47,7 +47,7 @@ namespace VkursiAPI.Services
         /// </returns>
         public bool Authentificate(string userName, string password)
         {
-            var response = Helper.POSTRequestForAuth($"\"email\":\"{userName}\", \"password\":\"{password}\"", _baseUrl + "token").Result;
+            var response = Helper.POSTRequestForAuth($"\"email\":\"{userName}\", \"password\":\"{password}\"", _baseUrl + "token");
 
             if (!String.IsNullOrWhiteSpace(response))
             {
@@ -81,8 +81,8 @@ namespace VkursiAPI.Services
         public object GetData(object data, APIType type)
         {
             var response = (type != APIType.GetChanges ? 
-                Helper.RequestForData(Helper.MakeJson(data), _baseUrl + type.DisplayName(), _bearer).Result :
-                Helper.RequestForData(null, _baseUrl + type.DisplayName() + "/" + ((string[])data)[0], _bearer).Result);
+                Helper.RequestForData(Helper.MakeJson(data), _baseUrl + type.DisplayName(), _bearer) :
+                Helper.RequestForData(null, _baseUrl + type.DisplayName() + "/" + ((string[])data)[0], _bearer));
 
             if (String.IsNullOrWhiteSpace(response))
             {
