@@ -180,6 +180,52 @@ namespace Domain.Repositories
             return q.FirstOrDefault();
         }
 
+        public ContractorApiModel GetByCodes(ContractorApiModel incomeContractorModel)
+        {
+            var q = db.Contractors.Include(c => c.Address).Where(c => c.CountryOfRegistration == incomeContractorModel.CountryOfRegistration);
+
+            if (incomeContractorModel.CountryOfRegistration == Data.CountryEnum.RU)
+                q = q.Where(c => c.INN == incomeContractorModel.INN);
+            else if (incomeContractorModel.CountryOfRegistration == Data.CountryEnum.UA)
+            {
+                if (incomeContractorModel.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.LegalEntity)
+                    q = q.Where(c => c.INN == incomeContractorModel.INN);
+                else if (incomeContractorModel.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.Entrepreneur)
+                    q = q.Where(c => c.OKPO == incomeContractorModel.OKPO);
+            }
+            else
+                q = q.Where(c => c.INN == incomeContractorModel.INN);
+
+
+            q = db.Contractors.Select(c => 
+                new ContractorApiModel
+                {
+                    Name = c.Name,
+                    FullName = c.FullName,
+                    INN = c.INN,
+                    OKPO = c.OKPO
+                    //VATNumber = c.VATNumber,
+                    //CountryOfRegistration = c.CountryOfRegistration,
+                    //TypeOfCounterparty = c.TypeOfCounterparty,
+                    //Street = c.Address.Street,
+                    //House = c.Address.House,
+                    //Flat = c.Address.Flat,
+                    //City = c.Address.City,
+                    //District = c.Address.District,
+                    //Region = c.Address.Region,
+                    //PostalCode = c.Address.PostalCode,
+                    //Country = c.Address.Country,
+                    //StringRepresentedAddress = c.Address.StringRepresentedAddress,
+                    //IsBranch = c.IsBranch,
+                    //HeadContractor = c.HeadContractor,
+                    //BranchCode = c.BranchCode
+                });
+
+            return q.FirstOrDefault();
+        }
+
+
+
         public IEnumerable<ContractorApiModel> GetAllByNodeAlias(string alias)
         {
             var q = db.Nodes.Include(n => n.Links).Where(c => c.Alias == alias).FirstOrDefault()

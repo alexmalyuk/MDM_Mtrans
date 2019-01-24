@@ -80,6 +80,22 @@ namespace Mtrans_MDM.Controllers.API
             return unitOfWork.ContractorApiModel.GetAllByNodeAlias(NodeAlias).ToList();
         }
 
+        [HttpGet]
+        [Route("api/ContractorInfo/ByCodes")]
+        [ResponseType(typeof(ContractorApiModel))]
+        public IHttpActionResult GetByCodes([FromBody]ContractorApiModel inputContractorInfo)
+        {
+
+            ContractorApiModel outputContractorInfo = unitOfWork.ContractorApiModel.GetByCodes(inputContractorInfo);
+            if (outputContractorInfo == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(outputContractorInfo);
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
