@@ -54,7 +54,10 @@ namespace Domain.Validators
                     // Контрольная сумма ИНН для Украины http://1s.biz.ua/public/284564/
 
                     if (string.IsNullOrEmpty(contractor.INN))
-                        return false;
+                        if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.Entrepreneur)
+                            return false;
+                        else if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.LegalEntity)
+                            return true;
 
                     if (contractor.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.Entrepreneur)
                     {
