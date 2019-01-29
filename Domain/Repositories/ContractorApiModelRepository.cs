@@ -196,32 +196,30 @@ namespace Domain.Repositories
             else
                 q = q.Where(c => c.INN == incomeContractorModel.INN);
 
-
-            q = db.Contractors.Select(c => 
-                new ContractorApiModel
+            var q1 = q.Select(c => new ContractorApiModel
                 {
                     Name = c.Name,
                     FullName = c.FullName,
                     INN = c.INN,
-                    OKPO = c.OKPO
-                    //VATNumber = c.VATNumber,
-                    //CountryOfRegistration = c.CountryOfRegistration,
-                    //TypeOfCounterparty = c.TypeOfCounterparty,
-                    //Street = c.Address.Street,
-                    //House = c.Address.House,
-                    //Flat = c.Address.Flat,
-                    //City = c.Address.City,
-                    //District = c.Address.District,
-                    //Region = c.Address.Region,
-                    //PostalCode = c.Address.PostalCode,
-                    //Country = c.Address.Country,
-                    //StringRepresentedAddress = c.Address.StringRepresentedAddress,
-                    //IsBranch = c.IsBranch,
-                    //HeadContractor = c.HeadContractor,
-                    //BranchCode = c.BranchCode
+                    OKPO = c.OKPO,
+                    VATNumber = c.VATNumber,
+                    CountryOfRegistration = c.CountryOfRegistration,
+                    TypeOfCounterparty = c.TypeOfCounterparty,
+                    Street = c.Address.Street,
+                    House = c.Address.House,
+                    Flat = c.Address.Flat,
+                    City = c.Address.City,
+                    District = c.Address.District,
+                    Region = c.Address.Region,
+                    PostalCode = c.Address.PostalCode,
+                    Country = c.Address.Country,
+                    StringRepresentedAddress = c.Address.StringRepresentedAddress,
+                    IsBranch = c.IsBranch,
+                    HeadContractor = c.HeadContractor,
+                    BranchCode = c.BranchCode
                 });
 
-            return q.FirstOrDefault();
+            return q1.FirstOrDefault();
         }
 
 
