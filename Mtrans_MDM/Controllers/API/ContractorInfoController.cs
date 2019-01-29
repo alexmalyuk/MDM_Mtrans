@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.ModelBinding;
 using System.Web.Http.Results;
 
 namespace Mtrans_MDM.Controllers.API
@@ -22,7 +23,7 @@ namespace Mtrans_MDM.Controllers.API
 
         [HttpPost]
         [Route("api/ContractorInfo/{NodeAlias}")]
-        [ResponseType(typeof(ContractorApiModel))]
+        [ResponseType(typeof(ModelStateDictionary))]
         public IHttpActionResult PostNode(string NodeAlias, [FromBody]ContractorApiModel contractorInfo)
         {
             try
@@ -41,6 +42,7 @@ namespace Mtrans_MDM.Controllers.API
                         }
                         catch (Exception ex)
                         {
+                            ///TODO: parse exception details to determine duplication and other errors
                             ModelState.AddModelError("Model", "Попытка записать дублирующиеся данные. Контрагент с такими кодами уже существует.");
                             return BadRequest(ModelState);
                         }
@@ -80,8 +82,8 @@ namespace Mtrans_MDM.Controllers.API
             return unitOfWork.ContractorApiModel.GetAllByNodeAlias(NodeAlias).ToList();
         }
 
-        [HttpGet]
-        [Route("api/ContractorInfo/ByCodes")]
+        [HttpPost]
+        [Route("api/ContractorInfo/GetByCodes")]
         [ResponseType(typeof(ContractorApiModel))]
         public IHttpActionResult GetByCodes([FromBody]ContractorApiModel inputContractorInfo)
         {
@@ -93,6 +95,26 @@ namespace Mtrans_MDM.Controllers.API
             }
 
             return Ok(outputContractorInfo);
+        }
+
+        [HttpPost]
+        [Route("api/ContractorInfo/Validate")]
+        [ResponseType(typeof(ModelStateDictionary))]
+        public IHttpActionResult ValidateModel([FromBody]ContractorApiModel contractorInfo)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    return Ok();
+                }
+                else
+                    return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
 

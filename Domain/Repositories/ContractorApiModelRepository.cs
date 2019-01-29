@@ -25,6 +25,12 @@ namespace Domain.Repositories
             Contractor contractor = null;
             ContractorRepository contractorRepository = new ContractorRepository(db);
             Node node = new NodeRepository(db).GetByAlias(contractorInfo.NodeAlias);
+            ///TODO: throw exception if node alias not found
+            //if (node == null)
+            //{
+            //    throw new NullReferenceException("Node alias is not resolved");
+            //}
+
             Link link = node.Links.Where(c => c.TypeOfSubject == Data.TypeOfSubjectEnum.Contractor && c.NativeId == contractorInfo.NativeId).FirstOrDefault();
 
             if (link == null)
@@ -189,9 +195,9 @@ namespace Domain.Repositories
             else if (incomeContractorModel.CountryOfRegistration == Data.CountryEnum.UA)
             {
                 if (incomeContractorModel.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.LegalEntity)
-                    q = q.Where(c => c.INN == incomeContractorModel.INN);
-                else if (incomeContractorModel.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.Entrepreneur)
                     q = q.Where(c => c.OKPO == incomeContractorModel.OKPO);
+                else if (incomeContractorModel.TypeOfCounterparty == Data.TypeOfCounterpartyEnum.Entrepreneur)
+                    q = q.Where(c => c.INN == incomeContractorModel.INN);
             }
             else
                 q = q.Where(c => c.INN == incomeContractorModel.INN);
@@ -221,8 +227,6 @@ namespace Domain.Repositories
 
             return q1.FirstOrDefault();
         }
-
-
 
         public IEnumerable<ContractorApiModel> GetAllByNodeAlias(string alias)
         {
