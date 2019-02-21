@@ -75,8 +75,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
@@ -368,9 +368,9 @@
       <Project>{6801b144-2c49-42bf-b505-19588950da8f}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OpenDataProvider\OpenDataProvider.csproj">
-      <Project>{3cea000a-498a-490d-9d23-85584a7db7aa}</Project>
-      <Name>OpenDataProvider</Name>
+    <ProjectReference Include="..\OpenData\OpenData.csproj">
+      <Project>{c8bf25ab-acfd-418b-89f9-768b80680c1c}</Project>
+      <Name>OpenData</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
