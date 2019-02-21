@@ -1,10 +1,10 @@
 ﻿using OpenData;
-using OpenDataProvider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -15,12 +15,12 @@ namespace Mtrans_MDM.Controllers.API
         // GET: api/OpenData/50122545
         [HttpGet]
         [Route("api/OpenData/{okpo}")]
-        [ResponseType(typeof(IContractorODPModel))]
-        public IContractorODPModel Get(string okpo)
+        [ResponseType(typeof(ICompanyOpenDataModel))]
+        public async Task<ICompanyOpenDataModel> Get(string okpo)
         {
-            using (ODPService odp = new ODPService())
+            using (OpenDataClient odClient = new OpenDataClient())
             {
-                return odp.GetContractorData(okpo);
+                return await odClient.GetCompanyDataByCodeAsync(okpo);
             }
         }
 

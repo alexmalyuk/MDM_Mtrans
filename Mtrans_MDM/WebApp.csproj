@@ -368,9 +368,9 @@
       <Project>{6801b144-2c49-42bf-b505-19588950da8f}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OpenDataProvider\OpenDataProvider.csproj">
-      <Project>{3cea000a-498a-490d-9d23-85584a7db7aa}</Project>
-      <Name>OpenDataProvider</Name>
+    <ProjectReference Include="..\OpenData\OpenData.csproj">
+      <Project>{c8bf25ab-acfd-418b-89f9-768b80680c1c}</Project>
+      <Name>OpenData</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
