@@ -1,6 +1,8 @@
 ﻿using OpenData.ConcreteServices;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +20,28 @@ namespace OpenData
 
         private OpenDataService CreateOpenDataService()
         {
-            // читает конфиг и создает конкретный экземпляр сервиса vkursi, egr и т.п.
-            //return new VkursiService();
-            return new EgrService();
-            //return new OpenDataBotService();
+            string providerName = string.Empty;
+
+            try
+            {
+                var openDataSection = ConfigurationManager.GetSection("openData");
+                NameValueCollection settings = openDataSection as NameValueCollection;
+                providerName = settings["providerName"];
+            }
+            catch (Exception ex)
+            {
+                throw new OpenDataProviderException("Unable to get settings. \nCheck the Web.config file", ex);
+            }
+
+            switch (providerName)
+            {
+                case "egr":
+                    return new EgrService();
+                case "vkursi":
+                    return new VkursiService();
+                default:
+                    throw new OpenDataProviderException(String.Format("Unknown provider \"{0}\" specified. \nCheck the Web.config file", providerName));
+            }
         }
 
         public void Dispose()
