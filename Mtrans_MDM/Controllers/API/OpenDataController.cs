@@ -20,7 +20,8 @@ namespace Mtrans_MDM.Controllers.API
         {
             using (OpenDataClient odClient = new OpenDataClient())
             {
-                return await odClient.GetCompanyDataByCodeAsync(okpo);
+                ICompanyOpenDataModel companyOpenDataModel = await odClient.GetCompanyDataByCodeAsync(okpo);
+                return companyOpenDataModel;
             }
         }
 
