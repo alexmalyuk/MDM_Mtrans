@@ -1,4 +1,5 @@
 ﻿using OpenData.ConcreteServices;
+using OpenData.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -30,7 +31,7 @@ namespace OpenData
             }
             catch (Exception ex)
             {
-                throw new OpenDataProviderException("Unable to get settings. \nCheck the Web.config file", ex);
+                throw new OpenDataException("Unable to get settings. \nCheck the Web.config file", ex);
             }
 
             switch (providerName)
@@ -40,7 +41,7 @@ namespace OpenData
                 case "vkursi":
                     return new VkursiService();
                 default:
-                    throw new OpenDataProviderException(String.Format("Unknown provider \"{0}\" specified. \nCheck the Web.config file", providerName));
+                    throw new OpenDataException(string.Format("Unknown provider \"{0}\" specified. \nCheck the Web.config file", providerName));
             }
         }
 
