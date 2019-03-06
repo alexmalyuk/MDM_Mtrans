@@ -27,7 +27,7 @@ namespace VkursiAPI.Helpers
         /// <returns>
         /// string, that contains a response from server in json format
         /// </returns>
-        public static string POSTRequestForAuth(string postData, string url)
+        public static async Task<string> POSTRequestForAuth(string postData, string url)
         {
             byte[] dataBytes = Encoding.UTF8.GetBytes("{" + postData + "}");
 
@@ -37,16 +37,16 @@ namespace VkursiAPI.Helpers
             request.ContentType = "application/json";
             request.Method = "POST";
 
-            using (Stream requestBody = request.GetRequestStream())
+            using (Stream requestBody = await request.GetRequestStreamAsync())
             {
                 requestBody.Write(dataBytes, 0, dataBytes.Length);
             }
 
-            using (HttpWebResponse response = (HttpWebResponse) request.GetResponse())
+            using (HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync())
             using (Stream stream = response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))
             {
-                return reader.ReadToEnd();
+                return await reader.ReadToEndAsync();
             }
         }
 
@@ -60,7 +60,7 @@ namespace VkursiAPI.Helpers
         /// <returns>
         /// String, that contains response data from server in json format
         /// </returns>
-        public static string RequestForData(string postData, string url, string bearer)
+        public static async Task<string> RequestForData(string postData, string url, string bearer)
         {
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
@@ -74,20 +74,20 @@ namespace VkursiAPI.Helpers
             {
                 httpWebRequest.Method = "POST";
 
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                using (var streamWriter = new StreamWriter(await httpWebRequest.GetRequestStreamAsync()))
                 {
                     string json = postData;
 
-                    streamWriter.Write(json);
-                    streamWriter.Flush();
+                    await streamWriter.WriteAsync(json);
+                    await streamWriter.FlushAsync();
                     streamWriter.Close();
                 }
             }
 
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            var httpResponse = (HttpWebResponse) await httpWebRequest.GetResponseAsync();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
-                return streamReader.ReadToEnd();
+                return await streamReader.ReadToEndAsync();
             }
         }
 
@@ -211,7 +211,14 @@ namespace VkursiAPI.Helpers
         /// </returns>
         public static object ParseJson(string json)
         {
-            return JsonConvert.DeserializeObject<object>(json);
+            try
+            {
+                return JsonConvert.DeserializeObject<object>(json);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Error parsing json \n {0}", json), ex);
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ using VkursiAPI.Extensions;
 using VkursiAPI.Models;
 using VkursiAPI.Helpers;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace VkursiAPI.Services
 {
@@ -47,9 +48,9 @@ namespace VkursiAPI.Services
         /// </returns>
         public bool Authentificate(string userName, string password)
         {
-            var response = Helper.POSTRequestForAuth($"\"email\":\"{userName}\", \"password\":\"{password}\"", _baseUrl + "token");
+            var response = Helper.POSTRequestForAuth($"\"email\":\"{userName}\", \"password\":\"{password}\"", _baseUrl + "token").Result;
 
-            if (!String.IsNullOrWhiteSpace(response))
+            if (!string.IsNullOrWhiteSpace(response))
             {
                 try
                 {
@@ -78,13 +79,13 @@ namespace VkursiAPI.Services
         /// <returns>
         /// Return true if response with status OK and data saved, otherwise - false
         /// </returns>
-        public object GetData(object data, APIType type)
+        public async Task<object> GetData(object data, APIType type)
         {
             var response = (type != APIType.GetChanges ? 
-                Helper.RequestForData(Helper.MakeJson(data), _baseUrl + type.DisplayName(), _bearer) :
-                Helper.RequestForData(null, _baseUrl + type.DisplayName() + "/" + ((string[])data)[0], _bearer));
+                await Helper.RequestForData(Helper.MakeJson(data), _baseUrl + type.DisplayName(), _bearer) :
+                await Helper.RequestForData(null, _baseUrl + type.DisplayName() + "/" + ((string[])data)[0], _bearer));
 
-            if (String.IsNullOrWhiteSpace(response))
+            if (string.IsNullOrWhiteSpace(response))
             {
                 return null;
             }
